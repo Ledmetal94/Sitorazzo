@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brief — Sitorazzo</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS brand -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Uploadcare widget -->
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+  <script>UPLOADCARE_PUBLIC_KEY = 'XXXXXXXXXXXXXXXXXXXXXXXX';</script>
+
+  <style>
+    /* Progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--sr-yellow);
+      transition: width 0.4s var(--sr-ease-out);
+      z-index: var(--sr-z-sticky);
+    }
+    /* Topbar */
+    #topbar {
+      position: fixed;
+      top: 4px;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--sr-space-6);
+      background: var(--sr-paper);
+      border-bottom: var(--sr-border-thin);
+      z-index: var(--sr-z-sticky);
+    }
+    /* Form area */
+    #form-area {
+      min-height: 100vh;
+      padding: 108px var(--sr-space-6) 80px;
+    }
+    #step-card {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    /* Pill selezionabili (settore, mood, pacchetto) */
+    .pill-option {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--sr-space-2) var(--sr-space-4);
+      border-radius: var(--sr-radius-full);
+      border: 2px solid var(--sr-border);
+      font-family: var(--sr-font-body);
+      font-size: var(--sr-fs-sm);
+      font-weight: var(--sr-fw-medium);
+      cursor: pointer;
+      transition: border-color var(--sr-duration-fast) var(--sr-ease-out),
+                  background var(--sr-duration-fast) var(--sr-ease-out),
+                  color var(--sr-duration-fast) var(--sr-ease-out);
+      user-select: none;
+    }
+    .pill-option.selected {
+      border-color: var(--sr-ink);
+      background: var(--sr-ink);
+      color: var(--sr-paper);
+    }
+    /* Card pacchetto selezionabile */
+    .pkg-card {
+      border: 2px solid var(--sr-border);
+      border-radius: var(--sr-radius-xl);
+      padding: var(--sr-space-6);
+      cursor: pointer;
+      transition: border-color var(--sr-duration-fast) var(--sr-ease-out),
+                  background var(--sr-duration-fast) var(--sr-ease-out);
+    }
+    .pkg-card.selected {
+      border-color: var(--sr-ink);
+      background: var(--sr-warm);
+    }
+    /* Drag & drop zone */
+    #drop-zone {
+      border: 2px dashed var(--sr-border);
+      border-radius: var(--sr-radius-xl);
+      padding: var(--sr-space-12) var(--sr-space-8);
+      text-align: center;
+      transition: border-color var(--sr-duration-fast) var(--sr-ease-out),
+                  background var(--sr-duration-fast) var(--sr-ease-out);
+      cursor: pointer;
+    }
+    #drop-zone.drag-over {
+      border-color: var(--sr-yellow);
+      background: var(--sr-yellow-10);
+    }
+    /* Mood card */
+    .mood-card {
+      border: 2px solid var(--sr-border);
+      border-radius: var(--sr-radius-lg);
+      padding: var(--sr-space-4);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color var(--sr-duration-fast) var(--sr-ease-out),
+                  background var(--sr-duration-fast) var(--sr-ease-out);
+    }
+    .mood-card.selected {
+      border-color: var(--sr-ink);
+      background: var(--sr-warm);
+    }
+    /* Toggle chiuso/aperto (orari) */
+    .toggle-chiuso {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      border-radius: var(--sr-radius-full);
+      background: var(--sr-border);
+      cursor: pointer;
+      transition: background var(--sr-duration-fast) var(--sr-ease-out);
+      flex-shrink: 0;
+    }
+    .toggle-chiuso.active { background: var(--sr-alert); }
+    .toggle-chiuso::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      transition: transform var(--sr-duration-fast) var(--sr-ease-out);
+      box-shadow: var(--sr-shadow-xs);
+    }
+    .toggle-chiuso.active::after { transform: translateX(20px); }
+    /* Nav buttons fissi in fondo */
+    #nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--sr-space-4) var(--sr-space-6);
+      background: var(--sr-paper);
+      border-top: var(--sr-border-thin);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--sr-space-4);
+      z-index: var(--sr-z-sticky);
+    }
+  </style>
+</head>
+<body>
+  <!-- Progress bar -->
+  <div id="progress-bar" style="width: 0%;"></div>
+
+  <!-- Topbar -->
+  <div id="topbar">
+    <a href="/" aria-label="Sitorazzo home">
+      <img src="/assets/Sitorazzo_Lockup_OnWarmWhite.png" alt="Sitorazzo" style="height:28px; width:auto;">
+    </a>
+    <div id="step-indicator" class="sr-mono text-sm" style="color: var(--sr-ink-40);"></div>
+  </div>
+
+  <!-- Form area -->
+  <div id="form-area">
+    <div id="step-card">
+      <!-- Renderizzato da onboarding.js -->
+    </div>
+  </div>
+
+  <!-- Nav bar (Indietro / Avanti) -->
+  <div id="nav-bar">
+    <button id="btn-back" class="sr-btn sr-btn-ghost" style="visibility:hidden;">← Indietro</button>
+    <div id="nav-right" class="flex items-center gap-3">
+      <span id="nav-step-text" class="text-sm" style="color:var(--sr-ink-40);"></span>
+      <button id="btn-next" class="sr-btn sr-btn-primary">Avanti →</button>
+    </div>
+  </div>
+
+  <script src="/js/onboarding.js"></script>
+</body>
+</html>

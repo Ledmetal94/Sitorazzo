@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grazie — Sitorazzo</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Meta Pixel Purchase -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'PIXEL_ID_QUI');
+    fbq('track', 'PageView');
+    const pkg = new URLSearchParams(location.search).get('pacchetto') || 'pro';
+    const prices = { start: 390, pro: 590, power: 1290 };
+    fbq('track', 'Purchase', { value: prices[pkg] || 590, currency: 'EUR', content_name: 'Sitorazzo ' + pkg });
+  </script>
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+    const pkgGA = new URLSearchParams(location.search).get('pacchetto') || 'pro';
+    const pricesGA = { start: 390, pro: 590, power: 1290 };
+    gtag('event', 'purchase', { value: pricesGA[pkgGA] || 590, currency: 'EUR' });
+  </script>
+</head>
+<body>
+  <div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding: var(--sr-space-8) var(--sr-space-6);">
+    <div style="text-align:center; max-width:560px;">
+      <div style="font-size:4rem; margin-bottom:var(--sr-space-4);">🎉</div>
+      <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Pagamento confermato!</h1>
+      <p class="sr-lead" style="margin-bottom:var(--sr-space-8);">Perfetto. Ora compila il brief — ci vogliono solo 10–15 minuti. Raccoglieremo tutto quello che ci serve per costruire il tuo sito.</p>
+      <div id="cta-wrap"></div>
+      <p style="margin-top:var(--sr-space-4); font-size:var(--sr-fs-xs); color:var(--sr-ink-40);">
+        Hai già ricevuto la ricevuta di pagamento via email da Stripe.
+      </p>
+    </div>
+  </div>
+  <script>
+    const pkgParam = new URLSearchParams(location.search).get('pacchetto') || 'pro';
+    const ctaWrap = document.getElementById('cta-wrap');
+    const a = document.createElement('a');
+    a.href = '/onboarding?pacchetto=' + pkgParam;
+    a.className = 'sr-btn sr-btn-primary sr-btn-lg';
+    a.textContent = 'Compila il brief ora →';
+    ctaWrap.appendChild(a);
+  </script>
+</body>
+</html>
