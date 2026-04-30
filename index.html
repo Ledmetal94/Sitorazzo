@@ -189,6 +189,24 @@
 </head>
 <body>
 
+<!-- NAVBAR -->
+<nav id="navbar" class="fixed left-1/2 -translate-x-1/2 z-[200] transition-all duration-300" style="top:20px; width:min(calc(100% - 32px), 1120px);">
+  <div id="navbar-inner" class="flex items-center justify-between px-5 py-3 rounded-full border border-[var(--sr-border)] bg-white/80 backdrop-blur-md transition-all duration-300" style="box-shadow: var(--sr-shadow-sm);">
+    <!-- Logo -->
+    <a href="/" aria-label="Sitorazzo home">
+      <img src="/assets/Sitorazzo_Lockup_OnWarmWhite.png" alt="Sitorazzo" class="h-7 w-auto" fetchpriority="high">
+    </a>
+    <!-- Links desktop -->
+    <div class="hidden md:flex items-center gap-6">
+      <a href="#come-funziona" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">Come funziona</a>
+      <a href="#pacchetti" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">Prezzi</a>
+      <a href="#faq" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">FAQ</a>
+    </div>
+    <!-- CTA -->
+    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-sm">Voglio il mio sito →</a>
+  </div>
+</nav>
+
   <!-- SEZIONI INSERITE NEI TASK SUCCESSIVI -->
 
   <!-- JS -->
