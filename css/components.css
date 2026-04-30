@@ -260,6 +260,83 @@
 .sr-section-yellow { background: var(--sr-yellow); }
 
 /* ============================================================
+   MOBILE NAV
+   ============================================================ */
+
+/* CTA nascosta su mobile — visibile solo su md+ */
+.sr-nav-cta { display: none; }
+@media (min-width: 768px) {
+  .sr-nav-cta { display: inline-flex; }
+}
+
+/* Hamburger button — visibile solo su mobile */
+.sr-hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--sr-radius-full);
+  border: 1px solid var(--sr-border);
+  background: transparent;
+  cursor: pointer;
+  color: var(--sr-ink);
+  transition: background var(--sr-duration-fast) var(--sr-ease-out),
+              border-color var(--sr-duration-fast) var(--sr-ease-out);
+}
+.sr-hamburger:hover { background: var(--sr-warm); border-color: var(--sr-ink); }
+@media (min-width: 768px) {
+  .sr-hamburger { display: none; }
+}
+
+/* Mobile menu dropdown */
+.sr-mobile-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--sr-border);
+  border-radius: var(--sr-radius-2xl);
+  padding: var(--sr-space-3);
+  box-shadow: var(--sr-shadow-lg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity var(--sr-duration-fast) var(--sr-ease-out),
+              transform var(--sr-duration-fast) var(--sr-ease-out);
+}
+.sr-mobile-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+@media (min-width: 768px) {
+  .sr-mobile-menu { display: none; }
+}
+
+.sr-mobile-menu-link {
+  font-family: var(--sr-font-display);
+  font-size: var(--sr-fs-base);
+  font-weight: var(--sr-fw-medium);
+  color: var(--sr-ink-70);
+  text-decoration: none;
+  padding: var(--sr-space-3) var(--sr-space-4);
+  border-radius: var(--sr-radius-lg);
+  transition: color var(--sr-duration-fast), background var(--sr-duration-fast);
+  display: block;
+}
+.sr-mobile-menu-link:hover {
+  color: var(--sr-ink);
+  background: var(--sr-warm);
+}
+
+/* ============================================================
    FOCUS STATE GLOBALE
    ============================================================ */
 :focus-visible {

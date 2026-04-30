@@ -208,8 +208,25 @@
       <a href="#pacchetti" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">Prezzi</a>
       <a href="#faq" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">FAQ</a>
     </div>
-    <!-- CTA -->
-    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-sm">Voglio il mio sito →</a>
+    <!-- CTA desktop -->
+    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-sm sr-nav-cta">Voglio il mio sito →</a>
+    <!-- Hamburger mobile -->
+    <button id="mobile-menu-toggle" class="sr-hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <!-- Mobile menu dropdown -->
+  <div id="mobile-menu" class="sr-mobile-menu" aria-hidden="true" role="dialog" aria-label="Menu di navigazione">
+    <a href="#come-funziona" class="sr-mobile-menu-link" data-scroll-to="#come-funziona">Come funziona</a>
+    <a href="#pacchetti" class="sr-mobile-menu-link" data-scroll-to="#pacchetti">Prezzi</a>
+    <a href="#faq" class="sr-mobile-menu-link" data-scroll-to="#faq">FAQ</a>
+    <div style="height:1px;background:var(--sr-border);margin:4px 0;"></div>
+    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary w-full justify-center">Voglio il mio sito →</a>
   </div>
 </nav>
 
