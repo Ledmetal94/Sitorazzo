@@ -42,6 +42,26 @@
       border-bottom: var(--sr-border-thin);
       z-index: var(--sr-z-sticky);
     }
+    .onboarding-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sr-space-2);
+      color: var(--sr-ink);
+      text-decoration: none;
+    }
+    .onboarding-brand img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .onboarding-brand span {
+      font-family: var(--sr-font-display);
+      font-size: var(--sr-fs-lg);
+      font-weight: var(--sr-fw-bold);
+      letter-spacing: var(--sr-ls-tight);
+      line-height: 1;
+    }
     /* Form area */
     #form-area {
       min-height: 100vh;
@@ -243,8 +263,9 @@
 
   <!-- Topbar -->
   <div id="topbar">
-    <a href="/" aria-label="Sitorazzo home">
-      <img src="/assets/Sitorazzo_Lockup_OnWarmWhite.png" alt="Sitorazzo" style="height:28px; width:auto;">
+    <a href="/" class="onboarding-brand" aria-label="Sitorazzo home">
+      <img src="/assets/Sitorazzo_Logomark_1024px_black.png" alt="" aria-hidden="true">
+      <span>Sitorazzo</span>
     </a>
     <div id="step-indicator" class="sr-mono text-sm" style="color: var(--sr-ink-40);"></div>
   </div>
