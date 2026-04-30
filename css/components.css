@@ -66,10 +66,6 @@
               border-color var(--sr-duration-fast) var(--sr-ease-out),
               color var(--sr-duration-fast) var(--sr-ease-out);
 }
-.sr-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 4px var(--sr-yellow-20);
-}
 .sr-btn:active { transform: translateY(1px); }
 
 /* Primario — CTA "Voglio il mio sito" */
@@ -268,5 +264,33 @@
    ============================================================ */
 :focus-visible {
   outline: 3px solid var(--sr-yellow);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Su sfondo giallo: outline scuro per contrasto */
+.sr-section-yellow :focus-visible,
+.sr-card-pricing.is-featured :focus-visible {
+  outline-color: var(--sr-ink);
+}
+
+/* Bottoni — sostituisce il ring faintissimo precedente */
+.sr-btn:focus-visible {
+  outline: 3px solid var(--sr-yellow);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+.sr-btn-primary:focus-visible,
+.sr-btn-secondary:focus-visible {
+  outline-color: var(--sr-ink);
+}
+
+/* FAQ trigger */
+.faq-trigger {
+  cursor: pointer;
+}
+.faq-trigger:focus-visible {
+  outline: 3px solid var(--sr-yellow);
   outline-offset: 2px;
+  border-radius: 4px;
 }
