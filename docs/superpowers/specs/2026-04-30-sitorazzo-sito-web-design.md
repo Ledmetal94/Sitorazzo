@@ -65,6 +65,14 @@ repo/
 
 Fonte di verità: `css/tokens.css`. Mai hardcodare valori hex o px che esistono come token.
 
+### Decisioni design correnti
+
+- La direzione ufficiale della landing è **hero chiara**: sfondo `--sr-paper` / `--sr-warm`, griglia sottile e highlight giallo sotto la headline.
+- La navbar default è **light glass**: fondo bianco translucido, testo `--sr-ink`, bordi soft e blur.
+- La navbar è **stabile**: non cambia opacità, colore o shadow allo scroll.
+- Le varianti navbar `dark`, `smoke` e `cream` restano disponibili solo come opzioni sperimentali/testabili via query string.
+- I token principali `--sr-yellow`, `--sr-ink`, `--sr-warm`, tipografia e spacing restano la fonte di verità e non vanno modificati per questa direzione.
+
 **Colori brand:**
 - `--sr-yellow: #FFD60A` — CTA primaria, accenti
 - `--sr-yellow-dark: #F5B700` — hover
@@ -86,8 +94,8 @@ Fonte di verità: `css/tokens.css`. Mai hardcodare valori hex o px che esistono 
 
 ### Struttura sezioni (ordine di conversione)
 
-1. **Navbar pill** — fixed top:20px, frosted glass, diventa opaca allo scroll >40px
-2. **Hero** — dark (`--sr-ink`), 2 colonne, badge "FIRST 50", card RAZZO PRO flottante, trust stats row
+1. **Navbar pill** — fixed top:20px, light glass stabile, nessun cambio allo scroll
+2. **Hero** — light (`--sr-paper`/`--sr-warm`), griglia sottile, highlight giallo sotto headline, badge "FIRST 50", card RAZZO PRO flottante, trust stats row
 3. **Trust bar** — 5 pillole: "5 giorni garantiti", "prezzo fisso", "zero riunioni", "sede a Latina", "rimborso 50%"
 4. **Problema** — "Sei stanco di…" / pain agitation, lista 4 dolori del cliente
 5. **Come funziona** — 4 step (Lun/Lun sera/Mer-Gio/Ven), copy dal BP
@@ -104,7 +112,8 @@ Fonte di verità: `css/tokens.css`. Mai hardcodare valori hex o px che esistono 
 16. **WhatsApp sticky** — sempre visibile, angolo inferiore destro
 
 ### Comportamenti JS (vanilla)
-- Scroll >40px → navbar pill più opaca + shadow più forte
+- Query `?nav=dark|smoke|cream|light` → cambia variante navbar solo per test
+- Nessun comportamento scroll-reactive sulla navbar: opacità, colore e shadow restano stabili
 - Click CTA hero/finale → scroll to `#pacchetti`
 - Click "Come funziona ↓" → scroll to `#come-funziona`
 - FAQ accordion: click → expand/collapse con easing brand
@@ -175,10 +184,21 @@ let step = 0; // 0=welcome, 1-8=form, 9=thankyou
 ```
 
 ### Submit (Step 8 → onNext)
-1. Upload file → Cloudflare R2 / Uploadcare (TBD)
-2. POST webhook Airtable (o Make/Zapier → Airtable)
-3. Trigger email conferma via Resend/Brevo
-4. → Step 9 (thank you)
+1. POST multipart a `/api/submit-brief`
+2. Campo `briefData` con JSON serializzato del wizard
+3. Allegati nel campo multipart `file`
+4. API Vercel crea cartella cliente su Google Drive
+5. API Vercel crea Google Doc riepilogo brief nella stessa cartella
+6. API Vercel carica gli allegati nella stessa cartella
+7. Se mancano le env Google, l'API ritorna errore JSON gestito e il wizard mostra un messaggio visibile
+8. → Step 9 (thank you) solo dopo submit riuscito
+
+### Env Vercel richieste
+
+- `GOOGLE_SERVICE_ACCOUNT_JSON`
+- `GOOGLE_DRIVE_PARENT_FOLDER_ID`
+
+Non usare Make, Airtable o Uploadcare per il flusso onboarding corrente.
 
 ### Integrazione URL Stripe
 ```js
