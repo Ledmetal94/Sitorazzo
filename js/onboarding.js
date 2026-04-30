@@ -2,8 +2,6 @@
    SITORAZZO — ONBOARDING BRIEF WIZARD
    ============================================================ */
 
-const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/XXXXXXXXXXXXXXXXXX';
-const UPLOADCARE_PUBLIC_KEY = 'XXXXXXXXXXXXXXXXXXXXXXXX';
 const TOTAL_STEPS = 8;
 
 /* ---------- State ---------- */
@@ -423,6 +421,7 @@ function renderStep4() {
   card.innerHTML = '';
   card.appendChild(stepHeader('Step 4 di 8', 'Logo e immagini', 'Carica il tuo logo e le immagini che vuoi usare nel sito.'));
 
+  // Logo status pills
   const logoWrap = document.createElement('div');
   logoWrap.style.marginBottom = 'var(--sr-space-6)';
   const logoLbl = document.createElement('label');
@@ -446,8 +445,10 @@ function renderStep4() {
   logoWrap.appendChild(logoPills);
   card.appendChild(logoWrap);
 
+  // Native file input
   const uploadWrap = document.createElement('div');
   uploadWrap.style.marginBottom = 'var(--sr-space-6)';
+
   const uploadLbl = document.createElement('label');
   uploadLbl.className = 'sr-label';
   uploadLbl.textContent = 'Carica file (logo, immagini, documenti)';
@@ -455,54 +456,41 @@ function renderStep4() {
 
   const hint = document.createElement('p');
   hint.style.cssText = 'font-size:var(--sr-fs-xs); color:var(--sr-ink-40); margin-bottom:var(--sr-space-3);';
-  hint.textContent = 'Formati accettati: PNG, JPG, SVG, PDF, AI, ZIP. Max 100MB totali. Puoi caricare più file contemporaneamente.';
+  hint.textContent = 'PNG, JPG, SVG, PDF, AI, ZIP. Max 15MB per file. Puoi selezionare più file contemporaneamente.';
   uploadWrap.appendChild(hint);
 
-  const ucInput = document.createElement('input');
-  ucInput.type = 'hidden';
-  ucInput.setAttribute('role', 'uploadcare-uploader');
-  ucInput.setAttribute('data-public-key', UPLOADCARE_PUBLIC_KEY);
-  ucInput.setAttribute('data-multiple', 'true');
-  ucInput.setAttribute('data-multiple-max', '20');
-  ucInput.setAttribute('data-images-only', 'false');
-  ucInput.setAttribute('data-preview-step', 'true');
-  uploadWrap.appendChild(ucInput);
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.multiple = true;
+  fileInput.accept = 'image/*,.pdf,.ai,.eps,.svg,.zip,.psd';
+  fileInput.className = 'sr-input';
+  fileInput.style.padding = 'var(--sr-space-2)';
 
-  const fileList = document.createElement('div');
-  fileList.id = 'file-list';
-  fileList.style.marginTop = 'var(--sr-space-3)';
+  // Restore previously selected files if navigating back
+  const fileListEl = document.createElement('div');
+  fileListEl.id = 'file-list';
+  fileListEl.style.marginTop = 'var(--sr-space-3)';
+
   if (formData.files.length) {
-    fileList.innerHTML = formData.files.map(() =>
-      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">✓ File caricato</div>`
+    fileListEl.innerHTML = formData.files.map(f =>
+      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">✓ ${f.name}</div>`
     ).join('');
   }
-  uploadWrap.appendChild(fileList);
-  card.appendChild(uploadWrap);
 
-  requestAnimationFrame(() => {
-    if (typeof uploadcare !== 'undefined') {
-      const widget = uploadcare.Widget(ucInput);
-      widget.onUploadComplete(info => {
-        if (info.files) {
-          info.files().then(files => {
-            formData.files = files.map(f => f.cdnUrl);
-            const fl = document.getElementById('file-list');
-            if (fl) fl.innerHTML = formData.files.map(() =>
-              `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">✓ File caricato</div>`
-            ).join('');
-          });
-        } else {
-          formData.files = [info.cdnUrl];
-          const fl = document.getElementById('file-list');
-          if (fl) fl.innerHTML = `<div class="text-sm" style="color:var(--sr-success);">✓ File caricato</div>`;
-        }
-      });
-    }
+  fileInput.addEventListener('change', () => {
+    formData.files = Array.from(fileInput.files);
+    fileListEl.innerHTML = formData.files.map(f =>
+      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">✓ ${f.name} (${(f.size / 1024).toFixed(0)} KB)</div>`
+    ).join('');
   });
+
+  uploadWrap.appendChild(fileInput);
+  uploadWrap.appendChild(fileListEl);
+  card.appendChild(uploadWrap);
 
   card.insertAdjacentHTML('beforeend', `
     <p style="font-size:var(--sr-fs-xs); color:var(--sr-ink-40); margin-top:var(--sr-space-2);">
-      Non hai file ora? Nessun problema — puoi saltare questo step. Ci contatteremo dopo per raccoglierli.
+      Non hai file ora? Puoi saltare questo step — ce li mandi dopo via email o WhatsApp.
     </p>
   `);
 }
@@ -803,8 +791,9 @@ async function submitForm() {
   btnNext.disabled = true;
   btnNext.textContent = 'Invio in corso…';
 
-  const payload = {
+  const briefData = {
     ...formData,
+    files: undefined, // i File object non sono serializzabili, li mandiamo separati
     orari: Object.entries(formData.orari).map(([day, v]) => ({
       giorno: day,
       apre:   v.chiuso ? null : v.apre,
@@ -815,19 +804,30 @@ async function submitForm() {
     source: 'onboarding-wizard',
   };
 
+  const fd = new FormData();
+  fd.append('briefData', JSON.stringify(briefData));
+
+  // Allega i file (File objects da step 4)
+  for (const file of (formData.files || [])) {
+    fd.append('file', file, file.name);
+  }
+
   try {
-    const res = await fetch(MAKE_WEBHOOK_URL, {
+    const res = await fetch('/api/submit-brief', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: fd,
+      // Niente Content-Type header: il browser lo imposta automaticamente con il boundary corretto
     });
 
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'HTTP ' + res.status);
+    }
     goTo(9);
   } catch (err) {
     btnNext.disabled = false;
     btnNext.textContent = 'Invia brief ✓';
-    showError('Errore nell\'invio. Riprova o contattaci su WhatsApp.');
+    showError('Errore nell\'invio: ' + err.message + '. Riprova o contattaci su WhatsApp.');
     console.error('Submit error:', err);
   }
 }
