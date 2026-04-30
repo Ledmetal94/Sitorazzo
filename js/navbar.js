@@ -27,6 +27,7 @@
 
   function openMenu() {
     menu.classList.add('is-open');
+    menu.removeAttribute('inert');
     menu.setAttribute('aria-hidden', 'false');
     toggle.setAttribute('aria-expanded', 'true');
     toggle.setAttribute('aria-label', 'Chiudi menu');
@@ -35,7 +36,9 @@
   }
 
   function closeMenu() {
+    toggle.focus();
     menu.classList.remove('is-open');
+    menu.setAttribute('inert', '');
     menu.setAttribute('aria-hidden', 'true');
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', 'Apri menu');
