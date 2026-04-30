@@ -24,7 +24,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- CSS — three separate files: tokens, components, then Tailwind output -->
   <link rel="stylesheet" href="/css/tokens.css">
@@ -233,89 +233,123 @@
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="sr-section-ink relative overflow-hidden" style="padding-top: 120px; padding-bottom: var(--sr-space-20);">
-  <div class="sr-container">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <!-- Left: copy -->
-      <div>
-        <!-- Badge -->
-        <div class="mb-6" style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:9999px; padding:6px 14px;">
-          <span style="background:var(--sr-yellow);color:var(--sr-ink);font-size:10px;font-weight:700;letter-spacing:0.08em;border-radius:9999px;padding:2px 8px;">FIRST 50</span>
-          <span style="font-size:13px;color:rgba(255,255,255,0.7);">Razzo Pro a 590€ invece di 690€ · 37 posti rimasti</span>
+<section id="hero" style="background:#0A0A0A; min-height:100vh; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;">
+
+  <!-- Grid texture -->
+  <div style="position:absolute; inset:0; pointer-events:none;
+    background-image: linear-gradient(rgba(255,214,10,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,214,10,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;"></div>
+
+  <!-- Glow top-right -->
+  <div style="position:absolute; top:-200px; right:-150px; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(255,214,10,0.15) 0%, transparent 65%); pointer-events:none;"></div>
+
+  <!-- Glow bottom-left -->
+  <div style="position:absolute; bottom:-200px; left:-100px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle, rgba(255,214,10,0.07) 0%, transparent 70%); pointer-events:none;"></div>
+
+  <!-- Content -->
+  <div style="width:100%; max-width:1200px; margin:0 auto; padding:140px 24px 100px; position:relative; z-index:1;">
+    <div class="hero-grid" style="display:grid; grid-template-columns:1fr auto; gap:60px; align-items:center;">
+
+      <!-- LEFT: testo -->
+      <div style="max-width:680px;">
+
+        <!-- Badge lancio -->
+        <div style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,214,10,0.10); border:1px solid rgba(255,214,10,0.25); border-radius:9999px; padding:6px 14px 6px 8px; margin-bottom:36px;">
+          <span style="background:#FFD60A; color:#0A0A0A; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 10px; border-radius:9999px;">FIRST 50</span>
+          <span style="font-family:'Inter',sans-serif; font-size:13px; color:rgba(255,255,255,0.55);">Razzo Pro a 590€ invece di 690€ · 37 posti rimasti</span>
         </div>
-        <h1 class="sr-h1" style="color: var(--sr-paper); margin-bottom: var(--sr-space-6); line-height:1.05;">
+
+        <!-- Headline -->
+        <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:900; font-size:clamp(52px, 7vw, 80px); line-height:1.0; letter-spacing:-0.035em; color:#FFFFFF; margin:0 0 28px;">
           Il tuo sito<br>
-          <span style="color: var(--sr-yellow);">decolla in 5 giorni.</span>
+          <span style="color:#FFD60A;">decolla in 5 giorni.</span>
         </h1>
-        <p class="sr-lead" style="color: rgba(255,255,255,0.6); margin-bottom: var(--sr-space-8); max-width: 440px;">
+
+        <!-- Sub -->
+        <p style="font-family:'Inter',sans-serif; font-size:18px; line-height:1.65; color:rgba(255,255,255,0.50); margin:0 0 44px; max-width:500px;">
           Paghi, compili un brief in 15 minuti, e il sito è online.<br>
           Zero riunioni. Zero sorprese. Garantito per contratto.
         </p>
-        <div class="flex flex-wrap gap-4 items-center">
-          <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-lg">
+
+        <!-- CTAs -->
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:56px;">
+          <a href="#pacchetti" data-scroll-to="#pacchetti"
+            class="hero-cta-primary"
+            style="display:inline-flex; align-items:center; gap:8px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; background:#FFD60A; color:#0A0A0A; padding:15px 32px; border-radius:9999px; text-decoration:none; transition:background 200ms, transform 200ms, box-shadow 200ms;">
             Voglio il mio sito →
           </a>
-          <a href="#come-funziona" data-scroll-to="#come-funziona" class="text-sm font-medium" style="color:rgba(255,255,255,0.6);">
+          <a href="#come-funziona" data-scroll-to="#come-funziona"
+            class="hero-cta-ghost"
+            style="display:inline-flex; align-items:center; font-family:'Inter',sans-serif; font-weight:500; font-size:15px; color:rgba(255,255,255,0.55); text-decoration:none; padding:15px 24px; transition:color 150ms;">
             Come funziona ↓
           </a>
         </div>
+
         <!-- Trust stats -->
-        <div class="flex flex-wrap gap-8 mt-10 pt-10" style="border-top: 1px solid rgba(255,255,255,0.08);">
-          <div>
-            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">5</div>
-            <div class="text-xs" style="color: rgba(255,255,255,0.4);">giorni di consegna</div>
+        <div style="display:flex; border-top:1px solid rgba(255,255,255,0.08); padding-top:28px;">
+          <div style="flex:1; padding-right:24px; margin-right:24px; border-right:1px solid rgba(255,255,255,0.08);">
+            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">5</div>
+            <div style="font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px;">giorni di consegna</div>
           </div>
-          <div>
-            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">390€</div>
-            <div class="text-xs" style="color: rgba(255,255,255,0.4);">prezzo di partenza</div>
+          <div style="flex:1; padding-right:24px; margin-right:24px; border-right:1px solid rgba(255,255,255,0.08);">
+            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">390€</div>
+            <div style="font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px;">prezzo di partenza</div>
           </div>
-          <div>
-            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">0</div>
-            <div class="text-xs" style="color: rgba(255,255,255,0.4);">riunioni</div>
+          <div style="flex:1; padding-right:24px; margin-right:24px; border-right:1px solid rgba(255,255,255,0.08);">
+            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">0</div>
+            <div style="font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px;">riunioni</div>
           </div>
-          <div>
-            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">50%</div>
-            <div class="text-xs" style="color: rgba(255,255,255,0.4);">rimborso se sforiamo</div>
+          <div style="flex:1;">
+            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">50%</div>
+            <div style="font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px;">rimborso se sforiamo</div>
           </div>
         </div>
+
       </div>
 
-      <!-- Right: card prodotto -->
-      <div class="relative flex justify-center md:justify-end">
-        <div class="relative max-w-xs w-full" style="background:#141414; border:1px solid rgba(255,255,255,0.1); border-radius:var(--sr-radius-2xl); overflow:hidden;">
-          <div style="padding: var(--sr-space-6);">
-            <p style="font-size:11px; font-weight:700; letter-spacing:0.1em; color:rgba(255,255,255,0.35); text-transform:uppercase; margin-bottom:var(--sr-space-3);">Più venduto</p>
-            <p style="font-family:var(--sr-font-display); font-weight:700; font-size:13px; letter-spacing:0.06em; color:rgba(255,255,255,0.9); text-transform:uppercase; margin-bottom:var(--sr-space-2);">Razzo Pro</p>
-            <div class="sr-price" style="color: var(--sr-yellow); margin-bottom:var(--sr-space-1);">590€</div>
-            <div class="text-sm line-through mb-6" style="color: rgba(255,255,255,0.3);">690€</div>
-            <ul class="space-y-3 mb-6">
-              <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
-                <span style="width:7px;height:7px;border-radius:50%;background:var(--sr-yellow);flex-shrink:0;display:inline-block;"></span>5 pagine
-              </li>
-              <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
-                <span style="width:7px;height:7px;border-radius:50%;background:var(--sr-yellow);flex-shrink:0;display:inline-block;"></span>Blog
-              </li>
-              <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
-                <span style="width:7px;height:7px;border-radius:50%;background:var(--sr-yellow);flex-shrink:0;display:inline-block;"></span>SEO on-page
-              </li>
-              <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
-                <span style="width:7px;height:7px;border-radius:50%;background:var(--sr-yellow);flex-shrink:0;display:inline-block;"></span>Google Business
-              </li>
-            </ul>
-            <a href="https://buy.stripe.com/PRO_LINK_QUI" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
-              Scelgo Pro →
-            </a>
-          </div>
-          <!-- Barra garanzia verde in fondo -->
-          <div style="background:rgba(34,197,94,0.12); border-top:1px solid rgba(34,197,94,0.2); padding:10px var(--sr-space-6); display:flex; align-items:center; gap:8px;">
-            <span style="width:8px;height:8px;border-radius:50%;background:var(--sr-success);flex-shrink:0;display:inline-block;"></span>
-            <span style="font-size:12px; color:var(--sr-success); font-weight:500;">Consegna garantita entro 5 giorni</span>
-          </div>
+      <!-- RIGHT: card flottante -->
+      <div class="hero-card-wrap" style="display:flex; flex-direction:column; gap:12px; min-width:220px;">
+
+        <!-- Package card -->
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:24px 20px; backdrop-filter:blur(12px);">
+          <div style="font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:6px;">PIÙ VENDUTO</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; color:#fff; margin-bottom:4px;">RAZZO PRO</div>
+          <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:36px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">590€</div>
+          <div style="font-family:'Space Mono',monospace; font-size:11px; color:rgba(255,255,255,0.30); margin-bottom:16px; text-decoration:line-through;">690€</div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><div style="width:5px;height:5px;border-radius:50%;background:#FFD60A;flex-shrink:0;"></div><span style="font-size:13px;color:rgba(255,255,255,0.55);">5 pagine</span></div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><div style="width:5px;height:5px;border-radius:50%;background:#FFD60A;flex-shrink:0;"></div><span style="font-size:13px;color:rgba(255,255,255,0.55);">Blog</span></div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><div style="width:5px;height:5px;border-radius:50%;background:#FFD60A;flex-shrink:0;"></div><span style="font-size:13px;color:rgba(255,255,255,0.55);">SEO on-page</span></div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;"><div style="width:5px;height:5px;border-radius:50%;background:#FFD60A;flex-shrink:0;"></div><span style="font-size:13px;color:rgba(255,255,255,0.55);">Google Business</span></div>
+          <a href="#pacchetti" data-pkg-cta="Pro"
+            class="hero-pkg-cta"
+            style="display:flex; align-items:center; justify-content:center; background:#FFD60A; color:#0A0A0A; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px; border-radius:9999px; padding:10px 0; text-decoration:none; transition:background 150ms;">
+            Scelgo Pro →
+          </a>
         </div>
+
+        <!-- Delivery badge -->
+        <div style="background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.25); border-radius:12px; padding:12px 16px; display:flex; align-items:center; gap:10px;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#22C55E; box-shadow:0 0 8px rgba(34,197,94,0.6); flex-shrink:0;"></div>
+          <span style="font-family:'Inter',sans-serif; font-size:13px; color:rgba(255,255,255,0.65); line-height:1.4;">Consegna garantita <strong style="color:#fff;">entro 5 giorni</strong></span>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* Hero hover effects */
+  .hero-cta-primary:hover { background:#F5B700 !important; transform:translateY(-2px); box-shadow:0 0 0 4px rgba(255,214,10,0.20), 0 12px 32px rgba(255,214,10,0.40) !important; }
+  .hero-cta-ghost:hover   { color:#fff !important; }
+  .hero-pkg-cta:hover     { background:#F5B700 !important; }
+
+  /* Mobile: colonna singola, card nascosta */
+  @media (max-width: 767px) {
+    .hero-grid      { grid-template-columns: 1fr !important; gap:40px !important; }
+    .hero-card-wrap { display:none !important; }
+  }
+</style>
 
 <!-- TRUST BAR -->
 <section class="py-5 border-y" style="border-color: var(--sr-border); background: var(--sr-warm);">
