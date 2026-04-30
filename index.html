@@ -195,23 +195,24 @@
 <body>
 
 <!-- NAVBAR -->
-<nav id="navbar" class="fixed left-1/2 -translate-x-1/2 z-[200] transition-all duration-300" style="top:20px; width:min(calc(100% - 32px), 1120px);">
-  <div id="navbar-inner" class="flex items-center justify-between px-5 py-3 rounded-full border border-[var(--sr-border)] bg-white/80 backdrop-blur-md transition-all duration-300" style="box-shadow: var(--sr-shadow-sm);">
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-[200] transition-all duration-300" style="background: var(--sr-ink);">
+  <div id="navbar-inner" class="flex items-center justify-between px-6 py-4 mx-auto" style="max-width: 1200px;">
     <!-- Logo -->
     <a href="/" aria-label="Sitorazzo home" class="flex items-center gap-2" style="text-decoration:none;">
-      <img src="/assets/Sitorazzo_Logomark_256px.png" alt="" aria-hidden="true" class="w-auto" style="height:28px;" fetchpriority="high">
-      <span style="font-family:var(--sr-font-display);font-weight:700;font-size:17px;color:var(--sr-ink);letter-spacing:-0.02em;line-height:1;">Sitorazzo</span>
+      <img src="/assets/Sitorazzo_Logomark_256px.png" alt="" aria-hidden="true" class="w-auto" style="height:24px; filter:brightness(0) invert(1);" fetchpriority="high">
+      <span style="font-family:var(--sr-font-display);font-weight:700;font-size:17px;color:#fff;letter-spacing:-0.02em;line-height:1;">Sitorazzo</span>
     </a>
     <!-- Links desktop -->
-    <div class="hidden md:flex items-center gap-6">
-      <a href="#come-funziona" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">Come funziona</a>
-      <a href="#pacchetti" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">Prezzi</a>
-      <a href="#faq" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">FAQ</a>
+    <div class="hidden md:flex items-center gap-7">
+      <a href="#come-funziona" data-scroll-to="#come-funziona" class="text-sm font-medium transition-colors" style="color:rgba(255,255,255,0.65);" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Come funziona</a>
+      <a href="#pacchetti" data-scroll-to="#pacchetti" class="text-sm font-medium transition-colors" style="color:rgba(255,255,255,0.65);" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Pacchetti</a>
+      <a href="#showcase" data-scroll-to="#showcase" class="text-sm font-medium transition-colors" style="color:rgba(255,255,255,0.65);" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Esempi</a>
+      <a href="#faq" data-scroll-to="#faq" class="text-sm font-medium transition-colors" style="color:rgba(255,255,255,0.65);" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">FAQ</a>
     </div>
     <!-- CTA desktop -->
-    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-sm sr-nav-cta">Voglio il mio sito →</a>
+    <a href="#pacchetti" data-scroll-to="#pacchetti" class="hidden md:inline-flex sr-btn sr-btn-primary sr-btn-sm">Inizia ora →</a>
     <!-- Hamburger mobile -->
-    <button id="mobile-menu-toggle" class="sr-hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+    <button id="mobile-menu-toggle" class="sr-hamburger md:hidden" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu" style="color:#fff;">
       <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
       </svg>
@@ -221,85 +222,95 @@
     </button>
   </div>
   <!-- Mobile menu dropdown -->
-  <div id="mobile-menu" class="sr-mobile-menu" aria-hidden="true" inert role="dialog" aria-label="Menu di navigazione">
-    <a href="#come-funziona" class="sr-mobile-menu-link" data-scroll-to="#come-funziona">Come funziona</a>
-    <a href="#pacchetti" class="sr-mobile-menu-link" data-scroll-to="#pacchetti">Prezzi</a>
-    <a href="#faq" class="sr-mobile-menu-link" data-scroll-to="#faq">FAQ</a>
-    <div style="height:1px;background:var(--sr-border);margin:4px 0;"></div>
-    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary w-full justify-center">Voglio il mio sito →</a>
+  <div id="mobile-menu" class="sr-mobile-menu" aria-hidden="true" inert role="dialog" aria-label="Menu di navigazione" style="background:var(--sr-ink); border-top:1px solid rgba(255,255,255,0.1);">
+    <a href="#come-funziona" class="sr-mobile-menu-link" data-scroll-to="#come-funziona" style="color:rgba(255,255,255,0.8);">Come funziona</a>
+    <a href="#pacchetti" class="sr-mobile-menu-link" data-scroll-to="#pacchetti" style="color:rgba(255,255,255,0.8);">Pacchetti</a>
+    <a href="#showcase" class="sr-mobile-menu-link" data-scroll-to="#showcase" style="color:rgba(255,255,255,0.8);">Esempi</a>
+    <a href="#faq" class="sr-mobile-menu-link" data-scroll-to="#faq" style="color:rgba(255,255,255,0.8);">FAQ</a>
+    <div style="height:1px;background:rgba(255,255,255,0.1);margin:4px 0;"></div>
+    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary w-full justify-center">Inizia ora →</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="sr-section-ink relative overflow-hidden" style="padding-top: 140px; padding-bottom: var(--sr-space-20);">
+<section id="hero" class="sr-section-ink relative overflow-hidden" style="padding-top: 120px; padding-bottom: var(--sr-space-20);">
   <div class="sr-container">
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <!-- Left: copy -->
       <div>
-        <div class="sr-badge sr-badge-yellow mb-6" style="display:inline-flex;">
-          <span>★ FIRST 50</span>
-          <span class="ml-2 opacity-70">— Prezzo lancio garantito</span>
+        <!-- Badge -->
+        <div class="mb-6" style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:9999px; padding:6px 14px;">
+          <span style="background:var(--sr-yellow);color:var(--sr-ink);font-size:10px;font-weight:700;letter-spacing:0.08em;border-radius:9999px;padding:2px 8px;">FIRST 50</span>
+          <span style="font-size:13px;color:rgba(255,255,255,0.7);">Razzo Pro a 590€ invece di 690€ · 37 posti rimasti</span>
         </div>
-        <h1 class="sr-h1" style="color: var(--sr-paper); margin-bottom: var(--sr-space-6);">
-          Il tuo sito professionale<br>
-          <span style="color: var(--sr-yellow);">in 5 giorni.</span><br>
-          Garantito.
+        <h1 class="sr-h1" style="color: var(--sr-paper); margin-bottom: var(--sr-space-6); line-height:1.05;">
+          Il tuo sito<br>
+          <span style="color: var(--sr-yellow);">decolla in 5 giorni.</span>
         </h1>
-        <p class="sr-lead" style="color: rgba(255,248,231,0.75); margin-bottom: var(--sr-space-8);">
-          Niente riunioni infinite. Niente sorprese sul prezzo. Compili un brief online, noi consegniamo. Se non rispettiamo i tempi, rimborso 50%.
+        <p class="sr-lead" style="color: rgba(255,255,255,0.6); margin-bottom: var(--sr-space-8); max-width: 440px;">
+          Paghi, compili un brief in 15 minuti, e il sito è online.<br>
+          Zero riunioni. Zero sorprese. Garantito per contratto.
         </p>
-        <div class="flex flex-wrap gap-4">
+        <div class="flex flex-wrap gap-4 items-center">
           <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-lg">
-            Voglio il mio sito — da 390€ →
+            Voglio il mio sito →
           </a>
-          <a href="#come-funziona" data-scroll-to="#come-funziona" class="sr-btn sr-btn-ghost sr-btn-lg" style="border-color: rgba(255,255,255,0.3); color: var(--sr-paper);">
+          <a href="#come-funziona" data-scroll-to="#come-funziona" class="text-sm font-medium" style="color:rgba(255,255,255,0.6);">
             Come funziona ↓
           </a>
         </div>
         <!-- Trust stats -->
-        <div class="flex flex-wrap gap-8 mt-10 pt-10" style="border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="flex flex-wrap gap-8 mt-10 pt-10" style="border-top: 1px solid rgba(255,255,255,0.08);">
           <div>
-            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">50+</div>
-            <div class="text-sm" style="color: rgba(255,255,255,0.5);">Siti consegnati</div>
+            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">5</div>
+            <div class="text-xs" style="color: rgba(255,255,255,0.4);">giorni di consegna</div>
           </div>
           <div>
-            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">5gg</div>
-            <div class="text-sm" style="color: rgba(255,255,255,0.5);">Tempo medio consegna</div>
+            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">390€</div>
+            <div class="text-xs" style="color: rgba(255,255,255,0.4);">prezzo di partenza</div>
           </div>
           <div>
-            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">100%</div>
-            <div class="text-sm" style="color: rgba(255,255,255,0.5);">Clienti soddisfatti</div>
+            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">0</div>
+            <div class="text-xs" style="color: rgba(255,255,255,0.4);">riunioni</div>
+          </div>
+          <div>
+            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">50%</div>
+            <div class="text-xs" style="color: rgba(255,255,255,0.4);">rimborso se sforiamo</div>
           </div>
         </div>
       </div>
 
-      <!-- Right: card prodotto floating -->
+      <!-- Right: card prodotto -->
       <div class="relative flex justify-center md:justify-end">
-        <div class="sr-card-pricing is-featured relative max-w-sm w-full">
-          <div class="sr-badge sr-badge-yellow mb-4" style="display:inline-flex;">RAZZO PRO — Più venduto</div>
-          <div class="sr-price mb-1" style="color: var(--sr-yellow);">590€</div>
-          <div class="text-sm line-through mb-6" style="color: rgba(255,255,255,0.4);">era 790€</div>
-          <ul class="space-y-3 mb-8">
-            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
-              <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Fino a 8 pagine
-            </li>
-            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
-              <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Blog / news integrato
-            </li>
-            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
-              <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> SEO on-page completo
-            </li>
-            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
-              <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Dominio + hosting 1 anno inclusi
-            </li>
-            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
-              <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Consegna in 7 giorni lavorativi
-            </li>
-          </ul>
-          <a href="https://buy.stripe.com/PRO_LINK_QUI" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
-            Acquista ora — 590€
-          </a>
-          <p class="text-center text-xs mt-3" style="color: rgba(255,255,255,0.4);">Rimborso 50% se non consegniamo in 7gg</p>
+        <div class="relative max-w-xs w-full" style="background:#141414; border:1px solid rgba(255,255,255,0.1); border-radius:var(--sr-radius-2xl); overflow:hidden;">
+          <div style="padding: var(--sr-space-6);">
+            <p style="font-size:11px; font-weight:700; letter-spacing:0.1em; color:rgba(255,255,255,0.35); text-transform:uppercase; margin-bottom:var(--sr-space-3);">Più venduto</p>
+            <p style="font-family:var(--sr-font-display); font-weight:700; font-size:13px; letter-spacing:0.06em; color:rgba(255,255,255,0.9); text-transform:uppercase; margin-bottom:var(--sr-space-2);">Razzo Pro</p>
+            <div class="sr-price" style="color: var(--sr-yellow); margin-bottom:var(--sr-space-1);">590€</div>
+            <div class="text-sm line-through mb-6" style="color: rgba(255,255,255,0.3);">690€</div>
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
+                <span style="width:7px;height:7px;border-radius:50%;background:var(--sr-yellow);flex-shrink:0;display:inline-block;"></span>5 pagine
+              </li>
+              <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
+                <span style="width:7px;height:7px;border-radius:50%;background:var(--sr-yellow);flex-shrink:0;display:inline-block;"></span>Blog
+              </li>
+              <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
+                <span style="width:7px;height:7px;border-radius:50%;background:var(--sr-yellow);flex-shrink:0;display:inline-block;"></span>SEO on-page
+              </li>
+              <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
+                <span style="width:7px;height:7px;border-radius:50%;background:var(--sr-yellow);flex-shrink:0;display:inline-block;"></span>Google Business
+              </li>
+            </ul>
+            <a href="https://buy.stripe.com/PRO_LINK_QUI" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
+              Scelgo Pro →
+            </a>
+          </div>
+          <!-- Barra garanzia verde in fondo -->
+          <div style="background:rgba(34,197,94,0.12); border-top:1px solid rgba(34,197,94,0.2); padding:10px var(--sr-space-6); display:flex; align-items:center; gap:8px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--sr-success);flex-shrink:0;display:inline-block;"></span>
+            <span style="font-size:12px; color:var(--sr-success); font-weight:500;">Consegna garantita entro 5 giorni</span>
+          </div>
         </div>
       </div>
     </div>

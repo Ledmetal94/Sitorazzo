@@ -7,16 +7,14 @@
   const iconClose = document.getElementById('close-icon');
   if (!navbar || !inner) return;
 
-  /* ── Scroll: opacità navbar ── */
+  /* ── Scroll: bordo sottile su dark navbar ── */
   function onScroll() {
-    if (window.scrollY > 40) {
-      inner.style.background   = 'rgba(255,255,255,0.97)';
-      inner.style.boxShadow    = 'var(--sr-shadow-md)';
-      inner.style.borderColor  = 'transparent';
+    if (window.scrollY > 60) {
+      navbar.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+      navbar.style.boxShadow    = '0 4px 24px rgba(0,0,0,0.4)';
     } else {
-      inner.style.background   = 'rgba(255,255,255,0.80)';
-      inner.style.boxShadow    = 'var(--sr-shadow-sm)';
-      inner.style.borderColor  = 'var(--sr-border)';
+      navbar.style.borderBottom = 'none';
+      navbar.style.boxShadow    = 'none';
     }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
