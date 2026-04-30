@@ -1,0 +1,1477 @@
+# Sitorazzo — Piano A: Setup + Landing Page
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Repo funzionante su Vercel con landing page completa (`index.html`) pronta per campagne Meta Ads.
+
+**Architecture:** HTML statico + Tailwind CSS compilato. Nessun framework. Design tokens da `tokens.css` (source of truth), classi componente da `components.css`, preset Tailwind per utility classes brand. Ogni sezione è una `<section>` semantica con id navigabile.
+
+**Tech Stack:** Tailwind CSS v3 CLI, Vanilla JS, Google Fonts, Meta Pixel, GA4, Microsoft Clarity, Schema JSON-LD, Vercel (deploy automatico da GitHub).
+
+---
+
+## File Map
+
+| File | Azione | Responsabilità |
+|------|--------|----------------|
+| `package.json` | Crea | Script build/dev Tailwind |
+| `tailwind.config.js` | Crea | Config con preset brand |
+| `css/input.css` | Crea | Entry point Tailwind (@tailwind directives) |
+| `css/tokens.css` | Copia | Design tokens (non modificare) |
+| `css/components.css` | Copia | Classi componente primitive |
+| `css/main.css` | Generato | Output compilato Tailwind (gitignored) |
+| `assets/` | Copia | Loghi, favicon, touch icon |
+| `vercel.json` | Crea | Routing Vercel |
+| `.gitignore` | Crea | Ignora node_modules, main.css |
+| `js/navbar.js` | Crea | Scroll behavior navbar pill |
+| `js/faq.js` | Crea | FAQ accordion |
+| `index.html` | Crea | Landing page completa (15 sezioni) |
+
+---
+
+## Task 1: Struttura repo e toolchain
+
+**Files:**
+- Create: `package.json`
+- Create: `tailwind.config.js`
+- Create: `css/input.css`
+- Create: `vercel.json`
+- Create: `.gitignore`
+
+- [ ] **Step 1.1: Crea `package.json`**
+
+```json
+{
+  "name": "sitorazzo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tailwindcss -i ./css/input.css -o ./css/main.css --watch",
+    "build": "tailwindcss -i ./css/input.css -o ./css/main.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
+```
+
+- [ ] **Step 1.2: Installa dipendenze**
+
+```bash
+npm install
+```
+
+Atteso: creazione `node_modules/`, `package-lock.json`.
+
+- [ ] **Step 1.3: Copia `tailwind.preset.cjs` dal handoff**
+
+```bash
+cp "../Progetto Siti web/design_handoff_sitorazzo/tailwind.preset.cjs" ./tailwind.preset.cjs
+```
+
+- [ ] **Step 1.4: Crea `tailwind.config.js`**
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./*.html', './js/**/*.js'],
+  presets: [require('./tailwind.preset.cjs')],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+- [ ] **Step 1.5: Crea `css/input.css`**
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+- [ ] **Step 1.6: Copia `tokens.css` e `components.css` dal handoff**
+
+```bash
+cp "../Progetto Siti web/design_handoff_sitorazzo/tokens.css" ./css/tokens.css
+cp "../Progetto Siti web/design_handoff_sitorazzo/components.css" ./css/components.css
+```
+
+- [ ] **Step 1.7: Copia `assets/` dal handoff**
+
+```bash
+cp -r "../Progetto Siti web/design_handoff_sitorazzo/assets/." ./assets/
+```
+
+Verifica: `ls assets/` deve mostrare favicon_32.png, favicon_512.png, apple-touch-icon.png, Sitorazzo_Lockup_*.png, Sitorazzo_Logomark_*.png.
+
+- [ ] **Step 1.8: Crea `vercel.json`**
+
+```json
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/css/main.css",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}
+```
+
+- [ ] **Step 1.9: Crea `.gitignore`**
+
+```
+node_modules/
+css/main.css
+.DS_Store
+*.log
+```
+
+- [ ] **Step 1.10: Verifica build Tailwind**
+
+```bash
+npm run build
+```
+
+Atteso: `css/main.css` creato. Nessun errore.
+
+- [ ] **Step 1.11: Commit**
+
+```bash
+git add package.json package-lock.json tailwind.config.js tailwind.preset.cjs css/input.css css/tokens.css css/components.css assets/ vercel.json .gitignore
+git commit -m "chore: setup toolchain Tailwind + asset handoff"
+```
+
+---
+
+## Task 2: Shell HTML + head
+
+**Files:**
+- Create: `index.html`
+
+- [ ] **Step 2.1: Crea `index.html` con head completo**
+
+```html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sitorazzo — Sito professionale in 5 giorni a 390€ | Latina</title>
+  <meta name="description" content="Sito web professionale per la tua attività in 5 giorni lavorativi a partire da 390€. Garanzia rimborso 50%. Virtual Zone S.r.l. — Latina.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sitorazzo.it/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sitorazzo.it/">
+  <meta property="og:title" content="Sitorazzo — Sito professionale in 5 giorni a 390€">
+  <meta property="og:description" content="Sito web professionale per la tua attività in 5 giorni lavorativi a partire da 390€. Garanzia rimborso 50%.">
+  <meta property="og:image" content="https://sitorazzo.it/assets/Sitorazzo_Lockup_OnBlack.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon_512.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'PIXEL_ID_QUI');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_QUI&ev=PageView&noscript=1"/></noscript>
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","CLARITY_ID_QUI");
+  </script>
+
+  <!-- Schema JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://sitorazzo.it/#organization",
+        "name": "Sitorazzo",
+        "url": "https://sitorazzo.it",
+        "logo": "https://sitorazzo.it/assets/Sitorazzo_Logomark_256px.png",
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Virtual Zone S.r.l.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Latina",
+            "addressRegion": "Lazio",
+            "addressCountry": "IT"
+          }
+        }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://sitorazzo.it/#business",
+        "name": "Sitorazzo — Virtual Zone S.r.l.",
+        "url": "https://sitorazzo.it",
+        "telephone": "+39-NUMERO-QUI",
+        "email": "info@sitorazzo.it",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "INDIRIZZO QUI",
+          "addressLocality": "Latina",
+          "addressRegion": "Lazio",
+          "postalCode": "04100",
+          "addressCountry": "IT"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 41.4666,
+          "longitude": 12.9035
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ],
+        "priceRange": "€€"
+      },
+      {
+        "@type": "Service",
+        "name": "Sito Web Start",
+        "provider": {"@id": "https://sitorazzo.it/#business"},
+        "offers": {
+          "@type": "Offer",
+          "price": "390",
+          "priceCurrency": "EUR"
+        },
+        "description": "Sito web professionale fino a 5 pagine in 5 giorni lavorativi."
+      },
+      {
+        "@type": "Service",
+        "name": "Sito Web Pro",
+        "provider": {"@id": "https://sitorazzo.it/#business"},
+        "offers": {
+          "@type": "Offer",
+          "price": "590",
+          "priceCurrency": "EUR"
+        },
+        "description": "Sito web professionale fino a 8 pagine con blog in 7 giorni lavorativi."
+      },
+      {
+        "@type": "Service",
+        "name": "Sito Web Power",
+        "provider": {"@id": "https://sitorazzo.it/#business"},
+        "offers": {
+          "@type": "Offer",
+          "price": "1290",
+          "priceCurrency": "EUR"
+        },
+        "description": "Sito web completo con e-commerce e SEO avanzato in 10 giorni lavorativi."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Quanto costa un sito web professionale?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "I nostri pacchetti partono da 390€ per il piano Start. Il piano Pro costa 590€ (invece di 790€ per i primi 50 clienti) e il piano Power 1.290€."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Davvero il sito è pronto in 5 giorni?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sì. Il processo è strutturato per consegnare in 5 giorni lavorativi (piano Start), 7 (Pro) o 10 (Power). Se non rispettiamo i tempi, rimborsiamo il 50%."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Cosa succede se non sono soddisfatto?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Se il sito non viene consegnato nei tempi garantiti, rimborsiamo il 50% del pagamento. La garanzia è scritta nel contratto."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Devo partecipare a riunioni o call?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Raccogliamo tutto tramite un brief online che compili in 10 minuti. Nessuna riunione, nessuna call infinita."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Il sito è mio al 100%?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sì. Alla consegna trasferiamo dominio, hosting e tutti i file. Il sito è tuo, senza canoni mensili nascosti."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- SEZIONI INSERITE NEI TASK SUCCESSIVI -->
+
+  <!-- JS -->
+  <script src="/js/navbar.js"></script>
+  <script src="/js/faq.js"></script>
+  <script>
+    // Smooth scroll CTA
+    document.querySelectorAll('[data-scroll-to]').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(el.dataset.scrollTo);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Meta Pixel: ViewContent quando entra in #pacchetti
+    const pkgObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: 'Pacchetti' });
+          pkgObs.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    const pkgSection = document.querySelector('#pacchetti');
+    if (pkgSection) pkgObs.observe(pkgSection);
+
+    // Meta Pixel: InitiateCheckout su click CTA pacchetto
+    document.querySelectorAll('[data-pkg-cta]').forEach(el => {
+      el.addEventListener('click', () => {
+        if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout', { content_name: el.dataset.pkgCta });
+        if (typeof gtag !== 'undefined') gtag('event', 'begin_checkout', { item_name: el.dataset.pkgCta });
+      });
+    });
+  </script>
+</body>
+</html>
+```
+
+- [ ] **Step 2.2: Commit shell**
+
+```bash
+git add index.html
+git commit -m "feat: html shell con head, fonts, pixel, schema JSON-LD"
+```
+
+---
+
+## Task 3: Navbar pill
+
+**Files:**
+- Modify: `index.html` (inserire dopo `<body>`)
+- Create: `js/navbar.js`
+
+- [ ] **Step 3.1: Aggiungi navbar a `index.html` dopo `<body>`**
+
+```html
+<!-- NAVBAR -->
+<nav id="navbar" class="fixed left-1/2 -translate-x-1/2 z-[200] transition-all duration-300" style="top:20px; width:min(calc(100% - 32px), 1120px);">
+  <div id="navbar-inner" class="flex items-center justify-between px-5 py-3 rounded-full border border-[var(--sr-border)] bg-white/80 backdrop-blur-md transition-all duration-300" style="box-shadow: var(--sr-shadow-sm);">
+    <!-- Logo -->
+    <a href="/" aria-label="Sitorazzo home">
+      <img src="/assets/Sitorazzo_Lockup_OnWarmWhite.png" alt="Sitorazzo" class="h-7 w-auto">
+    </a>
+    <!-- Links desktop -->
+    <div class="hidden md:flex items-center gap-6">
+      <a href="#come-funziona" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">Come funziona</a>
+      <a href="#pacchetti" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">Prezzi</a>
+      <a href="#faq" class="text-sm font-medium text-[var(--sr-ink-70)] hover:text-[var(--sr-ink)] transition-colors">FAQ</a>
+    </div>
+    <!-- CTA -->
+    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-sm">Voglio il mio sito →</a>
+  </div>
+</nav>
+```
+
+- [ ] **Step 3.2: Crea `js/navbar.js`**
+
+```js
+(function () {
+  const navbar = document.getElementById('navbar');
+  const inner = document.getElementById('navbar-inner');
+  if (!navbar || !inner) return;
+
+  function onScroll() {
+    if (window.scrollY > 40) {
+      inner.style.background = 'rgba(255,255,255,0.97)';
+      inner.style.boxShadow = 'var(--sr-shadow-md)';
+      inner.style.borderColor = 'transparent';
+    } else {
+      inner.style.background = 'rgba(255,255,255,0.80)';
+      inner.style.boxShadow = 'var(--sr-shadow-sm)';
+      inner.style.borderColor = 'var(--sr-border)';
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+```
+
+- [ ] **Step 3.3: Build CSS e verifica**
+
+```bash
+npm run build
+```
+
+Apri `index.html` nel browser. La navbar pill deve essere visibile centrata in alto.
+
+- [ ] **Step 3.4: Commit**
+
+```bash
+git add index.html js/navbar.js
+git commit -m "feat: navbar pill frosted glass con scroll opacity"
+```
+
+---
+
+## Task 4: Sezione Hero
+
+**Files:**
+- Modify: `index.html` (dopo `</nav>`)
+
+- [ ] **Step 4.1: Aggiungi sezione hero**
+
+```html
+<!-- HERO -->
+<section id="hero" class="sr-section-ink relative overflow-hidden" style="padding-top: 140px; padding-bottom: var(--sr-space-20);">
+  <div class="sr-container">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <!-- Left: copy -->
+      <div>
+        <div class="sr-badge sr-badge-yellow mb-6" style="display:inline-flex;">
+          <span>★ FIRST 50</span>
+          <span class="ml-2 opacity-70">— Prezzo lancio garantito</span>
+        </div>
+        <h1 class="sr-h1" style="color: var(--sr-paper); margin-bottom: var(--sr-space-6);">
+          Il tuo sito professionale<br>
+          <span style="color: var(--sr-yellow);">in 5 giorni.</span><br>
+          Garantito.
+        </h1>
+        <p class="sr-lead" style="color: rgba(255,248,231,0.75); margin-bottom: var(--sr-space-8);">
+          Niente riunioni infinite. Niente sorprese sul prezzo. Compili un brief online, noi consegniamo. Se non rispettiamo i tempi, rimborso 50%.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-lg">
+            Voglio il mio sito — da 390€ →
+          </a>
+          <a href="#come-funziona" data-scroll-to="#come-funziona" class="sr-btn sr-btn-ghost sr-btn-lg" style="border-color: rgba(255,255,255,0.3); color: var(--sr-paper);">
+            Come funziona ↓
+          </a>
+        </div>
+        <!-- Trust stats -->
+        <div class="flex flex-wrap gap-8 mt-10 pt-10" style="border-top: 1px solid rgba(255,255,255,0.1);">
+          <div>
+            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">50+</div>
+            <div class="text-sm" style="color: rgba(255,255,255,0.5);">Siti consegnati</div>
+          </div>
+          <div>
+            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">5gg</div>
+            <div class="text-sm" style="color: rgba(255,255,255,0.5);">Tempo medio consegna</div>
+          </div>
+          <div>
+            <div class="sr-mono text-2xl font-bold" style="color: var(--sr-yellow);">100%</div>
+            <div class="text-sm" style="color: rgba(255,255,255,0.5);">Clienti soddisfatti</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: card prodotto floating -->
+      <div class="relative flex justify-center md:justify-end">
+        <div class="sr-card-pricing is-featured relative max-w-sm w-full">
+          <div class="sr-badge sr-badge-yellow mb-4" style="display:inline-flex;">RAZZO PRO — Più venduto</div>
+          <div class="sr-price mb-1" style="color: var(--sr-yellow);">590€</div>
+          <div class="text-sm line-through mb-6" style="color: rgba(255,255,255,0.4);">era 790€</div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
+              <span style="color: var(--sr-success);">✓</span> Fino a 8 pagine
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
+              <span style="color: var(--sr-success);">✓</span> Blog / news integrato
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
+              <span style="color: var(--sr-success);">✓</span> SEO on-page completo
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
+              <span style="color: var(--sr-success);">✓</span> Dominio + hosting 1 anno inclusi
+            </li>
+            <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.85);">
+              <span style="color: var(--sr-success);">✓</span> Consegna in 7 giorni lavorativi
+            </li>
+          </ul>
+          <a href="https://buy.stripe.com/PRO_LINK_QUI" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
+            Acquista ora — 590€
+          </a>
+          <p class="text-center text-xs mt-3" style="color: rgba(255,255,255,0.4);">Rimborso 50% se non consegniamo in 7gg</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 4.2: Build + verifica visiva**
+
+```bash
+npm run build
+```
+
+Apri browser. L'hero deve essere: sfondo nero, testo bianco, badge giallo FIRST 50, card PRO a destra scura con prezzo giallo.
+
+- [ ] **Step 4.3: Commit**
+
+```bash
+git add index.html css/main.css
+git commit -m "feat: sezione hero dark con card PRO e trust stats"
+```
+
+---
+
+## Task 5: Trust bar
+
+**Files:**
+- Modify: `index.html` (dopo `</section>` hero)
+
+- [ ] **Step 5.1: Aggiungi trust bar**
+
+```html
+<!-- TRUST BAR -->
+<section class="py-5 border-y" style="border-color: var(--sr-border); background: var(--sr-warm);">
+  <div class="sr-container">
+    <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+      <div class="flex items-center gap-2 text-sm font-medium">
+        <span style="color: var(--sr-success);">⚡</span>
+        <span>5 giorni garantiti</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm font-medium">
+        <span style="color: var(--sr-success);">💰</span>
+        <span>Prezzo fisso, niente sorprese</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm font-medium">
+        <span style="color: var(--sr-success);">🚫</span>
+        <span>Zero riunioni</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm font-medium">
+        <span style="color: var(--sr-success);">📍</span>
+        <span>Sede a Latina, LT</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm font-medium">
+        <span style="color: var(--sr-success);">🛡️</span>
+        <span>Rimborso 50% garantito</span>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 5.2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: trust bar 5 pillole di fiducia"
+```
+
+---
+
+## Task 6: Sezione Problema
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 6.1: Aggiungi sezione problema**
+
+```html
+<!-- PROBLEMA -->
+<section class="sr-section">
+  <div class="sr-container" style="max-width: 800px;">
+    <p class="sr-eyebrow text-center mb-4">Il problema</p>
+    <h2 class="sr-h2 text-center mb-12">Sei stanco di&hellip;</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="sr-card flex gap-4">
+        <div class="text-2xl flex-shrink-0">😤</div>
+        <div>
+          <h3 class="font-bold mb-1">Agenzie che spariscono</h3>
+          <p class="sr-lead text-sm">Preventivi a vuoto, call infinite, e poi silenzio per settimane. Il tuo sito non arriva mai.</p>
+        </div>
+      </div>
+      <div class="sr-card flex gap-4">
+        <div class="text-2xl flex-shrink-0">💸</div>
+        <div>
+          <h3 class="font-bold mb-1">Prezzi gonfiati senza senso</h3>
+          <p class="sr-lead text-sm">2.000€, 5.000€, "dipende"… Nessuno ti dice il prezzo finale finché non hai firmato.</p>
+        </div>
+      </div>
+      <div class="sr-card flex gap-4">
+        <div class="text-2xl flex-shrink-0">🛠️</div>
+        <div>
+          <h3 class="font-bold mb-1">Wix e template fatti-da-soli</h3>
+          <p class="sr-lead text-sm">Ci hai provato. Hai perso un weekend. Il risultato sembra un sito del 2008 e ti vergogni a mandarlo ai clienti.</p>
+        </div>
+      </div>
+      <div class="sr-card flex gap-4">
+        <div class="text-2xl flex-shrink-0">⏳</div>
+        <div>
+          <h3 class="font-bold mb-1">Mesi di attesa</h3>
+          <p class="sr-lead text-sm">I freelance sono sempre "pieni" o consegnano in 3 mesi. Nel frattempo i tuoi concorrenti sono già online.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-12">
+      <p class="text-xl font-bold mb-2">Noi facciamo diversamente.</p>
+      <p class="sr-lead">Brief online → sito live → consegna in 5 giorni. <span class="sr-highlight">Garantito per contratto.</span></p>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 6.2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: sezione problema pain agitation 4 card"
+```
+
+---
+
+## Task 7: Come funziona
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 7.1: Aggiungi sezione come funziona**
+
+```html
+<!-- COME FUNZIONA -->
+<section id="come-funziona" class="sr-section sr-section-warm">
+  <div class="sr-container">
+    <p class="sr-eyebrow text-center mb-4">Il processo</p>
+    <h2 class="sr-h2 text-center mb-4">Da zero a online in 5 giorni</h2>
+    <p class="sr-lead text-center mb-16" style="max-width:560px; margin-left:auto; margin-right:auto;">Zero riunioni, zero call. Compili un brief, noi eseguiamo. Ogni giorno ha un deliverable preciso.</p>
+
+    <div class="grid md:grid-cols-4 gap-8 relative">
+      <!-- Linea connettore desktop -->
+      <div class="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px" style="background: var(--sr-border);"></div>
+
+      <div class="text-center relative">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10" style="background: var(--sr-yellow);">
+          <span class="sr-mono font-bold text-lg">LUN</span>
+        </div>
+        <h3 class="font-bold mb-2">Brief & Pagamento</h3>
+        <p class="text-sm" style="color: var(--sr-ink-70);">Compili il brief online in 10 minuti. Pagamento sicuro via Stripe. Partiamo subito.</p>
+      </div>
+
+      <div class="text-center relative">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 border-2" style="background: var(--sr-paper); border-color: var(--sr-ink);">
+          <span class="sr-mono font-bold text-lg">MAR</span>
+        </div>
+        <h3 class="font-bold mb-2">Struttura & Design</h3>
+        <p class="text-sm" style="color: var(--sr-ink-70);">Costruiamo la struttura del sito e definiamo il design. Nessuna approvazione necessaria — ti fidiamo.</p>
+      </div>
+
+      <div class="text-center relative">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 border-2" style="background: var(--sr-paper); border-color: var(--sr-ink);">
+          <span class="sr-mono font-bold text-lg">MER</span>
+        </div>
+        <h3 class="font-bold mb-2">Sviluppo & Contenuti</h3>
+        <p class="text-sm" style="color: var(--sr-ink-70);">Sviluppo del sito con i tuoi testi e immagini. Ottimizzazione SEO on-page inclusa.</p>
+      </div>
+
+      <div class="text-center relative">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10" style="background: var(--sr-ink);">
+          <span class="sr-mono font-bold text-lg" style="color: var(--sr-yellow);">VEN</span>
+        </div>
+        <h3 class="font-bold mb-2">Go Live 🚀</h3>
+        <p class="text-sm" style="color: var(--sr-ink-70);">Il sito va online. Trasferimento dominio e credenziali. È tuo al 100%, senza canoni mensili.</p>
+      </div>
+    </div>
+
+    <div class="text-center mt-16">
+      <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-primary sr-btn-lg">Inizia ora →</a>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 7.2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: sezione come funziona 4 step timeline"
+```
+
+---
+
+## Task 8: Pacchetti prezzi
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 8.1: Aggiungi sezione pacchetti**
+
+```html
+<!-- PACCHETTI -->
+<section id="pacchetti" class="sr-section">
+  <div class="sr-container">
+    <p class="sr-eyebrow text-center mb-4">Prezzi</p>
+    <h2 class="sr-h2 text-center mb-4">Scegli il tuo pacchetto</h2>
+    <p class="sr-lead text-center mb-16" style="max-width:560px; margin-left:auto; margin-right:auto;">Prezzi fissi, tutto incluso. Niente extra, niente sorprese a fine lavori.</p>
+
+    <div class="grid md:grid-cols-3 gap-6 items-center">
+
+      <!-- START -->
+      <div class="sr-card-pricing">
+        <p class="sr-eyebrow mb-3">Start</p>
+        <div class="sr-price mb-1">390€</div>
+        <p class="text-sm mb-6" style="color: var(--sr-ink-70);">Consegna in 5 giorni lavorativi</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> Fino a 5 pagine</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> Design professionale custom</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> Mobile responsive</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> SEO base (titoli, meta)</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> Dominio + hosting 1 anno</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> Form contatto</li>
+          <li class="flex items-start gap-2 text-sm text-gray-400"><span>—</span> Blog</li>
+          <li class="flex items-start gap-2 text-sm text-gray-400"><span>—</span> E-commerce</li>
+        </ul>
+        <a href="https://buy.stripe.com/START_LINK_QUI" data-pkg-cta="Start" class="sr-btn sr-btn-secondary w-full justify-center">
+          Acquista Start — 390€
+        </a>
+        <p class="text-center text-xs mt-3" style="color: var(--sr-ink-40);">Rimborso 50% se non consegniamo in 5gg</p>
+      </div>
+
+      <!-- PRO (featured) -->
+      <div class="sr-card-pricing is-featured relative">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+          <span class="sr-badge sr-badge-yellow">⚡ Più venduto</span>
+        </div>
+        <p class="sr-eyebrow mb-3" style="color: rgba(255,255,255,0.5);">Pro</p>
+        <div class="sr-price mb-1" style="color: var(--sr-yellow);">590€</div>
+        <div class="flex items-center gap-2 mb-6">
+          <span class="text-sm line-through" style="color: rgba(255,255,255,0.3);">790€</span>
+          <span class="sr-badge sr-badge-yellow text-xs">FIRST 50</span>
+        </div>
+        <p class="text-sm mb-6" style="color: rgba(255,255,255,0.6);">Consegna in 7 giorni lavorativi</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.85);"><span style="color:var(--sr-success);">✓</span> Tutto di Start</li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.85);"><span style="color:var(--sr-success);">✓</span> Fino a 8 pagine</li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.85);"><span style="color:var(--sr-success);">✓</span> Blog / news integrato</li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.85);"><span style="color:var(--sr-success);">✓</span> SEO on-page avanzato</li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.85);"><span style="color:var(--sr-success);">✓</span> Google Analytics 4</li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.85);"><span style="color:var(--sr-success);">✓</span> Integrazione WhatsApp</li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.85);"><span style="color:var(--sr-success);">✓</span> Scheda Google My Business</li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.4);"><span>—</span> E-commerce</li>
+        </ul>
+        <a href="https://buy.stripe.com/PRO_LINK_QUI" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
+          Acquista Pro — 590€
+        </a>
+        <p class="text-center text-xs mt-3" style="color: rgba(255,255,255,0.35);">Rimborso 50% se non consegniamo in 7gg</p>
+      </div>
+
+      <!-- POWER -->
+      <div class="sr-card-pricing">
+        <p class="sr-eyebrow mb-3">Power</p>
+        <div class="sr-price mb-1">1.290€</div>
+        <p class="text-sm mb-6" style="color: var(--sr-ink-70);">Consegna in 10 giorni lavorativi</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> Tutto di Pro</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> E-commerce (fino a 50 prodotti)</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> Pagamenti online (Stripe/PayPal)</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> SEO tecnico avanzato</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> Campagna Google Ads inclusa</li>
+          <li class="flex items-start gap-2 text-sm"><span style="color:var(--sr-success);">✓</span> 30gg supporto post-lancio</li>
+        </ul>
+        <a href="https://buy.stripe.com/POWER_LINK_QUI" data-pkg-cta="Power" class="sr-btn sr-btn-secondary w-full justify-center">
+          Acquista Power — 1.290€
+        </a>
+        <p class="text-center text-xs mt-3" style="color: var(--sr-ink-40);">Rimborso 50% se non consegniamo in 10gg</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 8.2: Build + verifica**
+
+```bash
+npm run build
+```
+
+La card PRO deve essere scura (sfondo `--sr-ink`), scalata e con badge "Più venduto". Le altre due card bianche con bordo sottile.
+
+- [ ] **Step 8.3: Commit**
+
+```bash
+git add index.html css/main.css
+git commit -m "feat: sezione pacchetti 3 piani prezzi con card featured PRO"
+```
+
+---
+
+## Task 9: Cosa è incluso + Confronto prezzi
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 9.1: Aggiungi sezione cosa è incluso**
+
+```html
+<!-- INCLUSO -->
+<section class="sr-section sr-section-warm">
+  <div class="sr-container">
+    <p class="sr-eyebrow text-center mb-4">Incluso in tutti i pacchetti</p>
+    <h2 class="sr-h2 text-center mb-16">Quello che ricevi, sempre</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="flex items-start gap-3">
+        <span class="text-xl flex-shrink-0">🔒</span>
+        <div><h4 class="font-bold mb-1">HTTPS incluso</h4><p class="text-sm" style="color:var(--sr-ink-70);">SSL certificato, sito sicuro, ranking Google migliore.</p></div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-xl flex-shrink-0">📱</span>
+        <div><h4 class="font-bold mb-1">Mobile responsive</h4><p class="text-sm" style="color:var(--sr-ink-70);">Perfetto su smartphone, tablet e desktop.</p></div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-xl flex-shrink-0">⚡</span>
+        <div><h4 class="font-bold mb-1">Caricamento veloce</h4><p class="text-sm" style="color:var(--sr-ink-70);">Ottimizzato per Lighthouse 95+. Google lo premia.</p></div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-xl flex-shrink-0">🌐</span>
+        <div><h4 class="font-bold mb-1">Dominio + hosting 1 anno</h4><p class="text-sm" style="color:var(--sr-ink-70);">Inclusi nel prezzo. Nessun costo nascosto il primo anno.</p></div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-xl flex-shrink-0">📧</span>
+        <div><h4 class="font-bold mb-1">Form contatto</h4><p class="text-sm" style="color:var(--sr-ink-70);">Ricevi richieste direttamente via email.</p></div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-xl flex-shrink-0">🗝️</span>
+        <div><h4 class="font-bold mb-1">Proprietà totale</h4><p class="text-sm" style="color:var(--sr-ink-70);">Alla consegna trasferiamo tutto. Il sito è tuo al 100%.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFRONTO PREZZI -->
+<section class="sr-section">
+  <div class="sr-container" style="max-width: 900px;">
+    <p class="sr-eyebrow text-center mb-4">Confronto</p>
+    <h2 class="sr-h2 text-center mb-16">Quanto costa altrove?</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr>
+            <th class="text-left py-4 px-4 font-bold" style="border-bottom: 2px solid var(--sr-ink);">Caratteristica</th>
+            <th class="py-4 px-4 font-bold text-center" style="background: var(--sr-yellow); border-radius: 8px 8px 0 0;">Sitorazzo</th>
+            <th class="py-4 px-4 text-center" style="color: var(--sr-ink-70); border-bottom: 2px solid var(--sr-border);">Agenzia</th>
+            <th class="py-4 px-4 text-center" style="color: var(--sr-ink-70); border-bottom: 2px solid var(--sr-border);">Freelance</th>
+            <th class="py-4 px-4 text-center" style="color: var(--sr-ink-70); border-bottom: 2px solid var(--sr-border);">Wix / Squarespace</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--sr-border);">
+            <td class="py-3 px-4 font-medium">Prezzo</td>
+            <td class="py-3 px-4 text-center font-bold" style="background: var(--sr-yellow-10);">390–1.290€</td>
+            <td class="py-3 px-4 text-center">2.000–8.000€</td>
+            <td class="py-3 px-4 text-center">500–2.000€</td>
+            <td class="py-3 px-4 text-center">~200€/anno + tempo</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--sr-border);">
+            <td class="py-3 px-4 font-medium">Tempi di consegna</td>
+            <td class="py-3 px-4 text-center font-bold" style="background: var(--sr-yellow-10);">5–10 giorni</td>
+            <td class="py-3 px-4 text-center">2–6 mesi</td>
+            <td class="py-3 px-4 text-center">1–3 mesi</td>
+            <td class="py-3 px-4 text-center">Fai tu, settimane</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--sr-border);">
+            <td class="py-3 px-4 font-medium">Garanzia scritta</td>
+            <td class="py-3 px-4 text-center font-bold" style="background: var(--sr-yellow-10);">✅ Rimborso 50%</td>
+            <td class="py-3 px-4 text-center">❌</td>
+            <td class="py-3 px-4 text-center">❌</td>
+            <td class="py-3 px-4 text-center">❌</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--sr-border);">
+            <td class="py-3 px-4 font-medium">Riunioni richieste</td>
+            <td class="py-3 px-4 text-center font-bold" style="background: var(--sr-yellow-10);">✅ Zero</td>
+            <td class="py-3 px-4 text-center">Molte</td>
+            <td class="py-3 px-4 text-center">Alcune</td>
+            <td class="py-3 px-4 text-center">Solo il tuo tempo</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 font-medium">Sito professionale custom</td>
+            <td class="py-3 px-4 text-center font-bold" style="background: var(--sr-yellow-10);">✅</td>
+            <td class="py-3 px-4 text-center">✅</td>
+            <td class="py-3 px-4 text-center">Dipende</td>
+            <td class="py-3 px-4 text-center">❌ Template</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 9.2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: sezioni incluso e confronto prezzi tabella"
+```
+
+---
+
+## Task 10: Garanzia + Showcase + Testimonianze
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 10.1: Aggiungi sezione garanzia**
+
+```html
+<!-- GARANZIA -->
+<section class="sr-section sr-section-yellow">
+  <div class="sr-container" style="max-width: 720px; text-align: center;">
+    <div class="text-4xl mb-6">🛡️</div>
+    <h2 class="sr-h2 mb-6">La garanzia Sitorazzo</h2>
+    <p class="sr-lead mb-8">Se il tuo sito non è online entro i giorni concordati (5, 7 o 10 giorni lavorativi dal pagamento), ti rimborsiamo il <strong>50% del totale pagato</strong>. Scritto nel contratto. Nessuna scusa, nessun cavillo.</p>
+    <div class="flex flex-wrap justify-center gap-6 mb-10">
+      <div class="text-center">
+        <div class="sr-mono font-bold text-3xl">5gg</div>
+        <div class="text-sm font-medium">Piano Start</div>
+      </div>
+      <div class="text-center">
+        <div class="sr-mono font-bold text-3xl">7gg</div>
+        <div class="text-sm font-medium">Piano Pro</div>
+      </div>
+      <div class="text-center">
+        <div class="sr-mono font-bold text-3xl">10gg</div>
+        <div class="text-sm font-medium">Piano Power</div>
+      </div>
+    </div>
+    <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-btn sr-btn-secondary sr-btn-lg">
+      Inizia con garanzia →
+    </a>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="showcase" class="sr-section">
+  <div class="sr-container">
+    <p class="sr-eyebrow text-center mb-4">Portfolio</p>
+    <h2 class="sr-h2 text-center mb-4">Siti che abbiamo consegnato</h2>
+    <p class="sr-lead text-center mb-16" style="max-width:560px; margin-left:auto; margin-right:auto;">Ogni settore, ogni stile. Tutti consegnati nei tempi garantiti.</p>
+    <!-- Griglia 3x2 placeholder — sostituire con mockup reali -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
+        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
+      </div>
+      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
+        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
+      </div>
+      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
+        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
+      </div>
+      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
+        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
+      </div>
+      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
+        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
+      </div>
+      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
+        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIANZE -->
+<section id="testimonianze" class="sr-section sr-section-warm">
+  <div class="sr-container">
+    <p class="sr-eyebrow text-center mb-4">Testimonianze</p>
+    <h2 class="sr-h2 text-center mb-16">Cosa dicono i nostri clienti</h2>
+    <!-- Placeholder — sostituire con video e screenshot reali -->
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="sr-card text-center">
+        <div class="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center text-xl" style="background: var(--sr-warm);">👤</div>
+        <p class="mb-4" style="color: var(--sr-ink-70);">"Testimonianza cliente reale — disponibile dopo i primi ordini."</p>
+        <div class="font-bold text-sm">Nome Cliente</div>
+        <div class="text-xs" style="color: var(--sr-ink-40);">Settore attività — Latina</div>
+      </div>
+      <div class="sr-card text-center">
+        <div class="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center text-xl" style="background: var(--sr-warm);">👤</div>
+        <p class="mb-4" style="color: var(--sr-ink-70);">"Testimonianza cliente reale — disponibile dopo i primi ordini."</p>
+        <div class="font-bold text-sm">Nome Cliente</div>
+        <div class="text-xs" style="color: var(--sr-ink-40);">Settore attività — Latina</div>
+      </div>
+      <div class="sr-card text-center">
+        <div class="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center text-xl" style="background: var(--sr-warm);">👤</div>
+        <p class="mb-4" style="color: var(--sr-ink-70);">"Testimonianza cliente reale — disponibile dopo i primi ordini."</p>
+        <div class="font-bold text-sm">Nome Cliente</div>
+        <div class="text-xs" style="color: var(--sr-ink-40);">Settore attività — Latina</div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 10.2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: sezioni garanzia, showcase placeholder, testimonianze placeholder"
+```
+
+---
+
+## Task 11: Chi siamo + FAQ
+
+**Files:**
+- Modify: `index.html`
+- Create: `js/faq.js`
+
+- [ ] **Step 11.1: Aggiungi sezione chi siamo**
+
+```html
+<!-- CHI SIAMO -->
+<section id="chi-siamo" class="sr-section">
+  <div class="sr-container">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <p class="sr-eyebrow mb-4">Azienda reale</p>
+        <h2 class="sr-h2 mb-6">Virtual Zone S.r.l. — Latina</h2>
+        <p class="sr-lead mb-6">Sitorazzo è un brand di <strong>Virtual Zone S.r.l.</strong>, azienda con sede a Latina che dal 2020 sviluppa esperienze digitali per PMI italiane. Non siamo una startup con sede in qualche isola senza ufficio.</p>
+        <p class="mb-6" style="color: var(--sr-ink-70);">Siamo in via [INDIRIZZO QUI], Latina (LT). Puoi venire a trovarci. Puoi chiamarci. Esisitamo davvero.</p>
+        <div class="flex flex-wrap gap-4">
+          <div class="sr-badge sr-badge-warm">📍 Latina, LT</div>
+          <div class="sr-badge sr-badge-warm">🏢 P.IVA IT[NUMERO QUI]</div>
+          <div class="sr-badge sr-badge-warm">📅 Dal 2020</div>
+        </div>
+      </div>
+      <div>
+        <!-- Google Maps embed — sostituire con embed reale -->
+        <div class="rounded-xl overflow-hidden aspect-video" style="background: var(--sr-warm); border: 1px solid var(--sr-border);">
+          <iframe
+            src="https://maps.google.com/maps?q=Latina,+LT&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Virtual Zone S.r.l. — Latina">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="sr-section sr-section-warm">
+  <div class="sr-container">
+    <p class="sr-eyebrow text-center mb-4">FAQ</p>
+    <h2 class="sr-h2 text-center mb-16">Domande frequenti</h2>
+    <div class="grid md:grid-cols-2 gap-x-12 gap-y-0 max-w-4xl mx-auto">
+
+      <!-- Colonna 1: Pagamento & Garanzia -->
+      <div>
+        <p class="sr-eyebrow mb-6">Pagamento &amp; Garanzia</p>
+        <div class="faq-item border-b" style="border-color: var(--sr-border);">
+          <button class="faq-trigger flex items-center justify-between w-full py-4 text-left font-bold" aria-expanded="false">
+            <span>Come funziona il pagamento?</span>
+            <span class="faq-icon transition-transform duration-200" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer overflow-hidden" style="max-height:0;">
+            <p class="pb-4 text-sm" style="color:var(--sr-ink-70);">Pagamento anticipato al 100% via Stripe (carte, bonifico, SEPA). Ricevi ricevuta fiscale. Il processo inizia il giorno lavorativo successivo al pagamento.</p>
+          </div>
+        </div>
+        <div class="faq-item border-b" style="border-color: var(--sr-border);">
+          <button class="faq-trigger flex items-center justify-between w-full py-4 text-left font-bold" aria-expanded="false">
+            <span>Come funziona la garanzia rimborso 50%?</span>
+            <span class="faq-icon transition-transform duration-200" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer overflow-hidden" style="max-height:0;">
+            <p class="pb-4 text-sm" style="color:var(--sr-ink-70);">Se non consegniamo nei giorni garantiti (5/7/10 giorni lavorativi), rimborsiamo il 50% entro 5 giorni lavorativi. La garanzia è scritta nel contratto che ricevi via email dopo il pagamento.</p>
+          </div>
+        </div>
+        <div class="faq-item border-b" style="border-color: var(--sr-border);">
+          <button class="faq-trigger flex items-center justify-between w-full py-4 text-left font-bold" aria-expanded="false">
+            <span>Posso pagare a rate?</span>
+            <span class="faq-icon transition-transform duration-200" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer overflow-hidden" style="max-height:0;">
+            <p class="pb-4 text-sm" style="color:var(--sr-ink-70);">Al momento no. Il pagamento è anticipato al 100% per garantire la priorità nella produzione e attivare la garanzia sui tempi.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonna 2: Processo & Tecnico -->
+      <div>
+        <p class="sr-eyebrow mb-6">Processo &amp; Tecnico</p>
+        <div class="faq-item border-b" style="border-color: var(--sr-border);">
+          <button class="faq-trigger flex items-center justify-between w-full py-4 text-left font-bold" aria-expanded="false">
+            <span>Devo partecipare a riunioni o call?</span>
+            <span class="faq-icon transition-transform duration-200" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer overflow-hidden" style="max-height:0;">
+            <p class="pb-4 text-sm" style="color:var(--sr-ink-70);">No. Tutto avviene tramite un brief online che compili in 10-15 minuti. Raccogliamo logo, testi, preferenze di stile e tutto il necessario. Nessuna call, nessuna riunione.</p>
+          </div>
+        </div>
+        <div class="faq-item border-b" style="border-color: var(--sr-border);">
+          <button class="faq-trigger flex items-center justify-between w-full py-4 text-left font-bold" aria-expanded="false">
+            <span>Il sito è mio al 100%?</span>
+            <span class="faq-icon transition-transform duration-200" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer overflow-hidden" style="max-height:0;">
+            <p class="pb-4 text-sm" style="color:var(--sr-ink-70);">Sì. Alla consegna trasferiamo dominio, credenziali hosting e tutti i file del sito. Nessun canone mensile, nessun lock-in. Il sito è completamente tuo.</p>
+          </div>
+        </div>
+        <div class="faq-item border-b" style="border-color: var(--sr-border);">
+          <button class="faq-trigger flex items-center justify-between w-full py-4 text-left font-bold" aria-expanded="false">
+            <span>Ho già un dominio, posso usarlo?</span>
+            <span class="faq-icon transition-transform duration-200" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer overflow-hidden" style="max-height:0;">
+            <p class="pb-4 text-sm" style="color:var(--sr-ink-70);">Sì. Se hai già un dominio lo usiamo, altrimenti ne registriamo uno nuovo incluso nel prezzo. Nel brief puoi specificare quale preferisci.</p>
+          </div>
+        </div>
+        <div class="faq-item border-b" style="border-color: var(--sr-border);">
+          <button class="faq-trigger flex items-center justify-between w-full py-4 text-left font-bold" aria-expanded="false">
+            <span>Posso richiedere modifiche dopo la consegna?</span>
+            <span class="faq-icon transition-transform duration-200" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer overflow-hidden" style="max-height:0;">
+            <p class="pb-4 text-sm" style="color:var(--sr-ink-70);">Sì. Includiamo un ciclo di revisioni prima del go-live. Modifiche extra post-consegna sono quotate separatamente (tariffa oraria o a progetto).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 11.2: Crea `js/faq.js`**
+
+```js
+(function () {
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const trigger = item.querySelector('.faq-trigger');
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
+    if (!trigger || !answer) return;
+
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+      // Close all others
+      document.querySelectorAll('.faq-item').forEach(other => {
+        const otherTrigger = other.querySelector('.faq-trigger');
+        const otherAnswer = other.querySelector('.faq-answer');
+        const otherIcon = other.querySelector('.faq-icon');
+        if (otherTrigger && otherAnswer) {
+          otherTrigger.setAttribute('aria-expanded', 'false');
+          otherAnswer.style.maxHeight = '0';
+          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      // Toggle current
+      if (!isOpen) {
+        trigger.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        if (icon) icon.style.transform = 'rotate(45deg)';
+      }
+    });
+  });
+})();
+```
+
+- [ ] **Step 11.3: Commit**
+
+```bash
+git add index.html js/faq.js
+git commit -m "feat: sezione chi siamo, FAQ accordion 2 colonne"
+```
+
+---
+
+## Task 12: CTA finale + Footer + WhatsApp sticky
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 12.1: Aggiungi CTA finale, footer e WhatsApp sticky**
+
+```html
+<!-- CTA FINALE -->
+<section class="sr-section sr-section-ink">
+  <div class="sr-container text-center" style="max-width: 640px;">
+    <div class="text-5xl mb-6">🚀</div>
+    <h2 class="sr-h2 mb-4" style="color: var(--sr-paper);">Pronto a partire?</h2>
+    <p class="sr-lead mb-4" style="color: rgba(255,248,231,0.7);">Sito professionale in 5 giorni a partire da 390€. Garanzia rimborso 50% scritta nel contratto.</p>
+    <div class="sr-card-pricing is-featured inline-block text-left mb-8" style="max-width: 320px; width:100%;">
+      <p class="sr-eyebrow mb-1" style="color:rgba(255,255,255,0.5);">Piano consigliato</p>
+      <div class="flex items-baseline gap-2 mb-1">
+        <span class="sr-price" style="color:var(--sr-yellow);">590€</span>
+        <span class="text-sm line-through" style="color:rgba(255,255,255,0.3);">790€</span>
+      </div>
+      <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">Piano Pro — 7 giorni garantiti</p>
+      <a href="https://buy.stripe.com/PRO_LINK_QUI" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
+        Acquista ora →
+      </a>
+    </div>
+    <div class="flex flex-col items-center gap-3">
+      <p class="text-sm" style="color:rgba(255,255,255,0.4);">Oppure scrivici su WhatsApp</p>
+      <a href="https://wa.me/39NUMEROQUI?text=Ciao,%20vorrei%20informazioni%20su%20Sitorazzo" class="sr-btn sr-btn-ghost" style="border-color:rgba(255,255,255,0.3); color:var(--sr-paper);">
+        💬 Scrivici su WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-12" style="background: var(--sr-ink); border-top: 1px solid rgba(255,255,255,0.08);">
+  <div class="sr-container">
+    <div class="grid md:grid-cols-4 gap-8 mb-12">
+      <div class="md:col-span-2">
+        <img src="/assets/Sitorazzo_Lockup_OnBlack.png" alt="Sitorazzo" class="h-8 mb-4">
+        <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5); max-width:320px;">Sito professionale in 5 giorni a partire da 390€. Un brand di Virtual Zone S.r.l.</p>
+        <p class="text-xs" style="color:rgba(255,255,255,0.3);">Virtual Zone S.r.l. — P.IVA IT[NUMERO QUI]<br>Via [INDIRIZZO QUI] — 04100 Latina (LT)</p>
+      </div>
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);">Sito</p>
+        <ul class="space-y-2">
+          <li><a href="#come-funziona" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Come funziona</a></li>
+          <li><a href="#pacchetti" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Prezzi</a></li>
+          <li><a href="#garanzia" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Garanzia</a></li>
+          <li><a href="#faq" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);">Legale</p>
+        <ul class="space-y-2">
+          <li><a href="/privacy" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Privacy Policy</a></li>
+          <li><a href="/cookie" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Cookie Policy</a></li>
+          <li><a href="/termini" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Termini di Servizio</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-8" style="border-top: 1px solid rgba(255,255,255,0.08);">
+      <p class="text-xs" style="color:rgba(255,255,255,0.25);">© 2026 Virtual Zone S.r.l. Tutti i diritti riservati. Sitorazzo è un marchio registrato di Virtual Zone S.r.l.</p>
+      <p class="text-xs mt-2" style="color:rgba(255,255,255,0.20);">Questo sito non è affiliato, sponsorizzato o approvato da Meta Platforms, Google LLC o TikTok Ltd. I loghi e marchi citati appartengono ai rispettivi proprietari.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP STICKY -->
+<a href="https://wa.me/39NUMEROQUI?text=Ciao,%20vorrei%20informazioni%20su%20Sitorazzo" 
+   class="fixed bottom-6 right-6 z-[200] flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
+   style="background: #25D366;"
+   aria-label="Contattaci su WhatsApp"
+   target="_blank" rel="noopener noreferrer">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+```
+
+- [ ] **Step 12.2: Build finale + verifica completa**
+
+```bash
+npm run build
+```
+
+Apri `index.html` nel browser. Verifica:
+- Navbar pill visibile in alto
+- Tutte le 15 sezioni presenti e scorribili
+- Card PRO hero e nella sezione pacchetti ha sfondo scuro
+- WhatsApp sticky visibile in basso a destra
+- FAQ accordion funzionante (click su domanda apre/chiude risposta)
+- Click CTA "Voglio il mio sito" fa scroll fluido a #pacchetti
+
+- [ ] **Step 12.3: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: CTA finale, footer, WhatsApp sticky button"
+```
+
+---
+
+## Task 13: QA mobile + Lighthouse
+
+**Files:**
+- Modify: `index.html` (fix eventuali problemi responsive)
+
+- [ ] **Step 13.1: Test mobile (DevTools)**
+
+Apri Chrome DevTools → Device Toolbar → iPhone 14 (390×844).
+
+Verifica checklist:
+- [ ] Hero: testo in colonna singola, card PRO sotto (non a fianco)
+- [ ] Navbar: pill visibile, CTA leggibile
+- [ ] Trust bar: pillole a capo su 2-3 righe (flex-wrap ok)
+- [ ] Come funziona: step in colonna singola su mobile
+- [ ] Pacchetti: card in colonna singola (card PRO non scaled su mobile)
+- [ ] Confronto prezzi: tabella scrollabile orizzontalmente (`overflow-x-auto`)
+- [ ] Footer: colonne in colonna singola
+- [ ] WhatsApp sticky: non copre contenuto importante
+
+Fix eventuali problemi aggiungendo classi responsive dove necessario.
+
+- [ ] **Step 13.2: Lighthouse audit**
+
+In Chrome DevTools → Lighthouse → Mobile → Generate Report.
+
+Target:
+- Performance: ≥ 90
+- Accessibility: ≥ 95
+- Best Practices: ≥ 95
+- SEO: ≥ 95
+
+Se Performance < 90 le cause più comuni sono:
+- Immagini non ottimizzate: aggiungi `loading="lazy"` e `width`/`height` alle img
+- Render-blocking resources: già mitigato con `display=swap` su Google Fonts
+- LCP alto: assicurarsi che il logo nella navbar abbia `fetchpriority="high"`
+
+Aggiungere `fetchpriority="high"` al logo navbar:
+```html
+<img src="/assets/Sitorazzo_Lockup_OnWarmWhite.png" alt="Sitorazzo" class="h-7 w-auto" fetchpriority="high">
+```
+
+- [ ] **Step 13.3: Commit QA**
+
+```bash
+git add index.html
+git commit -m "fix: responsive mobile e ottimizzazioni Lighthouse"
+```
+
+---
+
+## Task 14: Deploy Vercel
+
+**Files:**
+- Nessuna modifica — deploy dal repository GitHub
+
+- [ ] **Step 14.1: Push al repository**
+
+```bash
+git push origin main
+```
+
+- [ ] **Step 14.2: Configura Vercel**
+
+1. Vai su vercel.com → New Project
+2. Importa il repository GitHub `Ledmetal94/Sitorazzo`
+3. Framework Preset: **Other** (non Next.js o simili)
+4. Build Command: `npm run build`
+5. Output Directory: `.` (root)
+6. Installa e deploy
+
+- [ ] **Step 14.3: Verifica deploy**
+
+Apri la preview URL Vercel. Verifica:
+- CSS caricato correttamente (niente FOUC)
+- Favicon e logo visibili
+- WhatsApp sticky presente
+- Navbar pill funzionante
+
+- [ ] **Step 14.4: Configura dominio**
+
+In Vercel → Settings → Domains → aggiungi `sitorazzo.it` e `www.sitorazzo.it`.
+
+Aggiorna DNS del registrar:
+- Record A: `@` → IP Vercel (mostrato nella UI)
+- Record CNAME: `www` → `cname.vercel-dns.com`
+
+- [ ] **Step 14.5: Commit finale**
+
+```bash
+git tag v1.0.0-landing
+git push origin --tags
+git commit --allow-empty -m "chore: landing page live su sitorazzo.it"
+```
+
+---
+
+## Checklist Sprint 1 (Setup)
+
+- [ ] `package.json` creato con script build/dev
+- [ ] `npm install` eseguito senza errori
+- [ ] `tailwind.preset.cjs` copiato dal handoff
+- [ ] `tailwind.config.js` con preset brand
+- [ ] `css/input.css` con @tailwind directives
+- [ ] `css/tokens.css` e `css/components.css` copiati
+- [ ] `assets/` copiate dal handoff (8 file)
+- [ ] `vercel.json` con cache headers
+- [ ] `.gitignore` con node_modules e main.css
+- [ ] `npm run build` produce `css/main.css` senza errori
+- [ ] Commit "chore: setup toolchain"
+
+## Checklist Sprint 2 (Landing Page)
+
+- [ ] Shell HTML con head completo, Google Fonts, Pixel, GA4, Clarity, Schema JSON-LD
+- [ ] Navbar pill con frosted glass + scroll behavior
+- [ ] Hero dark con badge FIRST 50, copy, CTA, trust stats, card PRO featured
+- [ ] Trust bar 5 pillole
+- [ ] Sezione Problema 4 card pain points
+- [ ] Come funziona 4 step timeline
+- [ ] Pacchetti 3 piani con PRO featured scuro
+- [ ] Cosa è incluso 6 feature
+- [ ] Confronto prezzi tabella
+- [ ] Garanzia box giallo
+- [ ] Showcase griglia 6 placeholder
+- [ ] Testimonianze 3 placeholder
+- [ ] Chi siamo + Google Maps
+- [ ] FAQ accordion 2 colonne con `faq.js`
+- [ ] CTA finale con card PRO ripetuta
+- [ ] Footer con disclaimer Meta/Google
+- [ ] WhatsApp sticky SVG verde
+- [ ] `js/navbar.js` funzionante
+- [ ] `js/faq.js` funzionante
+- [ ] Smooth scroll da CTA a sezioni target
+- [ ] Meta Pixel InitiateCheckout su click CTA pacchetto
+- [ ] Mobile responsive verificato su 390px
+- [ ] Lighthouse ≥ 90 Performance, ≥ 95 SEO
+- [ ] Deploy Vercel funzionante
+- [ ] Dominio `sitorazzo.it` configurato
