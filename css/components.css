@@ -1,0 +1,272 @@
+/* ============================================================
+   SITORAZZO — COMPONENTI PRIMITIVI
+   Carica DOPO tokens.css. Stili pensati per landing + template clienti.
+   ============================================================ */
+
+/* ============================================================
+   TIPOGRAFIA · headings & utility classes
+   ============================================================ */
+.sr-h1, .sr-h2, .sr-h3, .sr-h4 {
+  font-family: var(--sr-font-display);
+  font-weight: var(--sr-fw-bold);
+  line-height: var(--sr-lh-tight);
+  letter-spacing: var(--sr-ls-tight);
+  margin: 0;
+}
+.sr-h1 { font-size: clamp(var(--sr-fs-5xl), 6vw, var(--sr-fs-7xl)); }
+.sr-h2 { font-size: clamp(var(--sr-fs-4xl), 4vw, var(--sr-fs-5xl)); }
+.sr-h3 { font-size: var(--sr-fs-3xl); }
+.sr-h4 { font-size: var(--sr-fs-2xl); }
+
+.sr-eyebrow {
+  font-family: var(--sr-font-mono);
+  font-size: var(--sr-fs-xs);
+  font-weight: var(--sr-fw-bold);
+  letter-spacing: var(--sr-ls-wide);
+  text-transform: uppercase;
+  color: var(--sr-ink-70);
+}
+.sr-lead {
+  font-size: var(--sr-fs-lg);
+  line-height: var(--sr-lh-relaxed);
+  color: var(--sr-ink-70);
+}
+.sr-mono {
+  font-family: var(--sr-font-mono);
+  letter-spacing: var(--sr-ls-mono);
+}
+
+/* Highlight giallo "marker" — usabile inline su parole chiave */
+.sr-highlight {
+  background: linear-gradient(180deg, transparent 60%, var(--sr-yellow) 60%);
+  padding: 0 0.1em;
+}
+
+/* ============================================================
+   BOTTONI
+   ============================================================ */
+.sr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sr-space-2);
+  font-family: var(--sr-font-display);
+  font-weight: var(--sr-fw-bold);
+  font-size: var(--sr-fs-base);
+  line-height: 1;
+  letter-spacing: var(--sr-ls-tight);
+  padding: var(--sr-space-4) var(--sr-space-6);
+  border-radius: var(--sr-radius-full);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--sr-duration-fast) var(--sr-ease-out),
+              box-shadow var(--sr-duration-fast) var(--sr-ease-out),
+              background-color var(--sr-duration-fast) var(--sr-ease-out),
+              border-color var(--sr-duration-fast) var(--sr-ease-out),
+              color var(--sr-duration-fast) var(--sr-ease-out);
+}
+.sr-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--sr-yellow-20);
+}
+.sr-btn:active { transform: translateY(1px); }
+
+/* Primario — CTA "Voglio il mio sito" */
+.sr-btn-primary {
+  background: var(--sr-yellow);
+  color: var(--sr-ink);
+}
+.sr-btn-primary:hover {
+  background: var(--sr-yellow-dark);
+  box-shadow: var(--sr-shadow-glow);
+  transform: translateY(-1px);
+}
+
+/* Secondario — azioni secondarie */
+.sr-btn-secondary {
+  background: var(--sr-ink);
+  color: var(--sr-paper);
+}
+.sr-btn-secondary:hover {
+  background: var(--sr-ink-70);
+  transform: translateY(-1px);
+  box-shadow: var(--sr-shadow-md);
+}
+
+/* Ghost — link-like, area di navigazione */
+.sr-btn-ghost {
+  background: transparent;
+  color: var(--sr-ink);
+  border-color: var(--sr-ink);
+}
+.sr-btn-ghost:hover {
+  background: var(--sr-ink);
+  color: var(--sr-paper);
+}
+
+/* Dimensioni */
+.sr-btn-sm {
+  padding: var(--sr-space-2) var(--sr-space-4);
+  font-size: var(--sr-fs-sm);
+}
+.sr-btn-lg {
+  padding: var(--sr-space-5) var(--sr-space-8);
+  font-size: var(--sr-fs-lg);
+}
+
+/* ============================================================
+   BADGE / TAG
+   ============================================================ */
+.sr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sr-space-1);
+  font-family: var(--sr-font-mono);
+  font-size: var(--sr-fs-xs);
+  font-weight: var(--sr-fw-bold);
+  letter-spacing: var(--sr-ls-wide);
+  text-transform: uppercase;
+  padding: var(--sr-space-1) var(--sr-space-3);
+  border-radius: var(--sr-radius-full);
+}
+.sr-badge-yellow  { background: var(--sr-yellow); color: var(--sr-ink); }
+.sr-badge-ink     { background: var(--sr-ink); color: var(--sr-yellow); }
+.sr-badge-success { background: var(--sr-success); color: var(--sr-paper); }
+.sr-badge-warm    { background: var(--sr-warm); color: var(--sr-ink); border: 1px solid var(--sr-border); }
+
+/* ============================================================
+   CARD
+   ============================================================ */
+.sr-card {
+  background: var(--sr-paper);
+  border: var(--sr-border-thin);
+  border-radius: var(--sr-radius-xl);
+  padding: var(--sr-space-6);
+  transition: transform var(--sr-duration-normal) var(--sr-ease-out),
+              box-shadow var(--sr-duration-normal) var(--sr-ease-out),
+              border-color var(--sr-duration-normal) var(--sr-ease-out);
+}
+.sr-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sr-shadow-lg);
+  border-color: var(--sr-ink);
+}
+.sr-card-feature {
+  background: var(--sr-warm);
+  border: 2px solid var(--sr-ink);
+  position: relative;
+}
+.sr-card-feature::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 2px solid var(--sr-ink);
+  border-radius: calc(var(--sr-radius-xl) - 8px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--sr-duration-normal) var(--sr-ease-out);
+}
+.sr-card-pricing {
+  background: var(--sr-paper);
+  border: 2px solid var(--sr-border);
+  border-radius: var(--sr-radius-2xl);
+  padding: var(--sr-space-8);
+  position: relative;
+}
+.sr-card-pricing.is-featured {
+  border-color: var(--sr-ink);
+  background: var(--sr-ink);
+  color: var(--sr-paper);
+  transform: scale(1.02);
+}
+.sr-card-pricing .sr-price {
+  font-family: var(--sr-font-mono);
+  font-size: var(--sr-fs-5xl);
+  font-weight: var(--sr-fw-bold);
+  letter-spacing: var(--sr-ls-mono);
+  line-height: 1;
+}
+
+/* ============================================================
+   INPUT / FORM
+   ============================================================ */
+.sr-input,
+.sr-textarea,
+.sr-select {
+  width: 100%;
+  font-family: var(--sr-font-body);
+  font-size: var(--sr-fs-base);
+  padding: var(--sr-space-3) var(--sr-space-4);
+  border: var(--sr-border-thin);
+  border-radius: var(--sr-radius-md);
+  background: var(--sr-paper);
+  color: var(--sr-ink);
+  transition: border-color var(--sr-duration-fast) var(--sr-ease-out),
+              box-shadow var(--sr-duration-fast) var(--sr-ease-out);
+}
+.sr-input::placeholder,
+.sr-textarea::placeholder { color: var(--sr-ink-40); }
+.sr-input:focus,
+.sr-textarea:focus,
+.sr-select:focus {
+  outline: none;
+  border-color: var(--sr-ink);
+  box-shadow: 0 0 0 4px var(--sr-yellow-20);
+}
+.sr-input.is-error,
+.sr-textarea.is-error {
+  border-color: var(--sr-alert);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.sr-label {
+  display: block;
+  font-family: var(--sr-font-mono);
+  font-size: var(--sr-fs-xs);
+  font-weight: var(--sr-fw-bold);
+  letter-spacing: var(--sr-ls-wide);
+  text-transform: uppercase;
+  color: var(--sr-ink);
+  margin-bottom: var(--sr-space-2);
+}
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+.sr-divider {
+  border: none;
+  height: 1px;
+  background: var(--sr-border);
+  margin: var(--sr-space-12) 0;
+}
+.sr-divider-bold {
+  border: none;
+  height: 4px;
+  background: var(--sr-ink);
+  margin: var(--sr-space-12) 0;
+}
+
+/* ============================================================
+   CONTAINER / SECTION
+   ============================================================ */
+.sr-container {
+  width: 100%;
+  max-width: var(--sr-container-xl);
+  margin: 0 auto;
+  padding: 0 var(--sr-space-6);
+}
+.sr-section {
+  padding: var(--sr-space-20) 0;
+}
+.sr-section-warm { background: var(--sr-warm); }
+.sr-section-ink  { background: var(--sr-ink); color: var(--sr-paper); }
+.sr-section-yellow { background: var(--sr-yellow); }
+
+/* ============================================================
+   FOCUS STATE GLOBALE
+   ============================================================ */
+:focus-visible {
+  outline: 3px solid var(--sr-yellow);
+  outline-offset: 2px;
+}

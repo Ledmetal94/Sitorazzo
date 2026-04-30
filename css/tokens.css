@@ -1,0 +1,158 @@
+/* ============================================================
+   SITORAZZO — DESIGN TOKENS
+   Single source of truth per colori, tipografia, spaziatura, motion.
+   Importare per primo in qualsiasi CSS/HTML del brand.
+   ============================================================ */
+
+:root {
+  /* ---------- COLORI BRAND ---------- */
+  --sr-yellow:        #FFD60A;  /* Primario · Giallo Razzo (CTA, accenti) */
+  --sr-yellow-dark:   #F5B700;  /* Hover / gradienti sottili */
+  --sr-ink:           #0A0A0A;  /* Inchiostro Nero · testo principale */
+  --sr-ink-70:        #3D3D3D;  /* Testo secondario */
+  --sr-ink-40:        #8A8A8A;  /* Caption, micro-copy, placeholder */
+  --sr-warm:          #FFF8E7;  /* Bianco caldo · sfondo sezioni alternate */
+  --sr-paper:         #FFFFFF;  /* Bianco puro · sfondo principale */
+  --sr-border:        #E5E5E5;  /* Bordo neutro · linee, card */
+  --sr-success:       #22C55E;  /* Stati positivi */
+  --sr-alert:         #EF4444;  /* Errori form, scadenze */
+
+  /* Alpha (per overlay e stati) */
+  --sr-yellow-10:     rgba(255, 214, 10, 0.10);
+  --sr-yellow-20:     rgba(255, 214, 10, 0.20);
+  --sr-ink-5:         rgba(10, 10, 10, 0.05);
+  --sr-ink-10:        rgba(10, 10, 10, 0.10);
+
+  /* ---------- TIPOGRAFIA ---------- */
+  --sr-font-display:  "Space Grotesk", "Inter Display", system-ui, sans-serif;
+  --sr-font-body:     "Inter", "Manrope", system-ui, sans-serif;
+  --sr-font-mono:     "Space Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  /* Scala tipografica (modular scale 1.25 — Major Third) */
+  --sr-fs-xs:         0.75rem;    /* 12px · caption */
+  --sr-fs-sm:         0.875rem;   /* 14px · small text */
+  --sr-fs-base:       1rem;       /* 16px · body */
+  --sr-fs-lg:         1.125rem;   /* 18px · body large / lead */
+  --sr-fs-xl:         1.25rem;    /* 20px · subheadline */
+  --sr-fs-2xl:        1.5rem;     /* 24px · h4 */
+  --sr-fs-3xl:        1.875rem;   /* 30px · h3 */
+  --sr-fs-4xl:        2.25rem;    /* 36px · h2 */
+  --sr-fs-5xl:        3rem;       /* 48px · h1 mobile */
+  --sr-fs-6xl:        3.75rem;    /* 60px · h1 desktop */
+  --sr-fs-7xl:        4.5rem;     /* 72px · hero display */
+
+  /* Pesi */
+  --sr-fw-regular:    400;
+  --sr-fw-medium:     500;
+  --sr-fw-semibold:   600;
+  --sr-fw-bold:       700;
+  --sr-fw-black:      900;
+
+  /* Line-height */
+  --sr-lh-tight:      1.1;     /* display */
+  --sr-lh-snug:       1.25;    /* heading */
+  --sr-lh-normal:     1.5;     /* body */
+  --sr-lh-relaxed:    1.65;    /* long-form */
+
+  /* Letter-spacing */
+  --sr-ls-tight:      -0.02em;  /* display: tracking compatto */
+  --sr-ls-normal:     0;
+  --sr-ls-wide:       0.05em;   /* eyebrow, label */
+  --sr-ls-mono:       -0.01em;  /* numeri prezzi */
+
+  /* ---------- SPAZIATURA (4px base) ---------- */
+  --sr-space-0:       0;
+  --sr-space-1:       0.25rem;   /* 4px */
+  --sr-space-2:       0.5rem;    /* 8px */
+  --sr-space-3:       0.75rem;   /* 12px */
+  --sr-space-4:       1rem;      /* 16px */
+  --sr-space-5:       1.25rem;   /* 20px */
+  --sr-space-6:       1.5rem;    /* 24px */
+  --sr-space-8:       2rem;      /* 32px */
+  --sr-space-10:      2.5rem;    /* 40px */
+  --sr-space-12:      3rem;      /* 48px */
+  --sr-space-16:      4rem;      /* 64px */
+  --sr-space-20:      5rem;      /* 80px */
+  --sr-space-24:      6rem;      /* 96px */
+  --sr-space-32:      8rem;      /* 128px */
+
+  /* ---------- BORDER RADIUS ---------- */
+  --sr-radius-none:   0;
+  --sr-radius-sm:     4px;       /* badge, tag */
+  --sr-radius-md:     8px;       /* input, small card */
+  --sr-radius-lg:     12px;      /* card */
+  --sr-radius-xl:     16px;      /* hero card, modal */
+  --sr-radius-2xl:    24px;      /* CTA grandi, pricing card */
+  --sr-radius-full:   9999px;    /* pill button, avatar */
+
+  /* ---------- BORDI ---------- */
+  --sr-border-thin:   1px solid var(--sr-border);
+  --sr-border-bold:   2px solid var(--sr-ink);
+
+  /* ---------- OMBRE (gerarchia depth) ---------- */
+  --sr-shadow-xs:     0 1px 2px rgba(10, 10, 10, 0.05);
+  --sr-shadow-sm:     0 2px 4px rgba(10, 10, 10, 0.06), 0 1px 2px rgba(10, 10, 10, 0.04);
+  --sr-shadow-md:     0 4px 8px rgba(10, 10, 10, 0.08), 0 2px 4px rgba(10, 10, 10, 0.04);
+  --sr-shadow-lg:     0 12px 24px rgba(10, 10, 10, 0.10), 0 4px 8px rgba(10, 10, 10, 0.05);
+  --sr-shadow-xl:     0 24px 48px rgba(10, 10, 10, 0.14), 0 8px 16px rgba(10, 10, 10, 0.06);
+
+  /* Ombra firmata (giallo glow per CTA hover) */
+  --sr-shadow-glow:   0 0 0 4px var(--sr-yellow-20), 0 8px 24px rgba(255, 214, 10, 0.35);
+
+  /* ---------- LAYOUT ---------- */
+  --sr-container-sm:  640px;
+  --sr-container-md:  768px;
+  --sr-container-lg:  1024px;
+  --sr-container-xl:  1280px;
+  --sr-container-2xl: 1440px;
+
+  /* ---------- MOTION ---------- */
+  --sr-duration-instant:  100ms;
+  --sr-duration-fast:     200ms;
+  --sr-duration-normal:   300ms;
+  --sr-duration-slow:     500ms;
+  --sr-duration-rocket:   1200ms; /* animazione decollo brand-firmata */
+
+  /* Easing — favoriamo curve "fisiche" (in-out con accent finale) */
+  --sr-ease-out:      cubic-bezier(0.22, 1, 0.36, 1);     /* easeOutQuart — entrate */
+  --sr-ease-in:       cubic-bezier(0.64, 0, 0.78, 0);     /* easeInQuart — uscite */
+  --sr-ease-in-out:   cubic-bezier(0.83, 0, 0.17, 1);     /* easeInOutQuart — transizioni */
+  --sr-ease-launch:   cubic-bezier(0.16, 0.84, 0.44, 1);  /* signature easing per il decollo */
+  --sr-ease-snap:     cubic-bezier(0.6, -0.28, 0.74, 0.05); /* overshoot per scintille */
+
+  /* ---------- Z-INDEX SCALE ---------- */
+  --sr-z-base:        1;
+  --sr-z-dropdown:    100;
+  --sr-z-sticky:      200;
+  --sr-z-overlay:     300;
+  --sr-z-modal:       400;
+  --sr-z-toast:       500;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--sr-font-body);
+  font-size: var(--sr-fs-base);
+  line-height: var(--sr-lh-normal);
+  color: var(--sr-ink);
+  background: var(--sr-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   PREFER REDUCED MOTION
+   Disabilita le animazioni per chi le ha disattivate dal sistema.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
