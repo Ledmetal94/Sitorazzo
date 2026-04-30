@@ -47,10 +47,12 @@
     </div>
   </div>
   <script>
-    const pkgParam = new URLSearchParams(location.search).get('pacchetto') || 'pro';
+    const allowedPackages = ['start', 'pro', 'power'];
+    const rawPkgParam = new URLSearchParams(location.search).get('pacchetto');
+    const pkgParam = allowedPackages.includes(rawPkgParam) ? rawPkgParam : 'pro';
     const ctaWrap = document.getElementById('cta-wrap');
     const a = document.createElement('a');
-    a.href = '/onboarding?pacchetto=' + pkgParam;
+    a.href = '/onboarding.html?pacchetto=' + pkgParam;
     a.className = 'sr-btn sr-btn-primary sr-btn-lg';
     a.textContent = 'Compila il brief ora →';
     ctaWrap.appendChild(a);

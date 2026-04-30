@@ -3,11 +3,13 @@
    ============================================================ */
 
 const TOTAL_STEPS = 8;
+const VALID_PACKAGES = ['start', 'pro', 'power'];
 
 /* ---------- State ---------- */
 const params = new URLSearchParams(location.search);
+const pkgFromUrl = params.get('pacchetto');
 const formData = {
-  pacchetto:        params.get('pacchetto') || 'pro',
+  pacchetto:        VALID_PACKAGES.includes(pkgFromUrl) ? pkgFromUrl : 'pro',
   nome:             '',
   settore:          '',
   citta:            '',
@@ -111,14 +113,16 @@ function showError(msg) {
   if (!el) {
     el = document.createElement('p');
     el.id = 'form-error';
-    el.style.cssText = 'color:var(--sr-alert);font-size:var(--sr-fs-sm);margin-top:var(--sr-space-3);';
-    navBar.prepend(el);
+    el.className = 'form-error';
+    el.setAttribute('role', 'alert');
+    card.appendChild(el);
   }
   el.textContent = msg;
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 function clearError() {
   const el = document.getElementById('form-error');
-  if (el) el.textContent = '';
+  if (el) el.remove();
 }
 
 /* ---------- Render ---------- */
@@ -190,17 +194,44 @@ function stepHeader(eyebrow, title, lead) {
 
 /* ---------- Validation ---------- */
 function validate(step) {
+  const markInvalid = (selector) => {
+    const el = document.querySelector(selector);
+    if (el) {
+      el.classList.add('is-error');
+      el.focus({ preventScroll: true });
+      el.addEventListener('input', () => el.classList.remove('is-error'), { once: true });
+    }
+  };
+
   switch (step) {
     case 1:
-      if (!formData.nome.trim())    return 'Inserisci il nome della tua attività.';
+      if (!formData.nome.trim()) {
+        markInvalid('[data-field="nome"]');
+        return 'Inserisci il nome della tua attività.';
+      }
       if (!formData.settore)        return 'Seleziona il settore di attività.';
-      if (!formData.citta.trim())   return 'Inserisci la città.';
+      if (!formData.citta.trim()) {
+        markInvalid('[data-field="citta"]');
+        return 'Inserisci la città.';
+      }
       break;
     case 2:
-      if (!formData.referente.trim()) return 'Inserisci il tuo nome.';
-      if (!formData.email.trim())     return 'Inserisci la tua email.';
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return 'Email non valida.';
-      if (!formData.telefono.trim()) return 'Inserisci un numero di telefono.';
+      if (!formData.referente.trim()) {
+        markInvalid('[data-field="referente"]');
+        return 'Inserisci il tuo nome.';
+      }
+      if (!formData.email.trim()) {
+        markInvalid('[data-field="email"]');
+        return 'Inserisci la tua email.';
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        markInvalid('[data-field="email"]');
+        return 'Email non valida.';
+      }
+      if (!formData.telefono.trim()) {
+        markInvalid('[data-field="telefono"]');
+        return 'Inserisci un numero di telefono.';
+      }
       break;
     case 8:
       if (!formData.mood) return 'Seleziona lo stile visivo preferito.';
@@ -261,8 +292,13 @@ function renderStep1() {
   card.innerHTML = '';
   card.appendChild(stepHeader('Step 1 di 8', 'La tua attività', 'Raccontaci chi sei. Queste informazioni guidano tutto il progetto.'));
 
-  card.appendChild(field('Nome attività *', input('text', 'Es. Pizzeria Da Mario', formData.nome, v => formData.nome = v)));
-  card.appendChild(field('Città *', input('text', 'Es. Latina', formData.citta, v => formData.citta = v)));
+  const nomeInput = input('text', 'Es. Pizzeria Da Mario', formData.nome, v => formData.nome = v);
+  nomeInput.dataset.field = 'nome';
+  card.appendChild(field('Nome attività *', nomeInput));
+
+  const cittaInput = input('text', 'Es. Latina', formData.citta, v => formData.citta = v);
+  cittaInput.dataset.field = 'citta';
+  card.appendChild(field('Città *', cittaInput));
 
   const settoreWrap = document.createElement('div');
   settoreWrap.style.marginBottom = 'var(--sr-space-5)';
@@ -301,7 +337,9 @@ function renderStep2() {
   card.innerHTML = '';
   card.appendChild(stepHeader('Step 2 di 8', 'I tuoi contatti', 'Chi gestisce il progetto? Usiamo questi dati solo per comunicare con te.'));
 
-  card.appendChild(field('Il tuo nome *', input('text', 'Es. Mario Rossi', formData.referente, v => formData.referente = v)));
+  const referenteInput = input('text', 'Es. Mario Rossi', formData.referente, v => formData.referente = v);
+  referenteInput.dataset.field = 'referente';
+  card.appendChild(field('Il tuo nome *', referenteInput));
 
   const ruoliWrap = document.createElement('div');
   ruoliWrap.style.marginBottom = 'var(--sr-space-5)';
@@ -326,8 +364,13 @@ function renderStep2() {
   ruoliWrap.appendChild(ruoliPills);
   card.appendChild(ruoliWrap);
 
-  card.appendChild(field('Email *', input('email', 'mario@esempio.it', formData.email, v => formData.email = v)));
-  card.appendChild(field('Telefono *', input('tel', '+39 XXX XXX XXXX', formData.telefono, v => formData.telefono = v)));
+  const emailInput = input('email', 'mario@esempio.it', formData.email, v => formData.email = v);
+  emailInput.dataset.field = 'email';
+  card.appendChild(field('Email *', emailInput));
+
+  const telefonoInput = input('tel', '+39 XXX XXX XXXX', formData.telefono, v => formData.telefono = v);
+  telefonoInput.dataset.field = 'telefono';
+  card.appendChild(field('Telefono *', telefonoInput));
   card.appendChild(field(
     'WhatsApp (se diverso dal telefono)',
     input('tel', '+39 XXX XXX XXXX', formData.whatsapp, v => formData.whatsapp = v),
@@ -445,7 +488,7 @@ function renderStep4() {
   logoWrap.appendChild(logoPills);
   card.appendChild(logoWrap);
 
-  // Native file input
+  // File upload
   const uploadWrap = document.createElement('div');
   uploadWrap.style.marginBottom = 'var(--sr-space-6)';
 
@@ -463,8 +506,17 @@ function renderStep4() {
   fileInput.type = 'file';
   fileInput.multiple = true;
   fileInput.accept = 'image/*,.pdf,.ai,.eps,.svg,.zip,.psd';
-  fileInput.className = 'sr-input';
-  fileInput.style.padding = 'var(--sr-space-2)';
+  fileInput.id = 'brief-files';
+  fileInput.style.cssText = 'position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer;';
+
+  const dropZone = document.createElement('div');
+  dropZone.id = 'drop-zone';
+  dropZone.style.position = 'relative';
+  dropZone.innerHTML = `
+    <div class="sr-mono font-bold" style="font-size:var(--sr-fs-sm); margin-bottom:var(--sr-space-2);">Trascina qui i file</div>
+    <div class="text-sm" style="color:var(--sr-ink-70);">oppure clicca per selezionarli dal computer</div>
+  `;
+  dropZone.appendChild(fileInput);
 
   // Restore previously selected files if navigating back
   const fileListEl = document.createElement('div');
@@ -477,14 +529,37 @@ function renderStep4() {
     ).join('');
   }
 
-  fileInput.addEventListener('change', () => {
-    formData.files = Array.from(fileInput.files);
+  const renderFiles = () => {
     fileListEl.innerHTML = formData.files.map(f =>
       `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">✓ ${f.name} (${(f.size / 1024).toFixed(0)} KB)</div>`
     ).join('');
+  };
+
+  fileInput.addEventListener('change', () => {
+    formData.files = Array.from(fileInput.files);
+    renderFiles();
   });
 
-  uploadWrap.appendChild(fileInput);
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      dropZone.classList.remove('drag-over');
+    });
+  });
+
+  dropZone.addEventListener('drop', (event) => {
+    formData.files = Array.from(event.dataTransfer.files || []);
+    renderFiles();
+  });
+
+  uploadWrap.appendChild(dropZone);
   uploadWrap.appendChild(fileListEl);
   card.appendChild(uploadWrap);
 
@@ -668,22 +743,26 @@ function renderStep7() {
 
   GIORNI.forEach(g => {
     const row = document.createElement('div');
-    row.style.cssText = 'display:flex; align-items:center; gap:var(--sr-space-3); margin-bottom:var(--sr-space-3); flex-wrap:wrap;';
+    row.className = 'hours-row';
 
     const dayLabel = document.createElement('span');
-    dayLabel.style.cssText = 'font-size:var(--sr-fs-sm); font-weight:600; min-width:90px;';
+    dayLabel.style.cssText = 'font-size:var(--sr-fs-sm); font-weight:600;';
     dayLabel.textContent = g.label;
 
-    const toggle = document.createElement('div');
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
     toggle.className = 'toggle-chiuso' + (formData.orari[g.key].chiuso ? ' active' : '');
     toggle.title = 'Chiuso';
+    toggle.setAttribute('aria-label', `Segna ${g.label} come chiuso`);
+    toggle.setAttribute('aria-pressed', String(formData.orari[g.key].chiuso));
 
     const toggleLabel = document.createElement('span');
     toggleLabel.style.cssText = 'font-size:var(--sr-fs-xs); color:var(--sr-ink-40);';
     toggleLabel.textContent = formData.orari[g.key].chiuso ? 'Chiuso' : 'Aperto';
 
     const timeWrap = document.createElement('div');
-    timeWrap.style.cssText = 'display:flex; align-items:center; gap:var(--sr-space-2); flex:1;' +
+    timeWrap.className = 'hours-time-wrap';
+    timeWrap.style.cssText =
       (formData.orari[g.key].chiuso ? 'opacity:0.3; pointer-events:none;' : '');
     timeWrap.id = `time-wrap-${g.key}`;
 
@@ -691,7 +770,6 @@ function renderStep7() {
       const inp = document.createElement('input');
       inp.type = 'time';
       inp.className = 'sr-input';
-      inp.style.width = '120px';
       inp.value = formData.orari[g.key][valKey];
       inp.addEventListener('change', e => formData.orari[g.key][valKey] = e.target.value);
       return inp;
@@ -704,6 +782,7 @@ function renderStep7() {
       formData.orari[g.key].chiuso = !formData.orari[g.key].chiuso;
       const isClosed = formData.orari[g.key].chiuso;
       toggle.classList.toggle('active', isClosed);
+      toggle.setAttribute('aria-pressed', String(isClosed));
       toggleLabel.textContent = isClosed ? 'Chiuso' : 'Aperto';
       const tw = document.getElementById(`time-wrap-${g.key}`);
       if (tw) tw.style.opacity = isClosed ? '0.3' : '1';
@@ -741,7 +820,7 @@ function renderStep8() {
   moodLbl.textContent = 'Stile visivo preferito *';
   moodWrap.appendChild(moodLbl);
   const moodGrid = document.createElement('div');
-  moodGrid.style.cssText = 'display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sr-space-3); margin-top:var(--sr-space-3);';
+  moodGrid.className = 'mood-grid';
   MOODS.forEach(m => {
     const c = document.createElement('div');
     c.className = 'mood-card' + (formData.mood === m.key ? ' selected' : '');
@@ -788,7 +867,9 @@ function renderStep8() {
    SUBMIT + STEP 9 — THANK YOU
    ============================================================ */
 async function submitForm() {
+  clearError();
   btnNext.disabled = true;
+  btnNext.setAttribute('aria-busy', 'true');
   btnNext.textContent = 'Invio in corso…';
 
   const briefData = {
@@ -821,14 +902,15 @@ async function submitForm() {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      throw new Error(data.error || 'HTTP ' + res.status);
+      throw new Error(data.error || 'Il server non ha accettato il brief.');
     }
     goTo(9);
   } catch (err) {
     btnNext.disabled = false;
+    btnNext.removeAttribute('aria-busy');
     btnNext.textContent = 'Invia brief ✓';
-    showError('Errore nell\'invio: ' + err.message + '. Riprova o contattaci su WhatsApp.');
-    console.error('Submit error:', err);
+    showError('Non siamo riusciti a inviare il brief: ' + err.message + ' Riprova tra poco oppure contattaci su WhatsApp.');
+    console.warn('Submit error:', err);
   }
 }
 

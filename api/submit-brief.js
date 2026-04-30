@@ -12,7 +12,22 @@ export const config = {
 /*  Auth                                                                 */
 /* ------------------------------------------------------------------ */
 function getAuth() {
-  const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+  const rawCredentials = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  if (!rawCredentials) {
+    const error = new Error('GOOGLE_SERVICE_ACCOUNT_JSON non configurato.');
+    error.statusCode = 500;
+    throw error;
+  }
+
+  let credentials;
+  try {
+    credentials = JSON.parse(rawCredentials);
+  } catch {
+    const error = new Error('GOOGLE_SERVICE_ACCOUNT_JSON non è un JSON valido.');
+    error.statusCode = 500;
+    throw error;
+  }
+
   return new google.auth.GoogleAuth({
     credentials,
     scopes: [
@@ -167,6 +182,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  const parentFolderId = process.env.GOOGLE_DRIVE_PARENT_FOLDER_ID;
+  if (!process.env.GOOGLE_SERVICE_ACCOUNT_JSON || !parentFolderId) {
+    return res.status(500).json({
+      error: 'Google Drive non è configurato. Mancano GOOGLE_SERVICE_ACCOUNT_JSON o GOOGLE_DRIVE_PARENT_FOLDER_ID.',
+    });
+  }
+
   // Parse multipart
   const form = formidable({
     maxFileSize: 15 * 1024 * 1024, // 15MB per file
@@ -184,7 +206,8 @@ export default async function handler(req, res) {
 
   let brief;
   try {
-    brief = JSON.parse(fields.briefData?.[0] || '{}');
+    const rawBriefData = Array.isArray(fields.briefData) ? fields.briefData[0] : fields.briefData;
+    brief = JSON.parse(rawBriefData || '{}');
   } catch {
     return res.status(400).json({ error: 'briefData non valido.' });
   }
@@ -195,21 +218,17 @@ export default async function handler(req, res) {
     auth = getAuth();
   } catch (err) {
     console.error('Auth error:', err);
-    return res.status(500).json({ error: 'Errore autenticazione Google.' });
+    return res.status(err.statusCode || 500).json({ error: err.message || 'Errore autenticazione Google.' });
   }
 
   const drive = google.drive({ version: 'v3', auth });
   const docs  = google.docs({ version: 'v1', auth });
 
-  const parentFolderId = process.env.GOOGLE_DRIVE_PARENT_FOLDER_ID;
-  if (!parentFolderId) {
-    return res.status(500).json({ error: 'GOOGLE_DRIVE_PARENT_FOLDER_ID non configurato.' });
-  }
-
   try {
     // 1. Crea cartella cliente
     const date = new Date().toLocaleDateString('it-IT').replace(/\//g, '-');
-    const folderName = `${brief.nome || 'Cliente'} — ${date}`;
+    const customerName = String(brief.nome || 'Cliente').replace(/[\\/:*?"<>|]/g, '-').trim() || 'Cliente';
+    const folderName = `${customerName} — ${date}`;
     const folder = await createFolder(drive, folderName, parentFolderId);
 
     // 2. Crea Google Doc con il brief
