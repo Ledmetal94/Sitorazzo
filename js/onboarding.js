@@ -86,9 +86,9 @@ function updateChrome() {
   navBar.style.display = (currentStep === 0 || currentStep === 9) ? 'none' : 'flex';
 
   if (currentStep === TOTAL_STEPS) {
-    btnNext.textContent = 'Invia brief ✓';
+    btnNext.textContent = 'Invia brief';
   } else {
-    btnNext.textContent = 'Avanti →';
+    btnNext.textContent = 'Avanti';
   }
 }
 
@@ -252,7 +252,7 @@ function renderWelcome() {
   card.innerHTML = `
     <div style="text-align:center; padding: var(--sr-space-8) 0;">
       <img src="/assets/Sitorazzo_Logomark_256px.png" alt="Sitorazzo" style="height:64px; margin: 0 auto var(--sr-space-6);">
-      <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Perfetto, ci siamo! 🚀</h1>
+      <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Perfetto, ci siamo!</h1>
       <p class="sr-lead" style="margin-bottom:var(--sr-space-6); max-width:480px; margin-left:auto; margin-right:auto;">
         Hai scelto il piano <strong>${p.label}</strong> a <strong>${p.price}</strong>.
         Il tuo sito sarà online in <strong>${p.days} giorni lavorativi</strong> dall'invio di questo brief.
@@ -263,11 +263,11 @@ function renderWelcome() {
           <li class="text-sm">Compili questo brief in 10–15 minuti</li>
           <li class="text-sm">Il nostro team inizia a lavorare il giorno lavorativo successivo</li>
           <li class="text-sm">Ricevi il sito finito nei tempi garantiti</li>
-          <li class="text-sm">Approvazione + trasferimento credenziali → sei live</li>
+          <li class="text-sm">Approvazione, trasferimento credenziali e sito live</li>
         </ol>
       </div>
       <button class="sr-btn sr-btn-primary sr-btn-lg" id="btn-start">
-        Inizia il brief →
+        Inizia il brief
       </button>
       <p style="margin-top:var(--sr-space-4); font-size:var(--sr-fs-xs); color:var(--sr-ink-40);">
         Hai domande? Scrivici su
@@ -393,7 +393,7 @@ const PACCHETTI = [
     key:   'pro',
     label: 'Pro',
     price: '590€',
-    badge: '⚡ Più venduto',
+    badge: 'Più venduto',
     days:  7,
     desc:  'Fino a 8 pagine + blog. SEO avanzato. Il più richiesto.',
   },
@@ -429,7 +429,7 @@ function renderStep3() {
         <div style="text-align:right; flex-shrink:0;">
           <div class="sr-mono font-bold" style="font-size:var(--sr-fs-xl);">${pkg.price}</div>
           <div class="sr-badge ${formData.pacchetto === pkg.key ? 'sr-badge-ink' : 'sr-badge-warm'}" id="badge-${pkg.key}" style="margin-top:4px;">
-            ${formData.pacchetto === pkg.key ? '✓ Selezionato' : 'Seleziona'}
+            ${formData.pacchetto === pkg.key ? 'Selezionato' : 'Seleziona'}
           </div>
         </div>
       </div>
@@ -442,7 +442,7 @@ function renderStep3() {
         const badge = document.getElementById('badge-' + p.key);
         if (badge) {
           badge.className = 'sr-badge ' + (p.key === pkg.key ? 'sr-badge-ink' : 'sr-badge-warm');
-          badge.textContent = p.key === pkg.key ? '✓ Selezionato' : 'Seleziona';
+          badge.textContent = p.key === pkg.key ? 'Selezionato' : 'Seleziona';
         }
       });
     });
@@ -525,13 +525,13 @@ function renderStep4() {
 
   if (formData.files.length) {
     fileListEl.innerHTML = formData.files.map(f =>
-      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">✓ ${f.name}</div>`
+      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">File caricato: ${f.name}</div>`
     ).join('');
   }
 
   const renderFiles = () => {
     fileListEl.innerHTML = formData.files.map(f =>
-      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">✓ ${f.name} (${(f.size / 1024).toFixed(0)} KB)</div>`
+      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">File caricato: ${f.name} (${(f.size / 1024).toFixed(0)} KB)</div>`
     ).join('');
   };
 
@@ -775,7 +775,7 @@ function renderStep7() {
       return inp;
     };
     timeWrap.appendChild(makeTimeInput('apre'));
-    timeWrap.insertAdjacentHTML('beforeend', '<span class="text-sm" style="color:var(--sr-ink-40);">→</span>');
+    timeWrap.insertAdjacentHTML('beforeend', '<span class="text-sm" style="color:var(--sr-ink-40);">a</span>');
     timeWrap.appendChild(makeTimeInput('chiude'));
 
     toggle.addEventListener('click', () => {
@@ -801,12 +801,12 @@ function renderStep7() {
    STEP 8 — STILE E PREFERENZE
    ============================================================ */
 const MOODS = [
-  { key: 'minimal',       label: 'Minimal',       emoji: '⬜', desc: 'Pulito, bianco, elegante' },
-  { key: 'bold',          label: 'Bold',          emoji: '⬛', desc: 'Forte, scuro, impattante' },
-  { key: 'caldo',         label: 'Caldo',         emoji: '🟡', desc: 'Colori saturi, amichevole' },
-  { key: 'luxury',        label: 'Luxury',        emoji: '✨', desc: 'Sofisticato, premium' },
-  { key: 'moderno',       label: 'Moderno',       emoji: '🟦', desc: 'Tech, dinamico, digitale' },
-  { key: 'tradizionale',  label: 'Tradizionale',  emoji: '🟫', desc: 'Classico, affidabile' },
+  { key: 'minimal',       label: 'Minimal',       swatches: ['#FFFFFF', '#F5F5F5', '#0A0A0A'], desc: 'Pulito, bianco, elegante' },
+  { key: 'bold',          label: 'Bold',          swatches: ['#0A0A0A', '#FFD60A', '#FFFFFF'], desc: 'Forte, scuro, impattante' },
+  { key: 'caldo',         label: 'Caldo',         swatches: ['#FFF8E7', '#D4894A', '#3D2C1E'], desc: 'Colori saturi, amichevole' },
+  { key: 'luxury',        label: 'Luxury',        swatches: ['#0A0A0A', '#BFA46A', '#F8F5EA'], desc: 'Sofisticato, premium' },
+  { key: 'moderno',       label: 'Moderno',       swatches: ['#E8F0FF', '#2563EB', '#0A0A0A'], desc: 'Tech, dinamico, digitale' },
+  { key: 'tradizionale',  label: 'Tradizionale',  swatches: ['#F6EFE6', '#6B4A2D', '#1F2933'], desc: 'Classico, affidabile' },
 ];
 
 function renderStep8() {
@@ -825,7 +825,9 @@ function renderStep8() {
     const c = document.createElement('div');
     c.className = 'mood-card' + (formData.mood === m.key ? ' selected' : '');
     c.innerHTML = `
-      <div style="font-size:2rem; margin-bottom:4px;">${m.emoji}</div>
+      <div style="display:flex; justify-content:center; gap:6px; margin-bottom:10px;">
+        ${m.swatches.map(color => `<span style="width:18px; height:18px; border-radius:9999px; border:1px solid var(--sr-border); background:${color};"></span>`).join('')}
+      </div>
       <div style="font-weight:700; font-size:var(--sr-fs-sm);">${m.label}</div>
       <div style="font-size:var(--sr-fs-xs); color:var(--sr-ink-40);">${m.desc}</div>
     `;
@@ -908,7 +910,7 @@ async function submitForm() {
   } catch (err) {
     btnNext.disabled = false;
     btnNext.removeAttribute('aria-busy');
-    btnNext.textContent = 'Invia brief ✓';
+    btnNext.textContent = 'Invia brief';
     showError('Non siamo riusciti a inviare il brief: ' + err.message + ' Riprova tra poco oppure contattaci su WhatsApp.');
     console.warn('Submit error:', err);
   }
@@ -937,7 +939,6 @@ function renderThankyou() {
 
   card.innerHTML = `
     <div style="text-align:center; padding: var(--sr-space-8) 0;">
-      <div style="font-size:4rem; margin-bottom:var(--sr-space-4);">🚀</div>
       <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Brief ricevuto!</h1>
       <p class="sr-lead" style="margin-bottom:var(--sr-space-6); max-width:480px; margin-left:auto; margin-right:auto;">
         Grazie${formData.referente ? ', <strong>' + formData.referente + '</strong>' : ''}! Il team di Sitorazzo inizierà a lavorare il prossimo giorno lavorativo.
@@ -967,7 +968,7 @@ function renderThankyou() {
       <a href="https://wa.me/39NUMEROQUI?text=Ciao,%20ho%20appena%20inviato%20il%20brief%20per%20${encodeURIComponent(formData.nome || 'la mia attività')}"
          class="sr-btn sr-btn-ghost"
          target="_blank" rel="noopener noreferrer">
-        💬 Scrivici su WhatsApp
+        Scrivici su WhatsApp
       </a>
     </div>
   `;
