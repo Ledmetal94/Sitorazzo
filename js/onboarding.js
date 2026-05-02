@@ -86,9 +86,9 @@ function updateChrome() {
   navBar.style.display = (currentStep === 0 || currentStep === 9) ? 'none' : 'flex';
 
   if (currentStep === TOTAL_STEPS) {
-    btnNext.textContent = 'Invia brief';
+    setButtonContent(btnNext, 'Invia brief', 'check');
   } else {
-    btnNext.textContent = 'Avanti';
+    setButtonContent(btnNext, 'Avanti', 'arrow-right');
   }
 }
 
@@ -192,6 +192,29 @@ function stepHeader(eyebrow, title, lead) {
   return wrap;
 }
 
+function icon(name) {
+  const paths = {
+    'arrow-right': '<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>',
+    check: '<path d="M20 6 9 17l-5-5"></path>',
+    'check-circle': '<path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle>',
+    diamond: '<path d="M6 3h12l4 6-10 12L2 9Z"></path><path d="M11 3 8 9l4 12 4-12-3-6"></path><path d="M2 9h20"></path>',
+    landmark: '<path d="M3 21h18"></path><path d="M5 21V10h14v11"></path><path d="M12 3 4 8h16Z"></path><path d="M9 21v-8"></path><path d="M15 21v-8"></path>',
+    layout: '<rect width="18" height="14" x="3" y="5" rx="2"></rect><path d="M3 10h18"></path><path d="M9 10v9"></path>',
+    message: '<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path>',
+    monitor: '<rect width="20" height="14" x="2" y="3" rx="2"></rect><path d="M8 21h8"></path><path d="M12 17v4"></path>',
+    rocket: '<path d="M4.5 16.5c-1.5 1.3-2 3-2 5 2 0 3.7-.5 5-2"></path><path d="M9 15 5 11l6-6c3-3 6.5-3 8-3 .1 1.5 0 5-3 8Z"></path><path d="M9 15h5l1-1"></path><path d="M9 15v-5l1-1"></path><circle cx="15" cy="7" r="1"></circle>',
+    'shield-check': '<path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3Z"></path><path d="m9 12 2 2 4-4"></path>',
+    sun: '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>',
+    trophy: '<path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 4h10v4a5 5 0 0 1-10 0Z"></path><path d="M5 5H3v2a4 4 0 0 0 4 4"></path><path d="M19 5h2v2a4 4 0 0 1-4 4"></path>',
+    zap: '<path d="M13 2 3 14h8l-1 8 10-12h-8Z"></path>',
+  };
+  return `<svg class="sr-icon" viewBox="0 0 24 24" aria-hidden="true">${paths[name] || ''}</svg>`;
+}
+
+function setButtonContent(button, label, iconName) {
+  button.innerHTML = `${label} ${icon(iconName)}`;
+}
+
 /* ---------- Validation ---------- */
 function validate(step) {
   const markInvalid = (selector) => {
@@ -252,6 +275,7 @@ function renderWelcome() {
   card.innerHTML = `
     <div style="text-align:center; padding: var(--sr-space-8) 0;">
       <img src="/assets/Sitorazzo_Logomark_256px.png" alt="Sitorazzo" style="height:64px; margin: 0 auto var(--sr-space-6);">
+      <div class="onboarding-hero-icon">${icon('rocket')}</div>
       <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Perfetto, ci siamo!</h1>
       <p class="sr-lead" style="margin-bottom:var(--sr-space-6); max-width:480px; margin-left:auto; margin-right:auto;">
         Hai scelto il piano <strong>${p.label}</strong> a <strong>${p.price}</strong>.
@@ -267,7 +291,7 @@ function renderWelcome() {
         </ol>
       </div>
       <button class="sr-btn sr-btn-primary sr-btn-lg" id="btn-start">
-        Inizia il brief
+        Inizia il brief ${icon('arrow-right')}
       </button>
       <p style="margin-top:var(--sr-space-4); font-size:var(--sr-fs-xs); color:var(--sr-ink-40);">
         Hai domande? Scrivici su
@@ -394,6 +418,7 @@ const PACCHETTI = [
     label: 'Pro',
     price: '590€',
     badge: 'Più venduto',
+    icon:  'trophy',
     days:  7,
     desc:  'Fino a 8 pagine + blog. SEO avanzato. Il più richiesto.',
   },
@@ -421,7 +446,7 @@ function renderStep3() {
         <div>
           <div style="display:flex; align-items:center; gap:var(--sr-space-2); margin-bottom:var(--sr-space-1);">
             <span style="font-family:var(--sr-font-display); font-weight:700; font-size:var(--sr-fs-lg);">${pkg.label}</span>
-            ${pkg.badge ? `<span class="sr-badge sr-badge-yellow" style="font-size:10px;">${pkg.badge}</span>` : ''}
+            ${pkg.badge ? `<span class="sr-badge sr-badge-yellow" style="font-size:10px;">${icon(pkg.icon)} ${pkg.badge}</span>` : ''}
           </div>
           <p class="text-sm" style="color:var(--sr-ink-70); margin:0;">${pkg.desc}</p>
           <p class="text-xs" style="color:var(--sr-ink-40); margin-top:4px;">Consegna in ${pkg.days} giorni lavorativi</p>
@@ -525,13 +550,13 @@ function renderStep4() {
 
   if (formData.files.length) {
     fileListEl.innerHTML = formData.files.map(f =>
-      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">File caricato: ${f.name}</div>`
+      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px; display:flex; align-items:center; gap:6px;">${icon('check-circle')} File caricato: ${f.name}</div>`
     ).join('');
   }
 
   const renderFiles = () => {
     fileListEl.innerHTML = formData.files.map(f =>
-      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px;">File caricato: ${f.name} (${(f.size / 1024).toFixed(0)} KB)</div>`
+      `<div class="text-sm" style="color:var(--sr-success); margin-bottom:4px; display:flex; align-items:center; gap:6px;">${icon('check-circle')} File caricato: ${f.name} (${(f.size / 1024).toFixed(0)} KB)</div>`
     ).join('');
   };
 
@@ -801,12 +826,12 @@ function renderStep7() {
    STEP 8 — STILE E PREFERENZE
    ============================================================ */
 const MOODS = [
-  { key: 'minimal',       label: 'Minimal',       swatches: ['#FFFFFF', '#F5F5F5', '#0A0A0A'], desc: 'Pulito, bianco, elegante' },
-  { key: 'bold',          label: 'Bold',          swatches: ['#0A0A0A', '#FFD60A', '#FFFFFF'], desc: 'Forte, scuro, impattante' },
-  { key: 'caldo',         label: 'Caldo',         swatches: ['#FFF8E7', '#D4894A', '#3D2C1E'], desc: 'Colori saturi, amichevole' },
-  { key: 'luxury',        label: 'Luxury',        swatches: ['#0A0A0A', '#BFA46A', '#F8F5EA'], desc: 'Sofisticato, premium' },
-  { key: 'moderno',       label: 'Moderno',       swatches: ['#E8F0FF', '#2563EB', '#0A0A0A'], desc: 'Tech, dinamico, digitale' },
-  { key: 'tradizionale',  label: 'Tradizionale',  swatches: ['#F6EFE6', '#6B4A2D', '#1F2933'], desc: 'Classico, affidabile' },
+  { key: 'minimal',       label: 'Minimal',       icon: 'layout', swatches: ['#FFFFFF', '#F5F5F5', '#0A0A0A'], desc: 'Pulito, bianco, elegante' },
+  { key: 'bold',          label: 'Bold',          icon: 'zap', swatches: ['#0A0A0A', '#FFD60A', '#FFFFFF'], desc: 'Forte, scuro, impattante' },
+  { key: 'caldo',         label: 'Caldo',         icon: 'sun', swatches: ['#FFF8E7', '#D4894A', '#3D2C1E'], desc: 'Colori saturi, amichevole' },
+  { key: 'luxury',        label: 'Luxury',        icon: 'diamond', swatches: ['#0A0A0A', '#BFA46A', '#F8F5EA'], desc: 'Sofisticato, premium' },
+  { key: 'moderno',       label: 'Moderno',       icon: 'monitor', swatches: ['#E8F0FF', '#2563EB', '#0A0A0A'], desc: 'Tech, dinamico, digitale' },
+  { key: 'tradizionale',  label: 'Tradizionale',  icon: 'landmark', swatches: ['#F6EFE6', '#6B4A2D', '#1F2933'], desc: 'Classico, affidabile' },
 ];
 
 function renderStep8() {
@@ -825,6 +850,7 @@ function renderStep8() {
     const c = document.createElement('div');
     c.className = 'mood-card' + (formData.mood === m.key ? ' selected' : '');
     c.innerHTML = `
+      <div class="mood-icon">${icon(m.icon)}</div>
       <div style="display:flex; justify-content:center; gap:6px; margin-bottom:10px;">
         ${m.swatches.map(color => `<span style="width:18px; height:18px; border-radius:9999px; border:1px solid var(--sr-border); background:${color};"></span>`).join('')}
       </div>
@@ -872,7 +898,7 @@ async function submitForm() {
   clearError();
   btnNext.disabled = true;
   btnNext.setAttribute('aria-busy', 'true');
-  btnNext.textContent = 'Invio in corso…';
+  setButtonContent(btnNext, 'Invio in corso', 'arrow-right');
 
   const briefData = {
     ...formData,
@@ -910,7 +936,7 @@ async function submitForm() {
   } catch (err) {
     btnNext.disabled = false;
     btnNext.removeAttribute('aria-busy');
-    btnNext.textContent = 'Invia brief';
+    setButtonContent(btnNext, 'Invia brief', 'check');
     showError('Non siamo riusciti a inviare il brief: ' + err.message + ' Riprova tra poco oppure contattaci su WhatsApp.');
     console.warn('Submit error:', err);
   }
@@ -939,6 +965,7 @@ function renderThankyou() {
 
   card.innerHTML = `
     <div style="text-align:center; padding: var(--sr-space-8) 0;">
+      <div class="onboarding-hero-icon">${icon('shield-check')}</div>
       <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Brief ricevuto!</h1>
       <p class="sr-lead" style="margin-bottom:var(--sr-space-6); max-width:480px; margin-left:auto; margin-right:auto;">
         Grazie${formData.referente ? ', <strong>' + formData.referente + '</strong>' : ''}! Il team di Sitorazzo inizierà a lavorare il prossimo giorno lavorativo.
@@ -968,7 +995,7 @@ function renderThankyou() {
       <a href="https://wa.me/39NUMEROQUI?text=Ciao,%20ho%20appena%20inviato%20il%20brief%20per%20${encodeURIComponent(formData.nome || 'la mia attività')}"
          class="sr-btn sr-btn-ghost"
          target="_blank" rel="noopener noreferrer">
-        Scrivici su WhatsApp
+        ${icon('message')} Scrivici su WhatsApp
       </a>
     </div>
   `;

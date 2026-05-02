@@ -11,6 +11,35 @@
   <link rel="stylesheet" href="/css/tokens.css">
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .sr-icon {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      flex-shrink: 0;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .thankyou-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--sr-space-5);
+      border-radius: var(--sr-radius-2xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sr-yellow);
+      color: var(--sr-ink);
+      box-shadow: var(--sr-shadow-sm);
+    }
+    .thankyou-icon .sr-icon {
+      width: 32px;
+      height: 32px;
+    }
+  </style>
 
   <!-- Meta Pixel Purchase -->
   <script>
@@ -37,6 +66,9 @@
 <body>
   <div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding: var(--sr-space-8) var(--sr-space-6);">
     <div style="text-align:center; max-width:560px;">
+      <div class="thankyou-icon">
+        <svg class="sr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+      </div>
       <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Pagamento confermato!</h1>
       <p class="sr-lead" style="margin-bottom:var(--sr-space-8);">Perfetto. Ora compila il brief — ci vogliono solo 10–15 minuti. Raccoglieremo tutto quello che ci serve per costruire il tuo sito.</p>
       <div id="cta-wrap"></div>
@@ -53,7 +85,7 @@
     const a = document.createElement('a');
     a.href = '/onboarding.html?pacchetto=' + pkgParam;
     a.className = 'sr-btn sr-btn-primary sr-btn-lg';
-    a.textContent = 'Compila il brief ora';
+    a.innerHTML = 'Compila il brief ora <svg class="sr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
     ctaWrap.appendChild(a);
   </script>
 </body>

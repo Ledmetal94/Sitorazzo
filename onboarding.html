@@ -62,6 +62,45 @@
       letter-spacing: var(--sr-ls-tight);
       line-height: 1;
     }
+    .sr-icon {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      flex-shrink: 0;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .onboarding-hero-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--sr-space-5);
+      border-radius: var(--sr-radius-2xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sr-yellow);
+      color: var(--sr-ink);
+      box-shadow: var(--sr-shadow-sm);
+    }
+    .onboarding-hero-icon .sr-icon {
+      width: 32px;
+      height: 32px;
+    }
+    .mood-icon {
+      width: 36px;
+      height: 36px;
+      margin: 0 auto var(--sr-space-2);
+      border-radius: var(--sr-radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sr-warm);
+      color: var(--sr-ink);
+      border: var(--sr-border-thin);
+    }
     /* Form area */
     #form-area {
       min-height: 100vh;
@@ -279,7 +318,10 @@
 
   <!-- Nav bar (Indietro / Avanti) -->
   <div id="nav-bar">
-    <button id="btn-back" class="sr-btn sr-btn-ghost" style="visibility:hidden;">Indietro</button>
+    <button id="btn-back" class="sr-btn sr-btn-ghost" style="visibility:hidden;">
+      <svg class="sr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+      Indietro
+    </button>
     <div id="nav-right" class="flex items-center gap-3">
       <span id="nav-step-text" class="text-sm" style="color:var(--sr-ink-40);"></span>
       <button id="btn-next" class="sr-btn sr-btn-primary">Avanti</button>
