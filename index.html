@@ -36,27 +36,7 @@
     }
   </style>
 
-  <!-- Meta Pixel -->
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'PIXEL_ID_QUI');
-    fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_QUI&ev=PageView&noscript=1"/></noscript>
-
-  <!-- GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
-
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","CLARITY_ID_QUI");
-  </script>
+  <!-- Analytics intentionally disabled until real Meta, GA4 and Clarity IDs are configured. -->
 
   <!-- Schema JSON-LD -->
   <script type="application/ld+json">
@@ -85,11 +65,9 @@
         "@id": "https://sitorazzo.it/#business",
         "name": "Sitorazzo — Virtual Zone S.r.l.",
         "url": "https://sitorazzo.it",
-        "telephone": "+39-NUMERO-QUI",
         "email": "info@sitorazzo.it",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "INDIRIZZO QUI",
           "addressLocality": "Latina",
           "addressRegion": "Lazio",
           "postalCode": "04100",
@@ -485,9 +463,17 @@
       <div style="max-width:680px;">
 
         <!-- Badge lancio -->
-        <div style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,214,10,0.10); border:1px solid rgba(255,214,10,0.25); border-radius:9999px; padding:6px 14px 6px 8px; margin-bottom:36px;">
-          <span style="background:#FFD60A; color:#0A0A0A; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 10px; border-radius:9999px;">FIRST 50</span>
-          <span style="font-family:'Inter',sans-serif; font-size:13px; color:rgba(255,255,255,0.55);">Razzo Pro a 590€ invece di 690€ · 37 posti rimasti</span>
+        <div class="hero-launch-badge" aria-label="Promo First 50: 37 posti rimasti">
+          <span class="hero-launch-tag">FIRST 50</span>
+          <span class="hero-launch-offer">
+            <strong>Razzo Pro -100&euro;</strong>
+            <span>promo fino a esaurimento</span>
+          </span>
+          <span class="hero-launch-count">
+            <strong>37</strong>
+            <span>posti rimasti</span>
+          </span>
+          <span class="hero-launch-meter" aria-hidden="true"><span></span></span>
         </div>
 
         <!-- Headline -->
@@ -638,19 +624,126 @@
     min-width: 0 !important;
   }
 
-  #hero .hero-grid > div:first-child > div:first-child {
-    background: rgba(255,248,231,0.78) !important;
-    border-color: rgba(255,214,10,0.75) !important;
+  #hero .hero-launch-badge {
+    display: inline-grid !important;
+    grid-template-columns: auto minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "tag offer count"
+      "meter meter meter" !important;
+    align-items: center !important;
+    column-gap: 12px !important;
+    row-gap: 9px !important;
+    width: fit-content !important;
+    max-width: min(100%, 560px) !important;
+    min-width: 0 !important;
     margin-bottom: 38px !important;
-    max-width: 100% !important;
+    padding: 10px 10px 10px 12px !important;
+    background: rgba(255,248,231,0.88) !important;
+    border: 1px solid rgba(255,214,10,0.78) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 16px 36px rgba(10,10,10,0.08) !important;
+  }
+
+  #hero .hero-launch-tag {
+    grid-area: tag !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: stretch !important;
+    min-height: 34px !important;
+    padding: 0 10px !important;
+    border: 1.5px solid var(--sr-ink) !important;
+    border-radius: 9999px !important;
+    background: var(--sr-yellow) !important;
+    color: var(--sr-ink) !important;
+    box-shadow: 2px 2px 0 var(--sr-ink) !important;
+    font-family: var(--sr-font-mono) !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+
+  #hero .hero-launch-offer {
+    grid-area: offer !important;
+    display: grid !important;
+    gap: 3px !important;
     min-width: 0 !important;
   }
 
-  #hero .hero-grid > div:first-child > div:first-child span:last-child {
-    color: #242424 !important;
+  #hero .hero-launch-offer strong {
+    color: var(--sr-ink) !important;
+    font-family: var(--sr-font-display) !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    line-height: 1.05 !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  #hero .hero-launch-offer span {
+    color: #5f5f5f !important;
+    font-family: var(--sr-font-body) !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
+    line-height: 1.15 !important;
     min-width: 0 !important;
-    overflow-wrap: anywhere !important;
+    white-space: nowrap !important;
+  }
+
+  #hero .hero-launch-count {
+    grid-area: count !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    min-width: 110px !important;
+    min-height: 44px !important;
+    padding: 8px 10px !important;
+    border-radius: 14px !important;
+    background: var(--sr-ink) !important;
+    color: #fff !important;
+  }
+
+  #hero .hero-launch-count strong {
+    color: var(--sr-yellow) !important;
+    font-family: var(--sr-font-mono) !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    line-height: 0.92 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  #hero .hero-launch-count span {
+    max-width: 48px !important;
+    color: #fff !important;
+    font-family: var(--sr-font-body) !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1.05 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+  }
+
+  #hero .hero-launch-meter {
+    grid-area: meter !important;
+    grid-column: 1 / -1 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 5px !important;
+    border-radius: 9999px !important;
+    background: rgba(10,10,10,0.10) !important;
+    overflow: hidden !important;
+  }
+
+  #hero .hero-launch-meter span {
+    display: block !important;
+    width: 26% !important;
+    height: 100% !important;
+    border-right: 2px solid var(--sr-ink) !important;
+    background: var(--sr-yellow) !important;
   }
 
   #hero h1 {
@@ -879,10 +972,61 @@
       font-size: clamp(44px, 14vw, 58px) !important;
     }
 
-    #hero .hero-grid > div:first-child > div:first-child {
-      align-items: flex-start !important;
-      flex-wrap: wrap !important;
+    #hero .hero-launch-badge {
+      width: 100% !important;
+      grid-template-columns: minmax(0, 1fr) auto !important;
+      grid-template-areas:
+        "tag count"
+        "offer count"
+        "meter meter" !important;
+      align-items: center !important;
+      column-gap: 9px !important;
+      row-gap: 7px !important;
+      padding: 10px !important;
+      border-radius: 18px !important;
+      margin-bottom: 30px !important;
+    }
+
+    #hero .hero-launch-tag {
+      align-self: start !important;
+      justify-self: start !important;
+      min-height: 28px !important;
+      padding: 0 9px !important;
+      font-size: 10px !important;
+    }
+
+    #hero .hero-launch-offer strong {
+      font-size: 15px !important;
       white-space: normal !important;
+    }
+
+    #hero .hero-launch-offer span {
+      font-size: 12px !important;
+      white-space: normal !important;
+    }
+
+    #hero .hero-launch-count {
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 2px !important;
+      align-self: stretch !important;
+      min-width: 78px !important;
+      min-height: 68px !important;
+      padding: 8px !important;
+    }
+
+    #hero .hero-launch-count strong {
+      font-size: 30px !important;
+    }
+
+    #hero .hero-launch-count span {
+      max-width: 54px !important;
+      font-size: 9px !important;
+      text-align: center !important;
+    }
+
+    #hero .hero-launch-meter {
+      height: 4px !important;
     }
 
     #hero .hero-trust-panel {
@@ -1020,7 +1164,7 @@
           <li class="flex items-start gap-2 text-sm text-gray-400"><span>—</span> Blog</li>
           <li class="flex items-start gap-2 text-sm text-gray-400"><span>—</span> E-commerce</li>
         </ul>
-        <a href="https://buy.stripe.com/START_LINK_QUI" data-pkg-cta="Start" class="sr-btn sr-btn-secondary w-full justify-center">
+        <a href="/onboarding.html?pacchetto=Start" data-pkg-cta="Start" class="sr-btn sr-btn-secondary w-full justify-center">
           Acquista Start — 390€
         </a>
         <p class="text-center text-xs mt-3" style="color: var(--sr-ink-40);">Rimborso 50% se non consegniamo in 5gg</p>
@@ -1048,7 +1192,7 @@
           <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.85);"><svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Scheda Google My Business</li>
           <li class="flex items-start gap-2 text-sm" style="color:rgba(255,255,255,0.4);"><span>—</span> E-commerce</li>
         </ul>
-        <a href="https://buy.stripe.com/PRO_LINK_QUI" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
+        <a href="/onboarding.html?pacchetto=Pro" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
           Acquista Pro — 590€
         </a>
         <p class="text-center text-xs mt-3" style="color: rgba(255,255,255,0.35);">Rimborso 50% se non consegniamo in 7gg</p>
@@ -1067,7 +1211,7 @@
           <li class="flex items-start gap-2 text-sm"><svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Campagna Google Ads inclusa</li>
           <li class="flex items-start gap-2 text-sm"><svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 30gg supporto post-lancio</li>
         </ul>
-        <a href="https://buy.stripe.com/POWER_LINK_QUI" data-pkg-cta="Power" class="sr-btn sr-btn-secondary w-full justify-center">
+        <a href="/onboarding.html?pacchetto=Power" data-pkg-cta="Power" class="sr-btn sr-btn-secondary w-full justify-center">
           Acquista Power — 1.290€
         </a>
         <p class="text-center text-xs mt-3" style="color: var(--sr-ink-40);">Rimborso 50% se non consegniamo in 10gg</p>
@@ -1213,55 +1357,67 @@
 <!-- SHOWCASE -->
 <section id="esempi" class="sr-section">
   <div class="sr-container">
-    <p class="sr-eyebrow text-center mb-4">Portfolio</p>
-    <h2 class="sr-h2 text-center mb-4">Siti che abbiamo consegnato</h2>
-    <p class="sr-lead text-center mb-16" style="max-width:560px; margin-left:auto; margin-right:auto;">Ogni settore, ogni stile. Tutti consegnati nei tempi garantiti.</p>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
-        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
-      </div>
-      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
-        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
-      </div>
-      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
-        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
-      </div>
-      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
-        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
-      </div>
-      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
-        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
-      </div>
-      <div class="aspect-video rounded-xl flex items-center justify-center" style="background: var(--sr-warm); border: 1px dashed var(--sr-border);">
-        <span class="text-sm" style="color: var(--sr-ink-40);">Mockup disponibile a breve</span>
-      </div>
+    <p class="sr-eyebrow text-center mb-4">Esempi</p>
+    <h2 class="sr-h2 text-center mb-4">Direzioni pronte per il tuo settore</h2>
+    <p class="sr-lead text-center mb-16" style="max-width:560px; margin-left:auto; margin-right:auto;">Layout dimostrativi, pensati per far capire subito ritmo, contenuti e stile del sito finale.</p>
+    <div class="grid md:grid-cols-3 gap-5">
+      <article class="sr-card" style="padding:14px;">
+        <div class="aspect-video rounded-xl mb-4 p-3" style="background:linear-gradient(135deg, #fff8e7 0%, #ffffff 54%, #ffd60a 54%); border:1px solid var(--sr-border);">
+          <div class="h-2 w-12 rounded-full mb-5" style="background:var(--sr-ink);"></div>
+          <div class="h-6 w-24 rounded-md mb-2" style="background:var(--sr-ink);"></div>
+          <div class="h-2 w-32 rounded-full mb-4" style="background:rgba(10,10,10,0.18);"></div>
+          <div class="h-7 w-20 rounded-full" style="background:var(--sr-yellow); border:1px solid var(--sr-ink);"></div>
+        </div>
+        <h3 class="font-bold mb-1">Ristorante locale</h3>
+        <p class="text-sm" style="color:var(--sr-ink-70);">Menu, prenotazioni e foto piatti in primo piano.</p>
+      </article>
+      <article class="sr-card" style="padding:14px;">
+        <div class="aspect-video rounded-xl mb-4 p-3" style="background:linear-gradient(135deg, #0a0a0a 0%, #2d2b24 64%, #ffd60a 64%); border:1px solid var(--sr-border);">
+          <div class="h-2 w-10 rounded-full mb-5" style="background:#ffd60a;"></div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="h-16 rounded-lg" style="background:rgba(255,255,255,0.12);"></div>
+            <div class="h-16 rounded-lg" style="background:rgba(255,255,255,0.2);"></div>
+          </div>
+        </div>
+        <h3 class="font-bold mb-1">Studio professionale</h3>
+        <p class="text-sm" style="color:var(--sr-ink-70);">Servizi, autorevolezza e richiesta contatto rapida.</p>
+      </article>
+      <article class="sr-card" style="padding:14px;">
+        <div class="aspect-video rounded-xl mb-4 p-3" style="background:#fff; border:1px solid var(--sr-border);">
+          <div class="grid grid-cols-3 gap-2 mb-3">
+            <div class="h-16 rounded-lg" style="background:var(--sr-warm);"></div>
+            <div class="h-16 rounded-lg" style="background:var(--sr-yellow);"></div>
+            <div class="h-16 rounded-lg" style="background:var(--sr-warm);"></div>
+          </div>
+          <div class="h-3 w-28 rounded-full" style="background:var(--sr-ink);"></div>
+        </div>
+        <h3 class="font-bold mb-1">Negozio o showroom</h3>
+        <p class="text-sm" style="color:var(--sr-ink-70);">Catalogo leggero, offerte e percorso verso l'acquisto.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIANZE -->
+<!-- PROVE -->
 <section id="testimonianze" class="sr-section sr-section-warm">
   <div class="sr-container">
-    <p class="sr-eyebrow text-center mb-4">Testimonianze</p>
-    <h2 class="sr-h2 text-center mb-16">Cosa dicono i nostri clienti</h2>
+    <p class="sr-eyebrow text-center mb-4">Prove concrete</p>
+    <h2 class="sr-h2 text-center mb-16">Fiducia prima delle recensioni</h2>
     <div class="grid md:grid-cols-3 gap-6">
-      <div class="sr-card text-center">
-        <div class="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: var(--sr-warm); color: var(--sr-ink-40);"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <p class="mb-4" style="color: var(--sr-ink-70);">"Testimonianza cliente reale — disponibile dopo i primi ordini."</p>
-        <div class="font-bold text-sm">Nome Cliente</div>
-        <div class="text-xs" style="color: var(--sr-ink-40);">Settore attività — Latina</div>
+      <div class="sr-card">
+        <div class="w-12 h-12 rounded-full mb-4 flex items-center justify-center" style="background: var(--sr-yellow); color: var(--sr-ink); border:2px solid var(--sr-ink);"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3 class="font-bold mb-2">Garanzia scritta</h3>
+        <p class="text-sm" style="color: var(--sr-ink-70);">Tempi, prezzo e rimborso sono confermati prima di partire, non raccontati a voce.</p>
       </div>
-      <div class="sr-card text-center">
-        <div class="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: var(--sr-warm); color: var(--sr-ink-40);"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <p class="mb-4" style="color: var(--sr-ink-70);">"Testimonianza cliente reale — disponibile dopo i primi ordini."</p>
-        <div class="font-bold text-sm">Nome Cliente</div>
-        <div class="text-xs" style="color: var(--sr-ink-40);">Settore attività — Latina</div>
+      <div class="sr-card">
+        <div class="w-12 h-12 rounded-full mb-4 flex items-center justify-center" style="background: var(--sr-ink); color: var(--sr-yellow);"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div>
+        <h3 class="font-bold mb-2">Pagamento tracciato</h3>
+        <p class="text-sm" style="color: var(--sr-ink-70);">Acquisto, ricevuta e brief restano ordinati: sai sempre cosa succede dopo.</p>
       </div>
-      <div class="sr-card text-center">
-        <div class="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: var(--sr-warm); color: var(--sr-ink-40);"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <p class="mb-4" style="color: var(--sr-ink-70);">"Testimonianza cliente reale — disponibile dopo i primi ordini."</p>
-        <div class="font-bold text-sm">Nome Cliente</div>
-        <div class="text-xs" style="color: var(--sr-ink-40);">Settore attività — Latina</div>
+      <div class="sr-card">
+        <div class="w-12 h-12 rounded-full mb-4 flex items-center justify-center" style="background: var(--sr-warm); color: var(--sr-ink); border:1px solid var(--sr-border);"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h1"/><path d="M9 13h1"/><path d="M9 17h1"/></svg></div>
+        <h3 class="font-bold mb-2">Azienda reale</h3>
+        <p class="text-sm" style="color: var(--sr-ink-70);">Sitorazzo è un brand di Virtual Zone S.r.l., con base a Latina e processi trasparenti.</p>
       </div>
     </div>
   </div>
@@ -1275,25 +1431,30 @@
         <p class="sr-eyebrow mb-4">Azienda reale</p>
         <h2 class="sr-h2 mb-6">Virtual Zone S.r.l. — Latina</h2>
         <p class="sr-lead mb-6">Sitorazzo è un brand di <strong>Virtual Zone S.r.l.</strong>, azienda con sede a Latina che dal 2020 sviluppa esperienze digitali per PMI italiane. Non siamo una startup con sede in qualche isola senza ufficio.</p>
-        <p class="mb-6" style="color: var(--sr-ink-70);">Siamo in via [INDIRIZZO QUI], Latina (LT). Puoi venire a trovarci. Puoi chiamarci. Esistiamo davvero.</p>
+        <p class="mb-6" style="color: var(--sr-ink-70);">Operiamo da Latina (LT) e lavoriamo con PMI locali e nazionali. I dati societari completi vengono riportati su contratto, ricevute e fatture.</p>
         <div class="flex flex-wrap gap-4">
           <div class="sr-badge sr-badge-warm flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Latina, LT</div>
-          <div class="sr-badge sr-badge-warm flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01M12 14h.01"/></svg> P.IVA IT[NUMERO QUI]</div>
+          <div class="sr-badge sr-badge-warm flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01M12 14h.01"/></svg> Virtual Zone S.r.l.</div>
           <div class="sr-badge sr-badge-warm flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Dal 2020</div>
         </div>
       </div>
       <div>
-        <div class="rounded-xl overflow-hidden aspect-video" style="background: var(--sr-warm); border: 1px solid var(--sr-border);">
-          <iframe
-            src="https://maps.google.com/maps?q=Latina,+LT&output=embed"
-            width="100%"
-            height="100%"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Virtual Zone S.r.l. — Latina">
-          </iframe>
+        <div class="rounded-xl overflow-hidden aspect-video p-6 flex flex-col justify-between" style="background:linear-gradient(135deg, #fff8e7, #fff 52%, rgba(255,214,10,0.45)); border: 1px solid var(--sr-border); box-shadow:var(--sr-shadow-md);">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="sr-eyebrow mb-2">Base operativa</p>
+              <h3 class="sr-h3">Latina, Lazio</h3>
+            </div>
+            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:var(--sr-yellow); border:2px solid var(--sr-ink); box-shadow:4px 4px 0 var(--sr-ink);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <div class="h-12 rounded-lg" style="background:rgba(10,10,10,0.08);"></div>
+            <div class="h-12 rounded-lg" style="background:rgba(255,214,10,0.68);"></div>
+            <div class="h-12 rounded-lg" style="background:rgba(10,10,10,0.08);"></div>
+          </div>
+          <p class="text-sm" style="color:var(--sr-ink-70);">Radicati nel territorio, organizzati per lavorare online senza riunioni inutili.</p>
         </div>
       </div>
     </div>
@@ -1400,14 +1561,14 @@
         <span class="text-sm line-through" style="color:rgba(255,255,255,0.3);">790€</span>
       </div>
       <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5);">Piano Pro — 7 giorni garantiti</p>
-      <a href="https://buy.stripe.com/PRO_LINK_QUI" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
+      <a href="/onboarding.html?pacchetto=Pro" data-pkg-cta="Pro" class="sr-btn sr-btn-primary w-full justify-center">
         Acquista ora →
       </a>
     </div>
     <div class="flex flex-col items-center gap-3">
-      <p class="text-sm" style="color:rgba(255,255,255,0.4);">Oppure scrivici su WhatsApp</p>
-      <a href="https://wa.me/39NUMEROQUI?text=Ciao,%20vorrei%20informazioni%20su%20Sitorazzo" class="sr-btn sr-btn-ghost" style="border-color:rgba(255,255,255,0.3); color:var(--sr-paper);">
-        Scrivici su WhatsApp
+      <p class="text-sm" style="color:rgba(255,255,255,0.4);">Hai una domanda prima di acquistare?</p>
+      <a href="mailto:info@sitorazzo.it?subject=Informazioni%20Sitorazzo" class="sr-btn sr-btn-ghost" style="border-color:rgba(255,255,255,0.3); color:var(--sr-paper);">
+        Scrivici via email
       </a>
     </div>
   </div>
@@ -1420,7 +1581,7 @@
       <div class="md:col-span-2">
         <img src="/assets/Sitorazzo_Lockup_OnBlack.png" alt="Sitorazzo" class="h-8 w-auto mb-4">
         <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5); max-width:320px;">Sito professionale in 5 giorni a partire da 390€. Un brand di Virtual Zone S.r.l.</p>
-        <p class="text-xs" style="color:rgba(255,255,255,0.3);">Virtual Zone S.r.l. — P.IVA IT[NUMERO QUI]<br>Via [INDIRIZZO QUI] — 04100 Latina (LT)</p>
+        <p class="text-xs" style="color:rgba(255,255,255,0.3);">Virtual Zone S.r.l.<br>Latina (LT) — Italia</p>
       </div>
       <div>
         <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);">Sito</p>
@@ -1447,14 +1608,14 @@
   </div>
 </footer>
 
-<!-- WHATSAPP STICKY -->
-<a href="https://wa.me/39NUMEROQUI?text=Ciao,%20vorrei%20informazioni%20su%20Sitorazzo"
-   class="fixed bottom-6 right-6 z-[200] flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
-   style="background: #25D366;"
-   aria-label="Contattaci su WhatsApp"
-   target="_blank" rel="noopener noreferrer">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+<!-- CONTACT STICKY -->
+<a href="mailto:info@sitorazzo.it?subject=Informazioni%20Sitorazzo"
+   class="sr-contact-sticky fixed bottom-6 right-6 z-[200] hidden md:flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110"
+   style="background: var(--sr-yellow); border:2px solid var(--sr-ink);"
+   aria-label="Contattaci via email">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+    <rect x="3" y="5" width="18" height="14" rx="2"/>
+    <path d="m3 7 9 6 9-6"/>
   </svg>
 </a>
 
