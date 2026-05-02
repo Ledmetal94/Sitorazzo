@@ -453,7 +453,7 @@
         </p>
 
         <!-- CTAs -->
-        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:56px;">
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:24px;">
           <a href="#pacchetti" data-scroll-to="#pacchetti"
             class="hero-cta-primary"
             style="display:inline-flex; align-items:center; gap:8px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; background:#FFD60A; color:#0A0A0A; padding:15px 32px; border-radius:9999px; text-decoration:none; transition:background 200ms, transform 200ms, box-shadow 200ms;">
@@ -466,23 +466,36 @@
           </a>
         </div>
 
-        <!-- Trust stats -->
-        <div style="display:flex; border-top:1px solid rgba(255,255,255,0.08); padding-top:28px;">
-          <div style="flex:1; padding-right:24px; margin-right:24px; border-right:1px solid rgba(255,255,255,0.08);">
-            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">5</div>
-            <div style="font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px;">giorni di consegna</div>
+        <!-- Trust guarantees -->
+        <div class="hero-trust-panel" aria-label="Garanzie Sitorazzo">
+          <div class="hero-trust-heading">
+            <span class="hero-trust-signal" aria-hidden="true"></span>
+            <div>
+              <strong>Garanzie senza asterischi</strong>
+              <span class="hero-trust-subtitle">Tempi, prezzo e rimborso scritti prima di partire.</span>
+            </div>
           </div>
-          <div style="flex:1; padding-right:24px; margin-right:24px; border-right:1px solid rgba(255,255,255,0.08);">
-            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">390€</div>
-            <div style="font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px;">prezzo di partenza</div>
-          </div>
-          <div style="flex:1; padding-right:24px; margin-right:24px; border-right:1px solid rgba(255,255,255,0.08);">
-            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">0</div>
-            <div style="font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px;">riunioni</div>
-          </div>
-          <div style="flex:1;">
-            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:#FFD60A; letter-spacing:-0.02em; line-height:1;">50%</div>
-            <div style="font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px;">rimborso se sforiamo</div>
+          <div class="hero-trust-grid">
+            <div class="hero-trust-item hero-trust-item--primary">
+              <span class="hero-trust-value">5 giorni</span>
+              <span class="hero-trust-label">consegna garantita</span>
+            </div>
+            <div class="hero-trust-item">
+              <span class="hero-trust-value">Prezzo fisso</span>
+              <span class="hero-trust-label">da 390&euro;, niente sorprese</span>
+            </div>
+            <div class="hero-trust-item">
+              <span class="hero-trust-value">0 riunioni</span>
+              <span class="hero-trust-label">brief online in 15 minuti</span>
+            </div>
+            <div class="hero-trust-item">
+              <span class="hero-trust-value">Latina</span>
+              <span class="hero-trust-label">sede reale in provincia</span>
+            </div>
+            <div class="hero-trust-item">
+              <span class="hero-trust-value">50%</span>
+              <span class="hero-trust-label">rimborso se sforiamo</span>
+            </div>
           </div>
         </div>
 
@@ -508,10 +521,10 @@
           </a>
         </div>
 
-        <!-- Delivery badge -->
-        <div style="background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.25); border-radius:12px; padding:12px 16px; display:flex; align-items:center; gap:10px;">
-          <div style="width:8px; height:8px; border-radius:50%; background:#22C55E; box-shadow:0 0 8px rgba(34,197,94,0.6); flex-shrink:0;"></div>
-          <span style="font-family:'Inter',sans-serif; font-size:13px; color:rgba(255,255,255,0.65); line-height:1.4;">Consegna garantita <strong style="color:#fff;">entro 5 giorni</strong></span>
+        <!-- Promo badge -->
+        <div style="background:rgba(255,214,10,0.16); border:1px solid rgba(10,10,10,0.10); border-radius:12px; padding:12px 16px; display:flex; align-items:center; gap:10px;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#FFD60A; box-shadow:0 0 0 3px rgba(255,214,10,0.22); flex-shrink:0;"></div>
+          <span style="font-family:'Inter',sans-serif; font-size:13px; color:rgba(255,255,255,0.65); line-height:1.4;">Promo First 50: <strong style="color:#fff;">37 posti rimasti</strong></span>
         </div>
 
       </div>
@@ -572,17 +585,22 @@
   #hero .hero-grid > div:first-child {
     max-width: 680px !important;
     margin-left: 84px !important;
+    min-width: 0 !important;
   }
 
   #hero .hero-grid > div:first-child > div:first-child {
     background: rgba(255,248,231,0.78) !important;
     border-color: rgba(255,214,10,0.75) !important;
     margin-bottom: 38px !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
 
   #hero .hero-grid > div:first-child > div:first-child span:last-child {
     color: #242424 !important;
     font-weight: 500 !important;
+    min-width: 0 !important;
+    overflow-wrap: anywhere !important;
   }
 
   #hero h1 {
@@ -626,26 +644,107 @@
     color: var(--sr-yellow-dark) !important;
   }
 
-  #hero .hero-grid > div:first-child > div:nth-of-type(3) {
-    border-top-color: rgba(10,10,10,0.10) !important;
-    max-width: 612px !important;
+  #hero .hero-trust-panel {
+    display: grid !important;
+    gap: 14px !important;
+    width: 100% !important;
+    max-width: 660px !important;
+    min-width: 0 !important;
+    padding: 16px !important;
+    background: rgba(255,255,255,0.88) !important;
+    border: 1px solid rgba(10,10,10,0.14) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 18px 44px rgba(10,10,10,0.08) !important;
+    backdrop-filter: blur(12px) !important;
   }
 
-  #hero .hero-grid > div:first-child > div:nth-of-type(3) > div {
-    border-right-color: rgba(10,10,10,0.10) !important;
+  #hero .hero-trust-heading {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
   }
 
-  #hero .hero-grid > div:first-child > div:nth-of-type(3) strong,
-  #hero .hero-grid > div:first-child > div:nth-of-type(3) div:first-child {
+  #hero .hero-trust-signal {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 9999px !important;
+    background: var(--sr-yellow) !important;
+    border: 2px solid var(--sr-ink) !important;
+    box-shadow: 4px 4px 0 var(--sr-ink) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+  }
+
+  #hero .hero-trust-signal::after {
+    content: "" !important;
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 9999px !important;
+    background: var(--sr-ink) !important;
+  }
+
+  #hero .hero-trust-heading strong {
+    display: block !important;
     color: var(--sr-ink) !important;
+    font-family: var(--sr-font-display) !important;
+    font-size: 16px !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0 !important;
   }
 
-  #hero .hero-grid > div:first-child > div:nth-of-type(3) div div:first-child {
+  #hero .hero-trust-subtitle {
+    display: block !important;
+    margin-top: 3px !important;
+    color: #5f5f5f !important;
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  #hero .hero-trust-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+  }
+
+  #hero .hero-trust-item {
+    min-width: 0 !important;
+    min-height: 76px !important;
+    padding: 10px 9px !important;
+    border: 1px solid rgba(10,10,10,0.10) !important;
+    border-radius: 10px !important;
+    background: var(--sr-warm) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+
+  #hero .hero-trust-item--primary {
+    background: var(--sr-yellow) !important;
+    border-color: var(--sr-ink) !important;
+  }
+
+  #hero .hero-trust-value {
     color: var(--sr-ink) !important;
+    font-family: var(--sr-font-mono) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.12 !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
   }
 
-  #hero .hero-grid > div:first-child > div:nth-of-type(3) div div:last-child {
-    color: #7b7b7b !important;
+  #hero .hero-trust-label {
+    color: #636363 !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  #hero .hero-trust-item--primary .hero-trust-label {
+    color: rgba(10,10,10,0.72) !important;
   }
 
   #hero .hero-card-wrap {
@@ -681,8 +780,8 @@
   }
 
   #hero .hero-card-wrap > div:last-child {
-    background: rgba(240,253,244,0.88) !important;
-    border-color: rgba(34,197,94,0.26) !important;
+    background: rgba(255,248,231,0.88) !important;
+    border-color: rgba(10,10,10,0.12) !important;
     border-radius: 10px !important;
   }
 
@@ -732,44 +831,20 @@
 
     #hero .hero-grid > div:first-child > div:first-child {
       align-items: flex-start !important;
+      flex-wrap: wrap !important;
       white-space: normal !important;
     }
 
-    #hero .hero-grid > div:first-child > div:nth-of-type(3) {
-      display: grid !important;
+    #hero .hero-trust-panel {
+      padding: 14px !important;
+    }
+
+    #hero .hero-trust-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      gap: 22px 0 !important;
+      gap: 8px !important;
     }
   }
 </style>
-
-<!-- TRUST BAR -->
-<section class="py-5 border-y" style="border-color: var(--sr-border); background: var(--sr-warm);">
-  <div class="sr-container">
-    <div class="flex flex-wrap justify-center gap-4 md:gap-8">
-      <div class="flex items-center gap-2 text-sm font-medium">
-        <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        <span>5 giorni garantiti</span>
-      </div>
-      <div class="flex items-center gap-2 text-sm font-medium">
-        <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <span>Prezzo fisso, niente sorprese</span>
-      </div>
-      <div class="flex items-center gap-2 text-sm font-medium">
-        <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-        <span>Zero riunioni</span>
-      </div>
-      <div class="flex items-center gap-2 text-sm font-medium">
-        <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span>Sede a Latina, LT</span>
-      </div>
-      <div class="flex items-center gap-2 text-sm font-medium">
-        <svg style="color:var(--sr-success);flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span>Rimborso 50% garantito</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- PROBLEMA -->
 <section class="sr-section">
