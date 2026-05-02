@@ -292,21 +292,7 @@
   box-shadow: var(--sr-shadow-xl);
 }
 .sr-compare-choice::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: auto;
-  left: auto;
-  width: min(180px, 34%);
-  height: 52%;
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(255, 214, 10, 0.24) 0 10px,
-    rgba(255, 214, 10, 0) 10px 20px
-  );
-  opacity: 0.75;
-  pointer-events: none;
+  display: none;
 }
 .sr-compare-choice > * {
   position: relative;
