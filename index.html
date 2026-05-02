@@ -196,7 +196,7 @@
 
 <!-- NAVBAR PILL -->
 <header style="position:fixed; top:20px; left:0; right:0; z-index:200; display:flex; justify-content:center; pointer-events:none;">
-  <nav id="sr-navbar" class="sr-navbar sr-navbar--light" style="pointer-events:all; display:flex; align-items:center; border-radius:9999px; padding:6px 6px 6px 16px; gap:4px;">
+  <nav id="sr-navbar" class="sr-navbar sr-navbar--light" style="pointer-events:all; display:flex; align-items:center; border-radius:9999px; padding:6px 6px 6px 16px; gap:4px; position:relative;">
 
     <!-- Logo -->
     <a href="/" style="display:flex; align-items:center; gap:8px; text-decoration:none; margin-right:8px;">
@@ -217,6 +217,21 @@
 
     <!-- CTA -->
     <a href="#pacchetti" data-scroll-to="#pacchetti" class="sr-nav-cta-pill">Inizia ora →</a>
+
+    <!-- Mobile menu trigger -->
+    <button id="sr-mobile-menu-toggle" class="sr-mobile-menu-toggle" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="sr-mobile-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Mobile menu -->
+    <div id="sr-mobile-menu" class="sr-mobile-menu-panel" hidden>
+      <a href="#come-funziona" data-scroll-to="#come-funziona">Come funziona</a>
+      <a href="#pacchetti" data-scroll-to="#pacchetti">Pacchetti</a>
+      <a href="#esempi" data-scroll-to="#esempi">Esempi</a>
+      <a href="#faq" data-scroll-to="#faq">FAQ</a>
+    </div>
 
   </nav>
 
@@ -289,7 +304,7 @@
   .sr-navlink {
     font-family:'Inter',sans-serif; font-size:14px; font-weight:500;
     color:var(--nav-muted); text-decoration:none;
-    padding:7px 14px; border-radius:9999px;
+    padding:10px 14px; border-radius:9999px;
     transition:color 150ms, background 150ms;
   }
   .sr-navlink:hover { color:var(--nav-text); background:var(--nav-hover-bg); }
@@ -297,15 +312,104 @@
   .sr-nav-cta-pill {
     font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
     background:#FFD60A; color:#0A0A0A;
-    padding:8px 18px; border-radius:9999px;
+    min-height:44px; display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 18px; border-radius:9999px;
     text-decoration:none; margin-left:4px; white-space:nowrap;
     transition:background 150ms, transform 150ms;
   }
   .sr-nav-cta-pill:hover { background:#F5B700; transform:translateY(-1px); }
 
+  .sr-mobile-menu-toggle {
+    display:none;
+    width:44px;
+    height:44px;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:4px;
+    border:0;
+    border-radius:9999px;
+    background:var(--nav-hover-bg);
+    color:var(--nav-text);
+    cursor:pointer;
+    flex-shrink:0;
+    transition:background 150ms, transform 150ms;
+  }
+  .sr-mobile-menu-toggle:hover { background:rgba(10,10,10,0.10); }
+  .sr-mobile-menu-toggle span {
+    width:17px;
+    height:2px;
+    border-radius:9999px;
+    background:currentColor;
+    transition:transform 180ms, opacity 180ms;
+  }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+
+  .sr-mobile-menu-panel {
+    position:absolute;
+    top:calc(100% + 10px);
+    left:50%;
+    width:min(320px, calc(100vw - 32px));
+    transform:translate(-50%, -6px);
+    opacity:0;
+    pointer-events:none;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    padding:10px;
+    border-radius:20px;
+    border:1px solid var(--nav-border);
+    background:rgba(255,255,255,0.94);
+    box-shadow:0 18px 48px rgba(10,10,10,0.18);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    transition:opacity 180ms, transform 180ms;
+  }
+  .sr-mobile-menu-panel.is-open {
+    transform:translate(-50%, 0);
+    opacity:1;
+    pointer-events:all;
+  }
+  .sr-mobile-menu-panel[hidden] { display:none; }
+  .sr-mobile-menu-panel a {
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    padding:10px 14px;
+    border-radius:14px;
+    color:var(--sr-ink);
+    text-decoration:none;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    font-weight:600;
+  }
+  .sr-mobile-menu-panel a:hover,
+  .sr-mobile-menu-panel a:focus-visible {
+    background:rgba(10,10,10,0.06);
+  }
+
   @media (max-width: 640px) {
     .sr-nav-links { display:none !important; }
     .sr-nav-divider { display:none !important; }
+    .sr-mobile-menu-toggle { display:flex; }
+  }
+
+  @media (max-width: 380px) {
+    #sr-navbar {
+      padding-left:12px !important;
+    }
+    .sr-brand-word {
+      max-width:78px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .sr-nav-cta-pill {
+      padding-left:14px;
+      padding-right:14px;
+    }
   }
 </style>
 
@@ -1227,12 +1331,44 @@
   <script src="/js/navbar.js"></script>
   <script src="/js/faq.js"></script>
   <script>
+    // Mobile menu
+    const mobileMenuToggle = document.getElementById('sr-mobile-menu-toggle');
+    const mobileMenu = document.getElementById('sr-mobile-menu');
+
+    function setMobileMenu(open) {
+      if (!mobileMenuToggle || !mobileMenu) return;
+      mobileMenuToggle.setAttribute('aria-expanded', String(open));
+      mobileMenuToggle.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+      mobileMenu.hidden = !open;
+      requestAnimationFrame(() => {
+        mobileMenu.classList.toggle('is-open', open);
+      });
+    }
+
+    if (mobileMenuToggle && mobileMenu) {
+      mobileMenuToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        setMobileMenu(mobileMenuToggle.getAttribute('aria-expanded') !== 'true');
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!mobileMenu.hidden && !mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+          setMobileMenu(false);
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setMobileMenu(false);
+      });
+    }
+
     // Smooth scroll CTA
     document.querySelectorAll('[data-scroll-to]').forEach(el => {
       el.addEventListener('click', e => {
         e.preventDefault();
         const target = document.querySelector(el.dataset.scrollTo);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setMobileMenu(false);
       });
     });
 
