@@ -39,7 +39,12 @@
     }
   </style>
 
-  <!-- Analytics intentionally disabled until real Meta, GA4 and Clarity IDs are configured. -->
+  <!-- TODO: Replace G-XXXXXXXXXX with real GA4 Measurement ID before deploying -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+  <!-- TODO: Replace PIXEL_ID_QUI with real Meta Pixel ID before deploying -->
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','PIXEL_ID_QUI');fbq('track','PageView');</script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_QUI&ev=PageView&noscript=1"/></noscript>
 
   <!-- Schema JSON-LD -->
   <script type="application/ld+json">
@@ -1652,9 +1657,9 @@
       <div>
         <p class="text-xs font-bold uppercase tracking-widest mb-4" style="color:rgba(255,255,255,0.4);">Legale</p>
         <ul class="space-y-2">
-          <li><a href="/privacy" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Privacy Policy</a></li>
-          <li><a href="/cookie" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Cookie Policy</a></li>
-          <li><a href="/termini" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Termini di Servizio</a></li>
+          <li><a href="/legal/privacy-policy.html" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Privacy Policy</a></li>
+          <li><a href="/legal/cookie-policy.html" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Cookie Policy</a></li>
+          <li><a href="/legal/termini-condizioni.html" class="text-sm hover:text-white transition-colors" style="color:rgba(255,255,255,0.6);">Termini di Servizio</a></li>
         </ul>
       </div>
     </div>
