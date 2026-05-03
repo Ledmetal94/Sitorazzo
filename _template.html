@@ -35,10 +35,10 @@
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/main.css">
 
-  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with real ID -->
+  <!-- TODO: Replace G-XXXXXXXXXX with real GA4 Measurement ID before deploying -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
-  <!-- Meta Pixel — replace PIXEL_ID_QUI with real ID -->
+  <!-- TODO: Replace PIXEL_ID_QUI with real Meta Pixel ID before deploying -->
   <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','PIXEL_ID_QUI');fbq('track','PageView');</script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_QUI&ev=PageView&noscript=1"/></noscript>
 </head>
@@ -365,5 +365,37 @@
 </footer>
 
 <script src="/js/navbar.js"></script>
+<script>
+  // Mobile menu
+  const mobileMenuToggle = document.getElementById('sr-mobile-menu-toggle');
+  const mobileMenu = document.getElementById('sr-mobile-menu');
+
+  function setMobileMenu(open) {
+    if (!mobileMenuToggle || !mobileMenu) return;
+    mobileMenuToggle.setAttribute('aria-expanded', String(open));
+    mobileMenuToggle.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+    mobileMenu.hidden = !open;
+    requestAnimationFrame(() => {
+      mobileMenu.classList.toggle('is-open', open);
+    });
+  }
+
+  if (mobileMenuToggle && mobileMenu) {
+    mobileMenuToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setMobileMenu(mobileMenuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!mobileMenu.hidden && !mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+        setMobileMenu(false);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMobileMenu(false);
+    });
+  }
+</script>
 </body>
 </html>
