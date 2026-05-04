@@ -52,8 +52,10 @@
     fbq('init', 'PIXEL_ID_QUI');
     fbq('track', 'PageView');
     const pkg = new URLSearchParams(location.search).get('pacchetto') || 'pro';
-    const prices = { start: 390, pro: 590, power: 1290 };
-    fbq('track', 'Purchase', { value: prices[pkg] || 590, currency: 'EUR', content_name: 'Sitorazzo ' + pkg });
+    if (pkg !== 'lead') {
+      const prices = { start: 390, pro: 590, power: 1290 };
+      fbq('track', 'Purchase', { value: prices[pkg] || 590, currency: 'EUR', content_name: 'Sitorazzo ' + pkg });
+    }
   </script>
 
   <!-- GA4 -->
@@ -64,8 +66,10 @@
     gtag('js', new Date());
     gtag('config', 'G-XXXXXXXXXX');
     const pkgGA = new URLSearchParams(location.search).get('pacchetto') || 'pro';
-    const pricesGA = { start: 390, pro: 590, power: 1290 };
-    gtag('event', 'purchase', { value: pricesGA[pkgGA] || 590, currency: 'EUR' });
+    if (pkgGA !== 'lead') {
+      const pricesGA = { start: 390, pro: 590, power: 1290 };
+      gtag('event', 'purchase', { value: pricesGA[pkgGA] || 590, currency: 'EUR' });
+    }
   </script>
 </head>
 <body>
