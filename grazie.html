@@ -92,25 +92,40 @@
   <script>
     const allowedPackages = ['start', 'pro', 'power'];
     const rawPkgParam = new URLSearchParams(location.search).get('pacchetto');
-    const pkgParam = allowedPackages.includes(rawPkgParam) ? rawPkgParam : 'pro';
+    const pkgParam = allowedPackages.includes(rawPkgParam) ? rawPkgParam : (rawPkgParam === 'lead' ? 'lead' : 'pro');
     const ctaWrap = document.getElementById('cta-wrap');
     const NAMES  = { start: 'Razzo Start', pro: 'Razzo Pro', power: 'Razzo Power' };
     const PRICES = { start: '390€', pro: '590€', power: '1.290€' };
     const orderSummary = document.getElementById('order-summary');
-    if (orderSummary) {
-      orderSummary.innerHTML =
-        '<div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:10px;">Riepilogo ordine</div>' +
-        '<div style="display:flex;justify-content:space-between;align-items:baseline;">' +
-          '<span style="font-family:var(--sr-font-display);font-weight:700;font-size:17px;color:var(--sr-paper);">' + (NAMES[pkgParam] || 'Razzo Pro') + '</span>' +
-          '<span style="font-family:var(--sr-font-mono);font-weight:700;font-size:18px;color:var(--sr-yellow);">' + (PRICES[pkgParam] || '590€') + '</span>' +
-        '</div>' +
-        '<div style="font-size:13px;color:var(--sr-ink-40);margin-top:4px;">Consegna garantita · Garanzia rimborso 50%</div>';
+
+    if (pkgParam === 'lead') {
+      // Lead (contact form) case — no order summary, different copy
+      const h1 = document.querySelector('h1');
+      if (h1) h1.textContent = 'Messaggio ricevuto!';
+      const lead = document.querySelector('.sr-lead');
+      if (lead) lead.textContent = 'Ti risponderemo entro 24 ore lavorative.';
+      if (orderSummary) orderSummary.style.display = 'none';
+      const a = document.createElement('a');
+      a.href = '/#pacchetti';
+      a.className = 'sr-btn sr-btn-primary sr-btn-lg';
+      a.innerHTML = 'Scopri i pacchetti →';
+      ctaWrap.appendChild(a);
+    } else {
+      if (orderSummary) {
+        orderSummary.innerHTML =
+          '<div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:10px;">Riepilogo ordine</div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:baseline;">' +
+            '<span style="font-family:var(--sr-font-display);font-weight:700;font-size:17px;color:var(--sr-paper);">' + (NAMES[pkgParam] || 'Razzo Pro') + '</span>' +
+            '<span style="font-family:var(--sr-font-mono);font-weight:700;font-size:18px;color:var(--sr-yellow);">' + (PRICES[pkgParam] || '590€') + '</span>' +
+          '</div>' +
+          '<div style="font-size:13px;color:var(--sr-ink-40);margin-top:4px;">Consegna garantita · Garanzia rimborso 50%</div>';
+      }
+      const a = document.createElement('a');
+      a.href = '/onboarding.html?pacchetto=' + pkgParam;
+      a.className = 'sr-btn sr-btn-primary sr-btn-lg';
+      a.innerHTML = 'Compila il brief ora <svg class="sr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
+      ctaWrap.appendChild(a);
     }
-    const a = document.createElement('a');
-    a.href = '/onboarding.html?pacchetto=' + pkgParam;
-    a.className = 'sr-btn sr-btn-primary sr-btn-lg';
-    a.innerHTML = 'Compila il brief ora <svg class="sr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
-    ctaWrap.appendChild(a);
   </script>
 </body>
 </html>
