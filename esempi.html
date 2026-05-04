@@ -35,6 +35,10 @@
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/main.css">
 
+  <style>
+    [data-filter]:focus-visible { outline: 2px solid var(--sr-yellow); outline-offset: 2px; }
+    @media (max-width: 640px) { .sr-footer-grid { grid-template-columns: 1fr !important; } }
+  </style>
   <!-- TODO: Replace G-XXXXXXXXXX with real GA4 Measurement ID before deploying -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
@@ -324,12 +328,12 @@
 
 <!-- 2. FILTER PILLS -->
 <section style="background:var(--sr-warm); padding-top:48px; padding-bottom:24px; text-align:center;">
-  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; padding:0 24px;">
-    <button data-filter="all" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:none; background:var(--sr-ink); color:var(--sr-paper);">Tutti</button>
-    <button data-filter="ristoranti" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Ristoranti</button>
-    <button data-filter="professionisti" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Professionisti</button>
-    <button data-filter="negozi" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Negozi</button>
-    <button data-filter="bb" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">B&B</button>
+  <div role="group" aria-label="Filtra per categoria" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; padding:0 24px;">
+    <button data-filter="all" aria-pressed="true" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:none; background:var(--sr-ink); color:var(--sr-paper);">Tutti</button>
+    <button data-filter="ristoranti" aria-pressed="false" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Ristoranti</button>
+    <button data-filter="professionisti" aria-pressed="false" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Professionisti</button>
+    <button data-filter="negozi" aria-pressed="false" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Negozi</button>
+    <button data-filter="bb" aria-pressed="false" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">B&B</button>
   </div>
 </section>
 
@@ -426,7 +430,7 @@
 <!-- FOOTER -->
 <footer style="background:var(--sr-ink);color:var(--sr-paper);padding:64px 0 32px;">
   <div style="width:100%;max-width:1280px;margin:0 auto;padding:0 24px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-bottom:48px;">
+    <div class="sr-footer-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-bottom:48px;">
       <div>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
           <img src="/assets/Sitorazzo_Logomark_256px.png" alt="" style="width:24px;height:24px;">
@@ -512,6 +516,7 @@
         p.style.background = isActive ? 'var(--sr-ink)' : 'var(--sr-paper)';
         p.style.color = isActive ? 'var(--sr-paper)' : 'var(--sr-ink)';
         p.style.border = isActive ? 'none' : '1.5px solid var(--sr-border)';
+        p.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
 
       // Show/hide cards
