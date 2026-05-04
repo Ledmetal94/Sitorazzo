@@ -75,7 +75,14 @@
         <svg class="sr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3Z"></path><path d="m9 12 2 2 4-4"></path></svg>
       </div>
       <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Pagamento confermato!</h1>
-      <p class="sr-lead" style="margin-bottom:var(--sr-space-8);">Perfetto. Ora compila il brief — ci vogliono solo 10–15 minuti. Raccoglieremo tutto quello che ci serve per costruire il tuo sito.</p>
+      <p class="sr-lead" style="margin-bottom:var(--sr-space-6);">Perfetto. Ora compila il brief — ci vogliono solo 10–15 minuti. Raccoglieremo tutto quello che ci serve per costruire il tuo sito.</p>
+      <!-- Order summary — populated by JS below -->
+      <div id="order-summary" style="background:var(--sr-ink);border-radius:14px;padding:20px 24px;margin-bottom:var(--sr-space-6);text-align:left;"></div>
+      <div style="background:var(--sr-warm);border:1px solid var(--sr-border);border-radius:12px;padding:16px 20px;margin-bottom:var(--sr-space-6);text-align:left;">
+        <p style="font-size:14px;color:var(--sr-ink-70);line-height:1.7;margin:0;">
+          <strong style="color:var(--sr-ink);">E ora?</strong> Nessun'altra azione richiesta. Compila il brief qui sotto e il tuo sito inizia a decollare. Ci vogliono solo 10–15 minuti.
+        </p>
+      </div>
       <div id="cta-wrap"></div>
       <p style="margin-top:var(--sr-space-4); font-size:var(--sr-fs-xs); color:var(--sr-ink-40);">
         Hai già ricevuto la ricevuta di pagamento via email da Stripe.
@@ -87,6 +94,18 @@
     const rawPkgParam = new URLSearchParams(location.search).get('pacchetto');
     const pkgParam = allowedPackages.includes(rawPkgParam) ? rawPkgParam : 'pro';
     const ctaWrap = document.getElementById('cta-wrap');
+    const NAMES  = { start: 'Razzo Start', pro: 'Razzo Pro', power: 'Razzo Power' };
+    const PRICES = { start: '390€', pro: '590€', power: '1.290€' };
+    const orderSummary = document.getElementById('order-summary');
+    if (orderSummary) {
+      orderSummary.innerHTML =
+        '<div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:10px;">Riepilogo ordine</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;">' +
+          '<span style="font-family:var(--sr-font-display);font-weight:700;font-size:17px;color:var(--sr-paper);">' + (NAMES[pkgParam] || 'Razzo Pro') + '</span>' +
+          '<span style="font-family:var(--sr-font-mono);font-weight:700;font-size:18px;color:var(--sr-yellow);">' + (PRICES[pkgParam] || '590€') + '</span>' +
+        '</div>' +
+        '<div style="font-size:13px;color:var(--sr-ink-40);margin-top:4px;">Consegna garantita · Garanzia rimborso 50%</div>';
+    }
     const a = document.createElement('a');
     a.href = '/onboarding.html?pacchetto=' + pkgParam;
     a.className = 'sr-btn sr-btn-primary sr-btn-lg';
