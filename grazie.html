@@ -46,41 +46,7 @@
     }
   </style>
 
-  <!-- Meta Pixel Purchase -->
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'PIXEL_ID_QUI');
-    fbq('track', 'PageView');
-    const pkg = new URLSearchParams(location.search).get('pacchetto') || 'pro';
-    if (pkg === 'lead') {
-      fbq('track', 'Lead');
-    } else {
-      const prices = { start: 390, pro: 590, power: 1290 };
-      fbq('track', 'Purchase', { value: prices[pkg] || 590, currency: 'EUR', content_name: 'Sitorazzo ' + pkg });
-    }
-  </script>
-
-  <!-- GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-    const pkgGA = new URLSearchParams(location.search).get('pacchetto') || 'pro';
-    if (pkgGA !== 'lead') {
-      const pricesGA = { start: 390, pro: 590, power: 1290 };
-      const txId = 'SR-' + Date.now() + '-' + (Math.random().toString(36).slice(2,7)).toUpperCase();
-      gtag('event', 'purchase', {
-        transaction_id: txId,
-        value: pricesGA[pkgGA] || 590,
-        currency: 'EUR',
-        items: [{ item_id: pkgGA, item_name: 'Sitorazzo ' + (pkgGA === 'start' ? 'Razzo Start' : pkgGA === 'power' ? 'Razzo Power' : 'Razzo Pro'), price: pricesGA[pkgGA] || 590, quantity: 1 }]
-      });
-      // TODO: Replace AW-XXXXXXXXXX/XXXXXXXXXXXX with real Google Ads conversion ID + label before going live
-      gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXXX/XXXXXXXXXXXX', value: pricesGA[pkgGA] || 590, currency: 'EUR', transaction_id: txId });
-    }
-  </script>
+  <!-- Conversion tracking fires via SRConsent.onReady() at bottom of body -->
 </head>
 <body>
   <div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding: var(--sr-space-8) var(--sr-space-6);">
@@ -140,6 +106,42 @@
       a.innerHTML = 'Compila il brief ora <svg class="sr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
       ctaWrap.appendChild(a);
     }
+  </script>
+
+  <!-- Load consent manager (shows banner if needed, fires tracking when accepted) -->
+  <script src="/js/cookie-consent.js"></script>
+
+  <!-- Conversion events — fire only when tracking is ready (consent given) -->
+  <script>
+    (function () {
+      var ALLOWED = ['start', 'pro', 'power'];
+      var raw = new URLSearchParams(location.search).get('pacchetto');
+      var pkg = ALLOWED.includes(raw) ? raw : (raw === 'lead' ? 'lead' : 'pro');
+      var PRICES = { start: 390, pro: 590, power: 1290 };
+      var NAMES  = { start: 'Razzo Start', pro: 'Razzo Pro', power: 'Razzo Power' };
+
+      window.SRConsent.onReady(function () {
+        if (pkg === 'lead') {
+          if (window.fbq) fbq('track', 'Lead');
+        } else {
+          var val = PRICES[pkg] || 590;
+          var txId = 'SR-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7).toUpperCase();
+
+          if (window.fbq) fbq('track', 'Purchase', { value: val, currency: 'EUR', content_name: 'Sitorazzo ' + pkg });
+
+          if (window.gtag) {
+            gtag('event', 'purchase', {
+              transaction_id: txId,
+              value: val,
+              currency: 'EUR',
+              items: [{ item_id: pkg, item_name: NAMES[pkg], price: val, quantity: 1 }]
+            });
+            // TODO: Replace AW-XXXXXXXXXX/XXXXXXXXXXXX with real Google Ads conversion ID + label
+            gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXXX/XXXXXXXXXXXX', value: val, currency: 'EUR', transaction_id: txId });
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
