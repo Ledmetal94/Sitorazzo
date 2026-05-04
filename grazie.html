@@ -52,7 +52,9 @@
     fbq('init', 'PIXEL_ID_QUI');
     fbq('track', 'PageView');
     const pkg = new URLSearchParams(location.search).get('pacchetto') || 'pro';
-    if (pkg !== 'lead') {
+    if (pkg === 'lead') {
+      fbq('track', 'Lead');
+    } else {
       const prices = { start: 390, pro: 590, power: 1290 };
       fbq('track', 'Purchase', { value: prices[pkg] || 590, currency: 'EUR', content_name: 'Sitorazzo ' + pkg });
     }
@@ -68,7 +70,15 @@
     const pkgGA = new URLSearchParams(location.search).get('pacchetto') || 'pro';
     if (pkgGA !== 'lead') {
       const pricesGA = { start: 390, pro: 590, power: 1290 };
-      gtag('event', 'purchase', { value: pricesGA[pkgGA] || 590, currency: 'EUR' });
+      const txId = 'SR-' + Date.now() + '-' + (Math.random().toString(36).slice(2,7)).toUpperCase();
+      gtag('event', 'purchase', {
+        transaction_id: txId,
+        value: pricesGA[pkgGA] || 590,
+        currency: 'EUR',
+        items: [{ item_id: pkgGA, item_name: 'Sitorazzo ' + (pkgGA === 'start' ? 'Razzo Start' : pkgGA === 'power' ? 'Razzo Power' : 'Razzo Pro'), price: pricesGA[pkgGA] || 590, quantity: 1 }]
+      });
+      // TODO: Replace AW-XXXXXXXXXX/XXXXXXXXXXXX with real Google Ads conversion ID + label before going live
+      gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXXX/XXXXXXXXXXXX', value: pricesGA[pkgGA] || 590, currency: 'EUR', transaction_id: txId });
     }
   </script>
 </head>
