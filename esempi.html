@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esempi di siti web — Sitorazzo</title>
+  <meta name="description" content="Guarda i siti web realizzati da Sitorazzo. Ristoranti, professionisti, negozi, B&B — online in 5 giorni a partire da 390€.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sitorazzo.it/esempi.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sitorazzo">
+  <meta property="og:url" content="https://sitorazzo.it/esempi.html">
+  <meta property="og:title" content="Esempi di siti web — Sitorazzo">
+  <meta property="og:description" content="Guarda i siti web realizzati da Sitorazzo. Ristoranti, professionisti, negozi, B&B — online in 5 giorni a partire da 390€.">
+  <meta property="og:image" content="https://sitorazzo.it/assets/Sitorazzo_Lockup_OnBlack.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon_512.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#0A0A0A">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS — three separate files: tokens, components, then Tailwind output -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <style>
+    [data-filter]:focus-visible { outline: 2px solid var(--sr-yellow); outline-offset: 2px; }
+    @media (max-width: 640px) { .sr-footer-grid { grid-template-columns: 1fr !important; } }
+  </style>
+  <!-- Cookie consent + tracking — managed by /js/cookie-consent.js -->
+</head>
+<body>
+
+<!-- NAVBAR PILL -->
+<header class="sr-site-header" style="position:fixed; top:20px; left:0; right:0; z-index:200; display:flex; justify-content:center; pointer-events:none;">
+  <nav id="sr-navbar" class="sr-navbar sr-navbar--light" style="pointer-events:all; display:flex; align-items:center; border-radius:9999px; padding:6px 6px 6px 16px; gap:4px; position:relative;">
+
+    <!-- Logo -->
+    <a href="/" style="display:flex; align-items:center; gap:8px; text-decoration:none; margin-right:8px;">
+      <img src="/assets/Sitorazzo_Logomark_256px.png" alt="Sitorazzo" style="width:22px; height:22px;" fetchpriority="high">
+      <span class="sr-brand-word" style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:#fff; letter-spacing:-0.02em;">Sitorazzo</span>
+    </a>
+
+    <!-- Divider -->
+    <div class="sr-nav-divider" style="width:1px; height:18px; background:rgba(255,255,255,0.15); margin:0 8px; flex-shrink:0;"></div>
+
+    <!-- Nav links desktop -->
+    <div class="sr-nav-links" style="display:flex; align-items:center; gap:0;">
+      <a href="/#come-funziona" class="sr-navlink">Come funziona</a>
+      <a href="/#pacchetti" class="sr-navlink">Pacchetti</a>
+      <a href="/esempi.html" class="sr-navlink">Esempi</a>
+      <a href="/faq.html" class="sr-navlink">FAQ</a>
+      <a href="/contatti.html" class="sr-navlink">Contatti</a>
+    </div>
+
+    <!-- CTA -->
+    <a href="/#pacchetti" class="sr-nav-cta-pill">Inizia ora →</a>
+
+    <!-- Mobile menu trigger -->
+    <button id="sr-mobile-menu-toggle" class="sr-mobile-menu-toggle" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="sr-mobile-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Mobile menu -->
+    <div id="sr-mobile-menu" class="sr-mobile-menu-panel" hidden>
+      <a href="/#come-funziona">Come funziona</a>
+      <a href="/#pacchetti">Pacchetti</a>
+      <a href="/esempi.html">Esempi</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/contatti.html">Contatti</a>
+      <a href="/blog/">Blog</a>
+    </div>
+
+  </nav>
+
+</header>
+
+<style>
+  #sr-navbar {
+    --nav-bg: rgba(10,10,10,0.88);
+    --nav-text: #fff;
+    --nav-muted: rgba(255,255,255,0.65);
+    --nav-hover-bg: rgba(255,255,255,0.08);
+    --nav-divider: rgba(255,255,255,0.15);
+    --nav-border: rgba(255,255,255,0.12);
+    --nav-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    background: var(--nav-bg) !important;
+    border: 1px solid var(--nav-border) !important;
+    box-shadow: var(--nav-shadow) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+  }
+
+  #sr-navbar.sr-navbar--dark {
+    --nav-bg: rgba(10,10,10,0.88);
+    --nav-text: #fff;
+    --nav-muted: rgba(255,255,255,0.65);
+    --nav-hover-bg: rgba(255,255,255,0.08);
+    --nav-divider: rgba(255,255,255,0.15);
+    --nav-border: rgba(255,255,255,0.12);
+    --nav-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  }
+
+  #sr-navbar.sr-navbar--smoke {
+    --nav-bg: rgba(48,46,40,0.74);
+    --nav-text: #fff;
+    --nav-muted: rgba(255,255,255,0.68);
+    --nav-hover-bg: rgba(255,255,255,0.10);
+    --nav-divider: rgba(255,255,255,0.18);
+    --nav-border: rgba(255,255,255,0.18);
+    --nav-shadow: 0 10px 30px rgba(10,10,10,0.24);
+  }
+
+  #sr-navbar.sr-navbar--light {
+    --nav-bg: rgba(255,255,255,0.72);
+    --nav-text: #0A0A0A;
+    --nav-muted: rgba(10,10,10,0.62);
+    --nav-hover-bg: rgba(10,10,10,0.06);
+    --nav-divider: rgba(10,10,10,0.12);
+    --nav-border: rgba(10,10,10,0.10);
+    --nav-shadow: 0 12px 32px rgba(10,10,10,0.12);
+  }
+
+  #sr-navbar.sr-navbar--cream {
+    --nav-bg: rgba(255,248,231,0.78);
+    --nav-text: #0A0A0A;
+    --nav-muted: rgba(10,10,10,0.62);
+    --nav-hover-bg: rgba(255,214,10,0.20);
+    --nav-divider: rgba(10,10,10,0.12);
+    --nav-border: rgba(255,214,10,0.42);
+    --nav-shadow: 0 12px 32px rgba(163,122,0,0.13);
+  }
+
+  #sr-navbar .sr-brand-word {
+    color: var(--nav-text) !important;
+  }
+
+  #sr-navbar .sr-nav-divider {
+    background: var(--nav-divider) !important;
+  }
+
+  .sr-navlink {
+    font-family:'Inter',sans-serif; font-size:14px; font-weight:500;
+    color:var(--nav-muted); text-decoration:none;
+    padding:10px 14px; border-radius:9999px;
+    transition:color 150ms, background 150ms;
+  }
+  .sr-navlink:hover { color:var(--nav-text); background:var(--nav-hover-bg); }
+
+  .sr-nav-cta-pill {
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
+    background:#FFD60A; color:#0A0A0A;
+    min-height:44px; display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 18px; border-radius:9999px;
+    text-decoration:none; margin-left:4px; white-space:nowrap;
+    transition:background 150ms, transform 150ms;
+  }
+  .sr-nav-cta-pill:hover { background:#F5B700; transform:translateY(-1px); }
+
+  .sr-mobile-menu-toggle {
+    display:none;
+    width:44px;
+    height:44px;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:4px;
+    border:0;
+    border-radius:9999px;
+    background:var(--nav-hover-bg);
+    color:var(--nav-text);
+    cursor:pointer;
+    flex-shrink:0;
+    transition:background 150ms, transform 150ms;
+  }
+  .sr-mobile-menu-toggle:hover { background:rgba(10,10,10,0.10); }
+  .sr-mobile-menu-toggle span {
+    width:17px;
+    height:2px;
+    border-radius:9999px;
+    background:currentColor;
+    transition:transform 180ms, opacity 180ms;
+  }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+
+  .sr-mobile-menu-panel {
+    position:absolute;
+    top:calc(100% + 10px);
+    left:50%;
+    width:min(320px, calc(100vw - 32px));
+    transform:translate(-50%, -6px);
+    opacity:0;
+    pointer-events:none;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    padding:10px;
+    border-radius:20px;
+    border:1px solid var(--nav-border);
+    background:rgba(255,255,255,0.94);
+    box-shadow:0 18px 48px rgba(10,10,10,0.18);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    transition:opacity 180ms, transform 180ms;
+  }
+  .sr-mobile-menu-panel.is-open {
+    transform:translate(-50%, 0);
+    opacity:1;
+    pointer-events:all;
+  }
+  .sr-mobile-menu-panel[hidden] { display:none; }
+  .sr-mobile-menu-panel a {
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    padding:10px 14px;
+    border-radius:14px;
+    color:var(--sr-ink);
+    text-decoration:none;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    font-weight:600;
+  }
+  .sr-mobile-menu-panel a:hover,
+  .sr-mobile-menu-panel a:focus-visible {
+    background:rgba(10,10,10,0.06);
+  }
+
+  @media (max-width: 640px) {
+    .sr-site-header {
+      top:12px !important;
+      padding:0 14px;
+      justify-content:stretch !important;
+    }
+    #sr-navbar {
+      width:100%;
+      justify-content:space-between;
+      padding:8px 8px 8px 14px !important;
+      gap:8px !important;
+      border-radius:28px !important;
+    }
+    #sr-navbar > a:first-child {
+      gap:9px !important;
+      margin-right:auto !important;
+      min-width:0;
+    }
+    #sr-navbar > a:first-child img {
+      width:24px !important;
+      height:24px !important;
+      flex-shrink:0;
+    }
+    #sr-navbar .sr-brand-word {
+      font-size:17px !important;
+      line-height:1;
+      min-width:0;
+    }
+    .sr-nav-links { display:none !important; }
+    .sr-nav-divider { display:none !important; }
+    .sr-nav-cta-pill {
+      min-height:46px;
+      padding:11px 16px;
+    }
+    .sr-mobile-menu-toggle {
+      display:flex;
+      width:46px;
+      height:46px;
+    }
+    .sr-mobile-menu-panel {
+      left:0;
+      width:100%;
+      transform:translateY(-6px);
+      border-radius:24px;
+      padding:12px;
+    }
+    .sr-mobile-menu-panel.is-open {
+      transform:translateY(0);
+    }
+    .sr-mobile-menu-panel a {
+      min-height:48px;
+      font-size:16px;
+      padding:12px 16px;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .sr-brand-word {
+      display:none;
+    }
+    .sr-nav-cta-pill {
+      padding-left:14px;
+      padding-right:14px;
+      font-size:13px;
+      min-height:44px;
+    }
+    .sr-mobile-menu-toggle {
+      width:44px;
+      height:44px;
+    }
+  }
+</style>
+
+<!-- 1. DARK HERO -->
+<section style="background:var(--sr-ink); padding:140px 24px 80px; text-align:center;">
+  <div style="max-width:640px; margin:0 auto;">
+    <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--sr-yellow); margin-bottom:16px;">PORTFOLIO</div>
+    <h1 style="font-family:var(--sr-font-display); font-weight:900; font-size:clamp(40px,7vw,64px); color:var(--sr-paper); line-height:1.05; letter-spacing:-0.03em; margin:0 0 20px;">Siti che abbiamo costruito.</h1>
+    <p style="font-size:18px; color:rgba(255,255,255,0.65); line-height:1.6; margin:0;">Ristoranti, parrucchieri, studi professionali, artigiani. Tutti online in 5 giorni.</p>
+  </div>
+</section>
+
+<!-- 2. FILTER PILLS -->
+<section style="background:var(--sr-warm); padding-top:48px; padding-bottom:24px; text-align:center;">
+  <div role="group" aria-label="Filtra per categoria" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; padding:0 24px;">
+    <button data-filter="all" aria-pressed="true" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:none; background:var(--sr-ink); color:var(--sr-paper);">Tutti</button>
+    <button data-filter="ristoranti" aria-pressed="false" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Ristoranti</button>
+    <button data-filter="professionisti" aria-pressed="false" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Professionisti</button>
+    <button data-filter="negozi" aria-pressed="false" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">Negozi</button>
+    <button data-filter="bb" aria-pressed="false" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; padding:8px 20px; border-radius:9999px; cursor:pointer; transition:background 150ms, color 150ms; border:1.5px solid var(--sr-border); background:var(--sr-paper); color:var(--sr-ink);">B&B</button>
+  </div>
+</section>
+
+<!-- 3. PORTFOLIO GRID -->
+<section style="background:var(--sr-warm); padding:0 24px 80px;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px,1fr)); gap:24px;">
+
+      <!-- Card 1: ristoranti -->
+      <div class="sr-example-card" data-category="ristoranti" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
+        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        </div>
+        <div style="padding:20px 24px;">
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Ristorante · Latina</div>
+          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Pizzeria da Mario</div>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+        </div>
+      </div>
+
+      <!-- Card 2: ristoranti -->
+      <div class="sr-example-card" data-category="ristoranti" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
+        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        </div>
+        <div style="padding:20px 24px;">
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Ristorante · Latina</div>
+          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Trattoria La Pergola</div>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+        </div>
+      </div>
+
+      <!-- Card 3: professionisti -->
+      <div class="sr-example-card" data-category="professionisti" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
+        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        </div>
+        <div style="padding:20px 24px;">
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Studio Professionale · Latina</div>
+          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Studio Legale Rossi</div>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+        </div>
+      </div>
+
+      <!-- Card 4: professionisti -->
+      <div class="sr-example-card" data-category="professionisti" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
+        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        </div>
+        <div style="padding:20px 24px;">
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Studio Professionale · Latina</div>
+          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Dott.ssa Bianchi — Psicologa</div>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+        </div>
+      </div>
+
+      <!-- Card 5: negozi -->
+      <div class="sr-example-card" data-category="negozi" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
+        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        </div>
+        <div style="padding:20px 24px;">
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Negozio · Latina</div>
+          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Ottica Del Centro</div>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+        </div>
+      </div>
+
+      <!-- Card 6: negozi -->
+      <div class="sr-example-card" data-category="negozi" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
+        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        </div>
+        <div style="padding:20px 24px;">
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Negozio · Latina</div>
+          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Profumeria Eleganza</div>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 4. YELLOW CTA STRIP -->
+<section style="background:var(--sr-yellow); padding:64px 24px; text-align:center;">
+  <div style="max-width:640px; margin:0 auto;">
+    <h2 style="font-family:var(--sr-font-display); font-weight:900; font-size:clamp(28px,5vw,40px); color:var(--sr-ink); line-height:1.1; letter-spacing:-0.02em; margin:0 0 24px;">Il tuo settore manca? Lo aggiungiamo.</h2>
+    <a href="/#pacchetti" style="display:inline-flex; align-items:center; gap:8px; font-family:var(--sr-font-display); font-weight:700; font-size:16px; background:var(--sr-ink); color:var(--sr-paper); padding:14px 28px; border-radius:9999px; text-decoration:none; transition:opacity 150ms;">Scegli il tuo pacchetto →</a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer style="background:var(--sr-ink);color:var(--sr-paper);padding:64px 0 32px;">
+  <div style="width:100%;max-width:1280px;margin:0 auto;padding:0 24px;">
+    <div class="sr-footer-grid" style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <img src="/assets/Sitorazzo_Logomark_256px.png" alt="" style="width:24px;height:24px;">
+          <span style="font-family:var(--sr-font-display);font-weight:700;font-size:18px;letter-spacing:-0.02em;">Sitorazzo</span>
+        </div>
+        <p style="font-size:14px;line-height:1.7;color:var(--sr-ink-40);margin:0 0 20px;">Siti web professionali per PMI italiane. Online in 5 giorni a partire da 390€.</p>
+        <span style="font-family:var(--sr-font-mono);font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--sr-yellow);text-transform:uppercase;">Il tuo sito decolla in 5 giorni.</span>
+      </div>
+      <div>
+        <div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:16px;">NAVIGAZIONE</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="/#come-funziona" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Come funziona</a>
+          <a href="/#pacchetti" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Pacchetti</a>
+          <a href="/esempi.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Esempi</a>
+          <a href="/faq.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">FAQ</a>
+          <a href="/contatti.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Contatti</a>
+          <a href="/blog/" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Blog</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:16px;">RISORSE</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="/quanto-costa-sito-web.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Quanto costa un sito?</a>
+          <a href="/sitorazzo-vs-wix.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Sitorazzo vs Wix</a>
+          <a href="/realizzazione-siti-web-latina.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Siti web a Latina</a>
+          <a href="/settori/ristoranti.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Siti per ristoranti</a>
+          <a href="/settori/parrucchieri.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Siti per parrucchieri</a>
+          <a href="/settori/idraulici.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Siti per idraulici</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:16px;">CONTATTI</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.65);margin:0 0 8px;">info@sitorazzo.it</p>
+        <p style="font-size:14px;color:rgba(255,255,255,0.65);margin:0 0 24px;">Latina, Lazio · Italia</p>
+        <a href="/#pacchetti" style="display:inline-flex;align-items:center;font-family:var(--sr-font-display);font-weight:700;font-size:14px;background:var(--sr-yellow);color:var(--sr-ink);padding:8px 18px;border-radius:9999px;text-decoration:none;">Inizia ora →</a>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <p style="font-size:12px;color:var(--sr-ink-40);margin:0;">© 2026 Sitorazzo · Virtual Zone S.r.l. · P.IVA IT03696930591</p>
+      <div style="display:flex;gap:20px;">
+        <a href="/legal/privacy-policy.html" style="font-size:12px;color:var(--sr-ink-40);text-decoration:none;">Privacy Policy</a>
+        <a href="/legal/termini-condizioni.html" style="font-size:12px;color:var(--sr-ink-40);text-decoration:none;">Termini &amp; Condizioni</a>
+        <a href="/legal/cookie-policy.html" style="font-size:12px;color:var(--sr-ink-40);text-decoration:none;">Cookie</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/navbar.js"></script>
+<script src="/js/cookie-consent.js"></script>
+<script>
+  // Mobile menu
+  const mobileMenuToggle = document.getElementById('sr-mobile-menu-toggle');
+  const mobileMenu = document.getElementById('sr-mobile-menu');
+
+  function setMobileMenu(open) {
+    if (!mobileMenuToggle || !mobileMenu) return;
+    mobileMenuToggle.setAttribute('aria-expanded', String(open));
+    mobileMenuToggle.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+    mobileMenu.hidden = !open;
+    requestAnimationFrame(() => {
+      mobileMenu.classList.toggle('is-open', open);
+    });
+  }
+
+  if (mobileMenuToggle && mobileMenu) {
+    mobileMenuToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setMobileMenu(mobileMenuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!mobileMenu.hidden && !mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+        setMobileMenu(false);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMobileMenu(false);
+    });
+  }
+</script>
+<script>
+(function() {
+  const pills = document.querySelectorAll('[data-filter]');
+  const cards = document.querySelectorAll('.sr-example-card');
+
+  pills.forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      const filter = pill.getAttribute('data-filter');
+
+      // Update active pill
+      pills.forEach(function(p) {
+        const isActive = p === pill;
+        p.style.background = isActive ? 'var(--sr-ink)' : 'var(--sr-paper)';
+        p.style.color = isActive ? 'var(--sr-paper)' : 'var(--sr-ink)';
+        p.style.border = isActive ? 'none' : '1.5px solid var(--sr-border)';
+        p.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      // Show/hide cards
+      cards.forEach(function(card) {
+        card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

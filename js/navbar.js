@@ -1,13 +1,14 @@
 (function () {
-  const navbar = document.getElementById('sr-navbar');
+  'use strict';
+
+  var navbar = document.getElementById('sr-navbar');
   if (!navbar) return;
 
-  const variants = ['dark', 'smoke', 'light', 'cream'];
-  const selected = new URLSearchParams(window.location.search).get('nav');
-  if (!variants.includes(selected)) return;
+  function onScroll() {
+    var scrolled = window.scrollY > 60;
+    navbar.style.boxShadow = scrolled ? '0 8px 32px rgba(0,0,0,0.35)' : '';
+  }
 
-  variants.forEach(function (variant) {
-    navbar.classList.remove('sr-navbar--' + variant);
-  });
-  navbar.classList.add('sr-navbar--' + selected);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
