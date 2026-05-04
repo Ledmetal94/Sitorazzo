@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /design_handoff_sitorazzo/prototypes/
+Disallow: /grazie.html
+Disallow: /_template.html
+Sitemap: https://sitorazzo.it/sitemap.xml
