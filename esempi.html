@@ -28,7 +28,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
   <!-- CSS — three separate files: tokens, components, then Tailwind output -->
   <link rel="stylesheet" href="/css/tokens.css">
@@ -38,6 +38,840 @@
   <style>
     [data-filter]:focus-visible { outline: 2px solid var(--sr-yellow); outline-offset: 2px; }
     @media (max-width: 640px) { .sr-footer-grid { grid-template-columns: 1fr !important; } }
+
+    /* ============ MOCKUP COMPONENT — RISTORANTE "MARIO" ============ */
+    .mk-frame {
+      width: 100%;
+      aspect-ratio: 1024 / 760;
+      overflow: hidden;
+      position: relative;
+      background: #ECE9E3;
+    }
+    .mk-stage {
+      width: 1024px;
+      height: 760px;
+      transform: scale(var(--mk-scale, 0.5));
+      transform-origin: top left;
+      position: relative;
+      background: #ECE9E3;
+      font-family: 'Inter', sans-serif;
+      color: #1A1A1A;
+    }
+    .mk-window {
+      position: absolute;
+      inset: 28px 28px 0 28px;
+      border-radius: 22px 22px 0 0;
+      background: #EEEAE3;
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+    .mk-traffic {
+      position: absolute;
+      top: 24px;
+      left: 28px;
+      display: flex;
+      gap: 8px;
+    }
+    .mk-traffic span {
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+    .mk-traffic span:nth-child(1){ background:#FF5F57; }
+    .mk-traffic span:nth-child(2){ background:#FEBC2E; }
+    .mk-traffic span:nth-child(3){ background:#28C840; }
+
+    .mk-nav {
+      position: absolute;
+      top: 56px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      align-items: center;
+      gap: 56px;
+    }
+    .mk-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1;
+      gap: 4px;
+    }
+    .mk-logo-mark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 38px;
+      color: #1A1A1A;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+    }
+    .mk-logo-flag {
+      display: flex;
+      width: 78px;
+      height: 4px;
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .mk-logo-flag span { flex: 1; }
+    .mk-logo-flag .g { background: #009246; }
+    .mk-logo-flag .w { background: #fff; }
+    .mk-logo-flag .r { background: #CE2B37; }
+    .mk-logo-word {
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 18px;
+      color: #1A1A1A;
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+    .mk-navlinks {
+      display: flex;
+      gap: 28px;
+      font-size: 15px;
+      font-weight: 500;
+      margin-left: 48px;
+    }
+    .mk-navlinks a { color: #2A2A2A; text-decoration: none; }
+    .mk-navlinks a.active { color: #C0392B; font-weight: 700; }
+    .mk-nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .mk-bag {
+      width: 36px; height: 36px;
+      display: grid; place-items: center;
+      position: relative;
+    }
+    .mk-bag::after {
+      content: ""; position: absolute;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #C0392B;
+      top: 4px; right: 4px;
+    }
+    .mk-signup {
+      background: #C0392B;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 12px 26px;
+      border-radius: 9999px;
+      border: none;
+    }
+
+    .mk-hero {
+      position: absolute;
+      top: 170px;
+      left: 80px;
+      right: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .mk-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 58px;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin: 0;
+      font-weight: 700;
+    }
+    .mk-headline i { font-style: italic; font-weight: 400; }
+    .mk-cta-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 36px;
+    }
+    .mk-cta {
+      padding: 14px 30px;
+      border-radius: 9999px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+    }
+    .mk-cta-red { background: #C0392B; color: #fff; }
+    .mk-cta-white { background: #fff; color: #1A1A1A; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+    .mk-reviews {
+      margin-top: 32px;
+      font-size: 12px;
+      color: #555;
+    }
+    .mk-reviews-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mk-avatars {
+      display: flex;
+    }
+    .mk-avatars span {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2px solid #ECE9E3;
+      margin-left: -8px;
+      background: linear-gradient(135deg, #d6a06b, #8a5a3e);
+    }
+    .mk-avatars span:first-child { margin-left: 0; background: linear-gradient(135deg, #e0b89a, #a86b4d); }
+    .mk-avatars span:nth-child(2) { background: linear-gradient(135deg, #c98c69, #6e4030); }
+    .mk-avatars span:nth-child(3) { background: linear-gradient(135deg, #b9785a, #5e3625); }
+    .mk-avatars .mk-more {
+      background: #1A1A1A;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+    }
+    .mk-stars {
+      color: #F5B400;
+      letter-spacing: 2px;
+      font-size: 14px;
+    }
+
+    .mk-plate-wrap {
+      position: relative;
+      justify-self: end;
+      width: 380px; height: 380px;
+      margin-top: -20px;
+    }
+    .mk-plate {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background-color: #7f8a96;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+    .mk-plate::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 6px 18px rgba(0,0,0,0.18), inset 0 -6px 18px rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+    .mk-badge {
+      position: absolute;
+      top: 30px; left: -10px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+    .mk-badge-icon {
+      width: 28px; height: 28px;
+      display: grid; place-items: center;
+      font-size: 16px;
+    }
+    .mk-badge strong { display: block; font-size: 18px; font-weight: 800; line-height: 1; }
+    .mk-badge small { display: block; font-size: 10px; color: #C0392B; font-weight: 700; margin-top: 2px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .mk-badge em { display: block; font-size: 10px; color: #888; font-style: normal; }
+
+    .mk-leaf {
+      position: absolute;
+      font-size: 48px;
+      filter: blur(0.3px);
+      pointer-events: none;
+    }
+    .mk-leaf-1 { top: 10px; right: 60px; transform: rotate(20deg); }
+    .mk-leaf-2 { top: 240px; left: -20px; transform: rotate(-30deg); }
+    .mk-leaf-3 { bottom: 80px; right: -10px; transform: rotate(45deg); }
+
+    .mk-strip {
+      position: absolute;
+      bottom: 28px;
+      left: 80px;
+      right: 80px;
+      display: grid;
+      grid-template-columns: 32px repeat(4, 1fr) 32px;
+      gap: 14px;
+      align-items: center;
+    }
+    .mk-arrow {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .mk-arrow-prev { background: #4A4A4A; color: #fff; }
+    .mk-arrow-next { background: #C0392B; color: #fff; }
+    .mk-dish {
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      position: relative;
+    }
+    .mk-dish-img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background-color: #8f9aa6;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 4px 12px rgba(0,0,0,0.15);
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .mk-dish-cart {
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 26px; height: 26px;
+      background: #1A1A1A;
+      color: #fff;
+      border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 12px;
+      z-index: 2;
+    }
+    .mk-dish-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0;
+    }
+    .mk-dish-sub {
+      font-size: 11px;
+      color: #888;
+      margin: 2px 0 6px;
+    }
+    .mk-dish-price {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1A1A1A;
+    }
+
+    /* ============ MOCKUP COMPONENT — STUDIO LEGALE "ROSSI" ============ */
+    .lw-stage {
+      background: #1E3329;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      position: absolute; inset: 0;
+      overflow: hidden;
+    }
+    .lw-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 30% 80%, rgba(196,150,86,0.10), transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(196,150,86,0.08), transparent 50%);
+      pointer-events: none;
+    }
+    .lw-nav {
+      position: absolute;
+      top: 36px; left: 64px; right: 64px;
+      display: flex; align-items: center;
+      z-index: 5;
+    }
+    .lw-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .lw-logo i {
+      color: #D4A574;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .lw-navlinks {
+      margin-left: auto;
+      display: flex;
+      gap: 40px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .lw-navlinks a { color: #fff; text-decoration: none; }
+    .lw-navlinks a.active { color: #D4A574; }
+
+    .lw-hero {
+      position: absolute;
+      top: 130px; left: 64px;
+      width: 540px;
+      z-index: 5;
+    }
+    .lw-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(212,165,116,0.12);
+      border: 1px solid rgba(212,165,116,0.4);
+      color: #D4A574;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 8px 16px;
+      border-radius: 9999px;
+    }
+    .lw-pill::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #D4A574;
+    }
+    .lw-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      font-weight: 700;
+      margin: 28px 0 0;
+      color: #fff;
+    }
+    .lw-headline em {
+      font-style: italic;
+      font-weight: 400;
+    }
+    .lw-desc {
+      margin: 28px 0 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(232,228,216,0.78);
+      max-width: 460px;
+    }
+    .lw-cta-row {
+      margin-top: 36px;
+      display: flex;
+      gap: 14px;
+    }
+    .lw-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 26px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+    }
+    .lw-cta-gold {
+      background: #D4A574;
+      color: #1E3329;
+    }
+    .lw-cta-outline {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .lw-cta-icon {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.18);
+      color: #fff;
+      display: grid; place-items: center;
+      font-size: 13px;
+    }
+    .lw-cta-gold .lw-cta-icon { background: rgba(0,0,0,0.18); color: #D4A574; }
+
+    .lw-photo {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 480px;
+      background-color: #1E3329;
+      background-size: cover;
+      background-position: center top;
+      z-index: 4;
+    }
+    .lw-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(30,51,41,0.85) 0%, rgba(30,51,41,0.0) 30%, rgba(30,51,41,0.0) 100%);
+      pointer-events: none;
+    }
+
+    .lw-stripe {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: #ECE9D8;
+      z-index: 6;
+    }
+    .lw-stats {
+      position: absolute;
+      bottom: 18px;
+      left: 64px;
+      right: 64px;
+      display: flex;
+      gap: 56px;
+      font-family: 'Inter', sans-serif;
+      z-index: 7;
+    }
+    .lw-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .lw-stat strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #1E3329;
+      line-height: 1;
+    }
+    .lw-stat span {
+      font-size: 11px;
+      color: #6E7973;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .lw-divider {
+      width: 1px;
+      background: rgba(30,51,41,0.18);
+    }
+
+    .lw-scales {
+      position: absolute;
+      bottom: 80px; left: 0;
+      width: 380px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    /* ============ MOCKUP COMPONENT — OTTICA "ODC" ============ */
+    .op-stage {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, #DCE9F5 0%, #DCE9F5 55%, #E5D7BE 80%, #D9C5A0 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1A1A1A;
+      overflow: hidden;
+    }
+    .op-bg-text { display: none; }
+
+    .op-nav {
+      position: absolute;
+      top: 28px; left: 56px; right: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      z-index: 5;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .op-nav-left, .op-nav-right {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    .op-nav-right { justify-content: flex-end; }
+    .op-nav a { color: #1A1A1A; text-decoration: none; }
+    .op-nav-right a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .op-nav-right svg { width: 14px; height: 14px; stroke: #1A1A1A; stroke-width: 1.6; fill: none; }
+
+    .op-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 0.02em;
+    }
+    .op-logo svg { display: block; }
+
+    .op-hero {
+      position: absolute;
+      top: 110px; left: 0; right: 0;
+      text-align: center;
+      z-index: 4;
+    }
+    .op-eyebrow {
+      font-size: 13px;
+      color: #1A1A1A;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .op-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      margin: 18px 0 0;
+    }
+    .op-headline em {
+      font-style: italic;
+      font-weight: 400;
+    }
+    .op-buy {
+      margin-top: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #1A1A1A;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+    }
+    .op-buy svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 1.8; fill: none; }
+
+    .op-product {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: 45% center;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+    .op-product::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.0) 35%, rgba(255,255,255,0.0) 65%, rgba(255,255,255,0.45) 100%);
+      pointer-events: none;
+    }
+
+    @keyframes op-spin {
+      to { transform: rotate(360deg); }
+    }
+    .op-badge {
+      position: absolute;
+      top: 280px;
+      right: 110px;
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: #FFD600;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      z-index: 6;
+    }
+    .op-badge-text {
+      position: absolute;
+      inset: 0;
+      animation: op-spin 16s linear infinite;
+    }
+    .op-badge-text svg { width: 100%; height: 100%; }
+    .op-badge-icon {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+    .op-badge-icon span {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid #1A1A1A;
+    }
+
+    .op-marquee {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 56px;
+      background: #fff;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      padding: 0 36px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #2A2A2A;
+      overflow: hidden;
+      white-space: nowrap;
+      z-index: 5;
+    }
+    .op-marquee em {
+      font-style: normal;
+      color: #C0C0C0;
+      margin: 0 14px;
+    }
+
+    /* ============ MOCKUP COMPONENT — FISIOTERAPIA "EQUILIBRA" ============ */
+    .pt-stage {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1761284758997-1074f2a33114?w=1400&h=900&fit=crop&q=80&auto=format');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+    .pt-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(45,87,75,0.55) 0%, rgba(45,87,75,0.35) 40%, rgba(45,87,75,0.65) 100%);
+      pointer-events: none;
+    }
+
+    .pt-nav {
+      position: absolute;
+      top: 28px; left: 56px; right: 56px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 8px 8px 22px;
+      background: #fff;
+      color: #1A1A1A;
+      border-radius: 9999px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      z-index: 5;
+    }
+    .pt-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: #2C7468;
+      margin-right: 28px;
+    }
+    .pt-logo-mark {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #DCEEE8;
+      display: grid; place-items: center;
+    }
+    .pt-navlinks {
+      display: flex;
+      gap: 26px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .pt-navlinks a { color: #1A1A1A; text-decoration: none; }
+    .pt-navlinks a.active { color: #2C7468; }
+    .pt-nav-cta {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #2C7468;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 9999px;
+      border: none;
+    }
+    .pt-nav-cta-icon {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      display: grid; place-items: center;
+      font-size: 11px;
+    }
+
+    .pt-hero {
+      position: absolute;
+      top: 160px; left: 56px;
+      width: 540px;
+      z-index: 4;
+    }
+    .pt-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 60px;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin: 0;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    }
+    .pt-headline em {
+      display: block;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .pt-desc {
+      margin: 28px 0 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.88);
+      max-width: 460px;
+    }
+    .pt-cta-row {
+      margin-top: 36px;
+      display: flex;
+      gap: 12px;
+    }
+    .pt-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+    }
+    .pt-cta-green {
+      background: #2C7468;
+      color: #fff;
+    }
+    .pt-cta-white {
+      background: #fff;
+      color: #1A1A1A;
+    }
+    .pt-cta-icon {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 11px;
+    }
+    .pt-cta-green .pt-cta-icon { background: #fff; color: #2C7468; }
+    .pt-cta-white .pt-cta-icon { background: #2C7468; color: #fff; }
+
+    .pt-bottom-bar {
+      position: absolute;
+      bottom: 32px; left: 56px; right: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 14px;
+      z-index: 5;
+    }
+    .pt-bb-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .pt-bb-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.16);
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .pt-bb-icon svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2; fill: none; }
+    .pt-bb-text {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #fff;
+    }
+    .pt-bb-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.2);
+      margin: 0 -12px;
+    }
   </style>
   <!-- Cookie consent + tracking — managed by /js/cookie-consent.js -->
 </head>
@@ -342,13 +1176,98 @@
 
       <!-- Card 1: ristoranti -->
       <div class="sr-example-card" data-category="ristoranti" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
-        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
-          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        <div class="mk-frame">
+          <div class="mk-stage">
+            <div class="mk-window">
+              <div class="mk-traffic"><span></span><span></span><span></span></div>
+
+              <div class="mk-nav">
+                <div class="mk-logo" aria-label="Sapore Vero">
+                  <div class="mk-logo-mark">SV</div>
+                  <div class="mk-logo-flag" aria-hidden="true"><span class="g"></span><span class="w"></span><span class="r"></span></div>
+                  <div class="mk-logo-word">Sapore Vero</div>
+                </div>
+                <div class="mk-navlinks">
+                  <a href="#" class="active">Home</a>
+                  <a href="#">Menu</a>
+                  <a href="#">Chi siamo</a>
+                  <a href="#">Contatti</a>
+                </div>
+                <div class="mk-nav-right">
+                  <div class="mk-bag" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.8"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
+                  </div>
+                  <button class="mk-signup">Iscriviti</button>
+                </div>
+              </div>
+
+              <div class="mk-hero">
+                <div>
+                  <h1 class="mk-headline">Non &egrave; solo<br>cibo, &egrave; un&rsquo;<br><i>esperienza</i>.</h1>
+                  <div class="mk-cta-row">
+                    <button class="mk-cta mk-cta-red">Vedi il menu</button>
+                    <button class="mk-cta mk-cta-white">Prenota un tavolo</button>
+                  </div>
+                  <div class="mk-reviews">
+                    <div>Recensioni</div>
+                    <div class="mk-reviews-row">
+                      <div class="mk-avatars">
+                        <span></span><span></span><span></span>
+                        <span class="mk-more">45+</span>
+                      </div>
+                    </div>
+                    <div class="mk-stars" style="margin-top:4px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  </div>
+                </div>
+
+                <div class="mk-plate-wrap">
+                  <div class="mk-badge">
+                    <svg class="mk-badge-icon" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 1.8 3 .1.1 3L19.4 9 21 12l-1.6 3-1.9 2.1-.1 3-3 .1L12 22l-2.4-1.8-3-.1-.1-3L4.6 15 3 12l1.6-3 1.9-2.1.1-3 3-.1L12 2z" stroke="#C0392B" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 15l6-6M9.5 9.5h.01M14.5 14.5h.01" stroke="#C0392B" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <div>
+                      <strong>5%</strong>
+                      <small>Sconto</small>
+                      <em>al 2&deg; ordine</em>
+                    </div>
+                  </div>
+                  <div class="mk-plate" style="background-image:url('/assets/pasta-dishes.png'); background-size:800% auto; background-position:49% 18%;"></div>
+                </div>
+              </div>
+
+              <div class="mk-strip">
+                <div class="mk-arrow mk-arrow-prev">&larr;</div>
+                <div class="mk-dish">
+                  <div class="mk-dish-img" style="background-image:url('/assets/dish-tagliatelle.png');"><div class="mk-dish-cart">&#128722;</div></div>
+                  <div class="mk-dish-name">Tagliatelle</div>
+                  <div class="mk-dish-sub">ai funghi porcini</div>
+                  <div class="mk-dish-price">15&euro;</div>
+                </div>
+                <div class="mk-dish">
+                  <div class="mk-dish-img" style="background-image:url('/assets/dish-ravioli.png');"><div class="mk-dish-cart">&#128722;</div></div>
+                  <div class="mk-dish-name">Ravioli</div>
+                  <div class="mk-dish-sub">al pomodoro</div>
+                  <div class="mk-dish-price">14&euro;</div>
+                </div>
+                <div class="mk-dish">
+                  <div class="mk-dish-img" style="background-image:url('/assets/dish-penne.png');"><div class="mk-dish-cart">&#128722;</div></div>
+                  <div class="mk-dish-name">Penne</div>
+                  <div class="mk-dish-sub">all&rsquo;arrabbiata</div>
+                  <div class="mk-dish-price">11&euro;</div>
+                </div>
+                <div class="mk-dish">
+                  <div class="mk-dish-img" style="background-image:url('https://images.unsplash.com/photo-1719250726371-b4076d48ce6c?w=400&amp;h=400&amp;fit=crop&amp;q=85&amp;auto=format');"><div class="mk-dish-cart">&#128722;</div></div>
+                  <div class="mk-dish-name">Spaghetti</div>
+                  <div class="mk-dish-sub">al pomodoro</div>
+                  <div class="mk-dish-price">12&euro;</div>
+                </div>
+                <div class="mk-arrow mk-arrow-next">&rarr;</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div style="padding:20px 24px;">
-          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Ristorante · Latina</div>
-          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Pizzeria da Mario</div>
-          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Ristorante &middot; Latina</div>
+          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Sapore Vero</div>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito &rarr;</a>
         </div>
       </div>
 
@@ -366,37 +1285,193 @@
 
       <!-- Card 3: professionisti -->
       <div class="sr-example-card" data-category="professionisti" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
-        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
-          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        <div class="mk-frame">
+          <div class="mk-stage">
+            <div class="lw-stage">
+              <div class="lw-photo" style="background-image:url('https://images.unsplash.com/photo-1718209881007-c0ecdfc00f9d?w=900&amp;h=1200&amp;fit=crop&amp;q=80&amp;auto=format');"></div>
+
+              <div class="lw-nav">
+                <div class="lw-logo" aria-label="Studio Legale Rossi">
+                  <svg width="92" height="74" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+                    <g fill="#D4A574" stroke="#D4A574" stroke-linejoin="round" stroke-linecap="round">
+                      <!-- A letter (solid wedge with subtle inner counter) -->
+                      <path d="M100 8 L138 92 L122 92 L100 44 L78 92 L62 92 Z" stroke-width="0"/>
+                      <!-- Curved beam (concave-up bow) -->
+                      <path d="M22 92 Q100 78 178 92" stroke-width="5" fill="none"/>
+                      <!-- Left chains -->
+                      <path d="M48 95 L24 130 M48 95 L72 130" stroke-width="3" fill="none"/>
+                      <!-- Left bowl (half-ellipse) -->
+                      <path d="M16 130 L80 130 Q48 156 16 130 Z" stroke-width="0"/>
+                      <!-- Right chains -->
+                      <path d="M152 95 L128 130 M152 95 L176 130" stroke-width="3" fill="none"/>
+                      <!-- Right bowl -->
+                      <path d="M120 130 L184 130 Q152 156 120 130 Z" stroke-width="0"/>
+                    </g>
+                  </svg>
+                </div>
+                <div class="lw-navlinks">
+                  <a href="#" class="active">Chi siamo</a>
+                  <a href="#">Servizi</a>
+                  <a href="#">Recensioni</a>
+                  <a href="#">Contatti</a>
+                </div>
+              </div>
+
+              <div class="lw-hero">
+                <span class="lw-pill">Giustizia &middot; Esperienza &middot; Risultati</span>
+                <h1 class="lw-headline">Il tuo partner di fiducia<br>per soluzioni <em>legali</em>.</h1>
+                <p class="lw-desc">Consulenza legale esperta per esigenze personali e aziendali. Costruiamo insieme la tua difesa pi&ugrave; solida.</p>
+                <div class="lw-cta-row">
+                  <button class="lw-cta lw-cta-gold">Contattaci<span class="lw-cta-icon">&rarr;</span></button>
+                  <button class="lw-cta lw-cta-outline">Consulenza gratuita<span class="lw-cta-icon">&rarr;</span></button>
+                </div>
+              </div>
+
+              <div class="lw-stripe"></div>
+              <div class="lw-stats">
+                <div class="lw-stat"><strong>20+</strong><span>Anni di esperienza</span></div>
+                <div class="lw-divider"></div>
+                <div class="lw-stat"><strong>500+</strong><span>Casi vinti</span></div>
+                <div class="lw-divider"></div>
+                <div class="lw-stat"><strong>98%</strong><span>Clienti soddisfatti</span></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div style="padding:20px 24px;">
-          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Studio Professionale · Latina</div>
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Studio Professionale &middot; Latina</div>
           <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Studio Legale Rossi</div>
-          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito &rarr;</a>
         </div>
       </div>
 
       <!-- Card 4: professionisti -->
       <div class="sr-example-card" data-category="professionisti" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
-        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
-          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        <div class="mk-frame">
+          <div class="mk-stage">
+            <div class="pt-stage">
+
+              <div class="pt-nav">
+                <div class="pt-logo">
+                  <span class="pt-logo-mark">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C8 6 4 10 4 15a8 8 0 0016 0c0-5-4-9-8-13z" fill="#2C7468"/><path d="M12 6c-2 3-4 6-4 9" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+                  </span>
+                  <span>equilibra</span>
+                </div>
+                <div class="pt-navlinks">
+                  <a href="#" class="active">Home</a>
+                  <a href="#">Chi siamo</a>
+                  <a href="#">Servizi</a>
+                  <a href="#">Blog</a>
+                  <a href="#">Contatti</a>
+                </div>
+                <button class="pt-nav-cta">Prenota una visita<span class="pt-nav-cta-icon">&rarr;</span></button>
+              </div>
+
+              <div class="pt-hero">
+                <h1 class="pt-headline">Allevia il dolore.<br>Ritrova mobilit&agrave;<br>e forza.<em>Equilibrio del corpo.</em></h1>
+                <p class="pt-desc">Trattamenti mirati per ridurre il dolore, migliorare il movimento e ritrovare il benessere quotidiano.</p>
+                <div class="pt-cta-row">
+                  <button class="pt-cta pt-cta-green">Prenota una visita<span class="pt-cta-icon">&rarr;</span></button>
+                  <button class="pt-cta pt-cta-white">I nostri servizi<span class="pt-cta-icon">&rarr;</span></button>
+                </div>
+              </div>
+
+              <div class="pt-bottom-bar">
+                <div class="pt-bb-item">
+                  <div class="pt-bb-icon"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"/></svg></div>
+                  <div class="pt-bb-text">Trattamenti<br>personalizzati</div>
+                </div>
+                <div class="pt-bb-item">
+                  <div class="pt-bb-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+                  <div class="pt-bb-text">Esperti certificati<br>e formati</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
         <div style="padding:20px 24px;">
-          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Studio Professionale · Latina</div>
-          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Dott.ssa Bianchi — Psicologa</div>
-          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Studio Professionale &middot; Latina</div>
+          <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Equilibra Fisioterapia</div>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito &rarr;</a>
         </div>
       </div>
 
       <!-- Card 5: negozi -->
       <div class="sr-example-card" data-category="negozi" style="background:var(--sr-paper); border-radius:16px; overflow:hidden; box-shadow:var(--sr-shadow-sm);">
-        <div style="background:var(--sr-border); width:100%; height:200px; display:flex; align-items:center; justify-content:center;">
-          <span style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); text-transform:uppercase; letter-spacing:0.08em;">Anteprima sito</span>
+        <div class="mk-frame">
+          <div class="mk-stage">
+            <div class="op-stage">
+              <div class="op-bg-text">COLLEZIONE</div>
+
+              <div class="op-nav">
+                <div class="op-nav-left">
+                  <a href="#">Home</a>
+                  <a href="#">Shop</a>
+                  <a href="#">Collezioni</a>
+                  <a href="#">Lenti</a>
+                </div>
+                <div class="op-logo" aria-label="Ottica Del Centro">
+                  <svg width="44" height="32" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="op-eye-grad" x1="0.5" y1="0" x2="0.5" y2="1">
+                        <stop offset="0" stop-color="#4D9FD5"/>
+                        <stop offset="1" stop-color="#1F5485"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M 10 70 Q 100 -10 190 70 Q 100 150 10 70 Z" fill="url(#op-eye-grad)"/>
+                    <path d="M 30 70 Q 100 14 170 70 Q 100 126 30 70 Z" fill="#fff"/>
+                    <path d="M 54 50 Q 100 22 146 50 L 142 60 Q 100 36 58 60 Z" fill="#1A1A1A"/>
+                    <circle cx="100" cy="70" r="28" fill="#1A1A1A"/>
+                    <circle cx="91" cy="62" r="7" fill="#fff"/>
+                  </svg>
+                  <span>Ottica</span>
+                </div>
+                <div class="op-nav-right">
+                  <a href="#"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Cerca</a>
+                  <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>Account</a>
+                  <a href="#"><svg viewBox="0 0 24 24"><path d="M6 6h15l-2 11H8L6 6z"/><path d="M6 6L5 3H2"/></svg>Carrello</a>
+                </div>
+              </div>
+
+              <div class="op-hero">
+                <div class="op-eyebrow">Ottica indipendente nel cuore di Latina</div>
+                <h1 class="op-headline">Il mondo,<br><em>visto</em> meglio.</h1>
+                <button class="op-buy">
+                  <svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg>
+                  Prenota una visita
+                </button>
+              </div>
+
+              <div class="op-badge" aria-hidden="true">
+                <div class="op-badge-text">
+                  <svg viewBox="0 0 100 100">
+                    <defs><path id="op-circle" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"/></defs>
+                    <text font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#1A1A1A" letter-spacing="2">
+                      <textPath href="#op-circle">DA 20&#8364; &middot; COLLEZIONE NUOVA &middot; DA 20&#8364; &middot; SHOP NOW &middot;</textPath>
+                    </text>
+                  </svg>
+                </div>
+                <div class="op-badge-icon"><span></span><span></span></div>
+              </div>
+
+              <div class="op-product" style="background-image:url('/assets/ottica-hero-widescreen.png');"></div>
+
+              <div class="op-marquee">
+                <span>Collezione 2026</span><em>&mdash;</em>
+                <span>Saldi estivi -40% su tutto</span><em>&mdash;</em>
+                <span>Fine stagione in corso</span><em>&mdash;</em>
+                <span>Spedizione gratuita</span><em>&mdash;</em>
+                <span>Nuovi arrivi</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div style="padding:20px 24px;">
-          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Negozio · Latina</div>
+          <div style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin-bottom:6px;">Negozio &middot; Latina</div>
           <div style="font-family:var(--sr-font-display); font-weight:700; font-size:18px; color:var(--sr-ink); margin-bottom:12px;">Ottica Del Centro</div>
-          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito →</a>
+          <a href="#" style="font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); text-decoration:none; border-bottom:2px solid var(--sr-yellow);">Vedi il sito &rarr;</a>
         </div>
       </div>
 
@@ -535,6 +1610,24 @@
       });
     });
   });
+})();
+</script>
+<script>
+(function(){
+  const frames = document.querySelectorAll('.mk-frame');
+  if(!frames.length) return;
+  const update = () => frames.forEach(f => {
+    const stage = f.querySelector('.mk-stage');
+    if(!stage) return;
+    stage.style.setProperty('--mk-scale', (f.clientWidth / 1024).toFixed(4));
+  });
+  update();
+  if('ResizeObserver' in window){
+    const ro = new ResizeObserver(update);
+    frames.forEach(f => ro.observe(f));
+  } else {
+    window.addEventListener('resize', update);
+  }
 })();
 </script>
 </body>

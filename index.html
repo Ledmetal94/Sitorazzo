@@ -180,8 +180,8 @@
   <nav id="sr-navbar" class="sr-navbar sr-navbar--light" style="pointer-events:all; display:flex; align-items:center; border-radius:9999px; padding:6px 6px 6px 16px; gap:4px; position:relative;">
 
     <!-- Logo -->
-    <a href="/" style="display:flex; align-items:center; gap:8px; text-decoration:none; margin-right:8px;">
-      <img src="/assets/Sitorazzo_Logomark_256px.png" alt="Sitorazzo" style="width:22px; height:22px;" fetchpriority="high">
+    <a href="/" style="display:flex; align-items:center; gap:0; text-decoration:none; margin-right:8px;">
+      <img src="/assets/Sitorazzo_Logomark_256px.png" alt="Sitorazzo" style="width:26px; height:26px; margin-right:-3px;" fetchpriority="high">
       <span class="sr-brand-word" style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:#fff; letter-spacing:-0.02em;">Sitorazzo</span>
     </a>
 
@@ -388,13 +388,14 @@
       border-radius:28px !important;
     }
     #sr-navbar > a:first-child {
-      gap:9px !important;
+      gap:0 !important;
       margin-right:auto !important;
       min-width:0;
     }
     #sr-navbar > a:first-child img {
-      width:24px !important;
-      height:24px !important;
+      width:26px !important;
+      height:26px !important;
+      margin-right:-2px !important;
       flex-shrink:0;
     }
     #sr-navbar .sr-brand-word {
@@ -1048,50 +1049,50 @@
 
 <!-- PROBLEMA -->
 <section class="sr-section">
-  <div class="sr-container" style="max-width: 800px;">
+  <div class="sr-container" style="max-width: 680px;">
     <p class="sr-eyebrow text-center mb-4">Il problema</p>
     <h2 class="sr-h2 text-center mb-12">Sei stanco di&hellip;</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="sr-card flex gap-4">
-        <div class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="23" y2="14"/><line x1="23" y1="8" x2="17" y2="14"/></svg>
+    <div class="flex flex-col gap-4">
+      <div class="sr-card flex items-start gap-5">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--sr-yellow);">
+          <span class="sr-mono font-bold text-sm" style="color: var(--sr-ink);">01</span>
         </div>
         <div>
-          <h3 class="font-bold mb-1">Agenzie che spariscono</h3>
-          <p class="sr-lead text-sm">Preventivi a vuoto, call infinite, e poi silenzio per settimane. Il tuo sito non arriva mai.</p>
+          <h3 class="font-bold mb-1" style="font-family: var(--sr-font-display); letter-spacing: var(--sr-ls-tight);">Agenzie che spariscono</h3>
+          <p class="text-sm" style="color: var(--sr-ink-70); line-height: var(--sr-lh-relaxed);">Preventivi a vuoto, call infinite, e poi silenzio per settimane. Il tuo sito non arriva mai.</p>
         </div>
       </div>
-      <div class="sr-card flex gap-4">
-        <div class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      <div class="sr-card flex items-start gap-5">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--sr-yellow);">
+          <span class="sr-mono font-bold text-sm" style="color: var(--sr-ink);">02</span>
         </div>
         <div>
-          <h3 class="font-bold mb-1">Prezzi gonfiati senza senso</h3>
-          <p class="sr-lead text-sm">2.000€, 5.000€, "dipende"… Nessuno ti dice il prezzo finale finché non hai firmato.</p>
+          <h3 class="font-bold mb-1" style="font-family: var(--sr-font-display); letter-spacing: var(--sr-ls-tight);">Prezzi gonfiati senza senso</h3>
+          <p class="text-sm" style="color: var(--sr-ink-70); line-height: var(--sr-lh-relaxed);">2.000€, 5.000€, "dipende"&hellip; Nessuno ti dice il prezzo finale finché non hai firmato.</p>
         </div>
       </div>
-      <div class="sr-card flex gap-4">
-        <div class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <div class="sr-card flex items-start gap-5">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--sr-yellow);">
+          <span class="sr-mono font-bold text-sm" style="color: var(--sr-ink);">03</span>
         </div>
         <div>
-          <h3 class="font-bold mb-1">Wix e template fatti-da-soli</h3>
-          <p class="sr-lead text-sm">Ci hai provato. Hai perso un weekend. Il risultato sembra un sito del 2008 e ti vergogni a mandarlo ai clienti.</p>
+          <h3 class="font-bold mb-1" style="font-family: var(--sr-font-display); letter-spacing: var(--sr-ls-tight);">Wix e template fatti-da-soli</h3>
+          <p class="text-sm" style="color: var(--sr-ink-70); line-height: var(--sr-lh-relaxed);">Ci hai provato. Hai perso un weekend. Il risultato sembra un sito del 2008 e ti vergogni a mandarlo ai clienti.</p>
         </div>
       </div>
-      <div class="sr-card flex gap-4">
-        <div class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <div class="sr-card flex items-start gap-5">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--sr-yellow);">
+          <span class="sr-mono font-bold text-sm" style="color: var(--sr-ink);">04</span>
         </div>
         <div>
-          <h3 class="font-bold mb-1">Mesi di attesa</h3>
-          <p class="sr-lead text-sm">I freelance sono sempre "pieni" o consegnano in 3 mesi. Nel frattempo i tuoi concorrenti sono già online.</p>
+          <h3 class="font-bold mb-1" style="font-family: var(--sr-font-display); letter-spacing: var(--sr-ls-tight);">Mesi di attesa</h3>
+          <p class="text-sm" style="color: var(--sr-ink-70); line-height: var(--sr-lh-relaxed);">I freelance sono sempre "pieni" o consegnano in 3 mesi. Nel frattempo i tuoi concorrenti sono già online.</p>
         </div>
       </div>
     </div>
     <div class="text-center mt-12">
-      <p class="text-xl font-bold mb-2">Noi facciamo diversamente.</p>
-      <p class="sr-lead">Brief online → sito live → consegna in 5 giorni. <span class="sr-highlight">Garantito per contratto.</span></p>
+      <p class="font-bold mb-2" style="font-family: var(--sr-font-display); font-size: var(--sr-fs-xl); letter-spacing: var(--sr-ls-tight);">Noi facciamo diversamente.</p>
+      <p class="sr-lead">Brief online &rarr; sito live &rarr; consegna in 5 giorni. <span class="sr-highlight">Garantito per contratto.</span></p>
     </div>
   </div>
 </section>
@@ -1230,44 +1231,69 @@
 <section class="sr-section sr-section-warm">
   <div class="sr-container">
     <p class="sr-eyebrow text-center mb-4">Incluso in tutti i pacchetti</p>
-    <h2 class="sr-h2 text-center mb-16">Quello che ricevi, sempre</h2>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <h2 class="sr-h2 text-center mb-4">Quello che ricevi, sempre</h2>
+    <p class="sr-lead text-center mb-12" style="max-width:560px; margin-left:auto; margin-right:auto;">Tutto già nel prezzo. Niente upsell, niente "ah, quello costa extra".</p>
+    <div class="sr-feature-stack">
+      <article class="sr-feature-item">
+        <div class="sr-feature-item-head">
+          <span class="sr-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+          <h4>HTTPS incluso</h4>
         </div>
-        <div><h4 class="font-bold mb-1">HTTPS incluso</h4><p class="text-sm" style="color:var(--sr-ink-70);">SSL certificato, sito sicuro, ranking Google migliore.</p></div>
-      </div>
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        <p>SSL certificato, sito sicuro, ranking Google migliore.</p>
+        <span class="sr-feature-proof">SSL incluso</span>
+      </article>
+      <article class="sr-feature-item">
+        <div class="sr-feature-item-head">
+          <span class="sr-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </span>
+          <h4>Mobile responsive</h4>
         </div>
-        <div><h4 class="font-bold mb-1">Mobile responsive</h4><p class="text-sm" style="color:var(--sr-ink-70);">Perfetto su smartphone, tablet e desktop.</p></div>
-      </div>
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <p>Perfetto su smartphone, tablet e desktop, fino a 4K.</p>
+        <span class="sr-feature-proof">Test 320-2560px</span>
+      </article>
+      <article class="sr-feature-item">
+        <div class="sr-feature-item-head">
+          <span class="sr-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </span>
+          <h4>Caricamento veloce</h4>
         </div>
-        <div><h4 class="font-bold mb-1">Caricamento veloce</h4><p class="text-sm" style="color:var(--sr-ink-70);">Ottimizzato per Lighthouse 95+. Google lo premia.</p></div>
-      </div>
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <p>Ottimizzato per Core Web Vitals. Google lo premia, gli utenti restano.</p>
+        <span class="sr-feature-proof">Lighthouse 95+</span>
+      </article>
+      <article class="sr-feature-item">
+        <div class="sr-feature-item-head">
+          <span class="sr-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </span>
+          <h4>Dominio + hosting</h4>
         </div>
-        <div><h4 class="font-bold mb-1">Dominio + hosting 1 anno</h4><p class="text-sm" style="color:var(--sr-ink-70);">Inclusi nel prezzo. Nessun costo nascosto il primo anno.</p></div>
-      </div>
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <p>Inclusi nel prezzo. Nessun costo nascosto il primo anno.</p>
+        <span class="sr-feature-proof">1 anno gratis</span>
+      </article>
+      <article class="sr-feature-item">
+        <div class="sr-feature-item-head">
+          <span class="sr-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </span>
+          <h4>Form contatto</h4>
         </div>
-        <div><h4 class="font-bold mb-1">Form contatto</h4><p class="text-sm" style="color:var(--sr-ink-70);">Ricevi richieste direttamente via email.</p></div>
-      </div>
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--sr-yellow-10);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sr-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        <p>Ricevi richieste e prenotazioni direttamente via email.</p>
+        <span class="sr-feature-proof">Notifiche email</span>
+      </article>
+      <article class="sr-feature-item">
+        <div class="sr-feature-item-head">
+          <span class="sr-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+          </span>
+          <h4>Proprietà totale</h4>
         </div>
-        <div><h4 class="font-bold mb-1">Proprietà totale</h4><p class="text-sm" style="color:var(--sr-ink-70);">Alla consegna trasferiamo tutto. Il sito è tuo al 100%.</p></div>
-      </div>
+        <p>Alla consegna trasferiamo dominio, codice e hosting. Il sito è tuo.</p>
+        <span class="sr-feature-proof">100% tuo</span>
+      </article>
     </div>
   </div>
 </section>
@@ -1317,70 +1343,123 @@
             <h3>Agenzia</h3>
             <span>2-6 mesi</span>
           </div>
-          <p>Ottima per progetti grandi, lenta e costosa quando ti serve solo partire bene.</p>
-          <ul>
-            <li>2.000-8.000&euro; di budget tipico</li>
-            <li>Molte call, revisioni e passaggi</li>
-            <li>Garanzia sui tempi non sempre scritta</li>
-          </ul>
+          <p class="sr-compare-alt-sub">Ottima per progetti grandi. Lenta e costosa quando ti serve solo partire bene.</p>
+          <div class="sr-versus">
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Agenzia</span><strong>2.000-8.000&euro;</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>da 390&euro;</strong></div>
+              </div>
+            </div>
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Agenzia</span><strong>Call, revisioni, passaggi</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>Brief online, zero call</strong></div>
+              </div>
+            </div>
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Agenzia</span><strong>Tempi non sempre scritti</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>5-10 giorni, 50% se sforiamo</strong></div>
+              </div>
+            </div>
+          </div>
         </article>
+
         <article class="sr-compare-alt">
           <div class="sr-compare-alt-head">
             <h3>Freelance</h3>
             <span>1-3 mesi</span>
           </div>
-          <p>Pu&ograve; essere valido, ma dipende molto da agenda, metodo e continuit&agrave;.</p>
-          <ul>
-            <li>500-2.000&euro;, spesso con scope elastico</li>
-            <li>Tempi legati alla disponibilit&agrave;</li>
-            <li>Risultato custom non sempre prevedibile</li>
-          </ul>
+          <p class="sr-compare-alt-sub">Pu&ograve; essere valido. Dipende da agenda, metodo e continuit&agrave;.</p>
+          <div class="sr-versus">
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Freelance</span><strong>Scope elastico</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>Pacchetto chiuso e scritto</strong></div>
+              </div>
+            </div>
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Freelance</span><strong>Tempi legati a disponibilit&agrave;</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>5-10 giorni garantiti</strong></div>
+              </div>
+            </div>
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Freelance</span><strong>Risultato non prevedibile</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>Standard collaudato</strong></div>
+              </div>
+            </div>
+          </div>
         </article>
+
         <article class="sr-compare-alt">
           <div class="sr-compare-alt-head">
             <h3>Wix / Squarespace</h3>
             <span>fai tu</span>
           </div>
-          <p>Paghi poco in euro, ma spendi tempo, attenzione e decisioni che nessuno prende per te.</p>
-          <ul>
-            <li>Canone annuale + plugin + dominio</li>
-            <li>Template da adattare da solo</li>
-            <li>Nessuno risponde della consegna</li>
-          </ul>
+          <p class="sr-compare-alt-sub">Paghi poco in euro. Spendi tempo, attenzione e decisioni che nessuno prende per te.</p>
+          <div class="sr-versus">
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Wix</span><strong>Canone + plugin + dominio</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>Prezzo unico, scritto</strong></div>
+              </div>
+            </div>
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Wix</span><strong>Template da adattare da solo</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>Lo costruiamo noi</strong></div>
+              </div>
+            </div>
+            <div class="sr-versus-row">
+              <div class="sr-versus-col sr-versus-con">
+                <span class="sr-versus-icon" aria-hidden="true">&times;</span>
+                <div><span class="sr-versus-label">Wix</span><strong>Nessuno risponde</strong></div>
+              </div>
+              <div class="sr-versus-col sr-versus-pro">
+                <span class="sr-versus-icon" aria-hidden="true">&#10003;</span>
+                <div><span class="sr-versus-label">Sitorazzo</span><strong>Garanzia 50% se sforiamo</strong></div>
+              </div>
+            </div>
+          </div>
         </article>
       </div>
     </div>
 
-    <div class="sr-compare-checklist" aria-label="Confronto sintetico">
-      <article class="sr-compare-item">
-        <h3>Prezzo</h3>
-        <div class="sr-compare-split">
-          <div class="sr-compare-win"><span>Sitorazzo</span><strong>390-1.290&euro;</strong></div>
-          <div class="sr-compare-loss"><span>Altrove</span><strong>500-8.000&euro; o tempo tuo</strong></div>
-        </div>
-      </article>
-      <article class="sr-compare-item">
-        <h3>Consegna</h3>
-        <div class="sr-compare-split">
-          <div class="sr-compare-win"><span>Sitorazzo</span><strong>5-10 giorni</strong></div>
-          <div class="sr-compare-loss"><span>Altrove</span><strong>settimane o mesi</strong></div>
-        </div>
-      </article>
-      <article class="sr-compare-item">
-        <h3>Gestione</h3>
-        <div class="sr-compare-split">
-          <div class="sr-compare-win"><span>Sitorazzo</span><strong>brief online, zero call</strong></div>
-          <div class="sr-compare-loss"><span>Altrove</span><strong>riunioni, follow-up, attese</strong></div>
-        </div>
-      </article>
-      <article class="sr-compare-item">
-        <h3>Garanzia</h3>
-        <div class="sr-compare-split">
-          <div class="sr-compare-win"><span>Sitorazzo</span><strong>50% se sforiamo</strong></div>
-          <div class="sr-compare-loss"><span>Altrove</span><strong>dipende dal contratto</strong></div>
-        </div>
-      </article>
-    </div>
   </div>
 </section>
 
@@ -1639,7 +1718,10 @@
   <div class="sr-container">
     <div class="grid md:grid-cols-5 gap-8 mb-12">
       <div class="md:col-span-2">
-        <img src="/assets/Sitorazzo_Lockup_OnBlack.png" alt="Sitorazzo" class="h-8 w-auto mb-4">
+        <a href="/" style="display:inline-flex; align-items:center; gap:0; text-decoration:none; margin-bottom:1rem;">
+          <img src="/assets/Sitorazzo_Logomark_256px.png" alt="Sitorazzo" style="width:34px; height:34px; margin-right:-4px;">
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:#fff; letter-spacing:-0.02em;">Sitorazzo</span>
+        </a>
         <p class="text-sm mb-4" style="color:rgba(255,255,255,0.5); max-width:320px;">Sito professionale in 5 giorni a partire da 390€. Un brand di Virtual Zone S.r.l.</p>
         <p class="text-xs" style="color:rgba(255,255,255,0.3);">Virtual Zone S.r.l.<br>Latina (LT) — Italia</p>
       </div>
