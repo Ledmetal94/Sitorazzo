@@ -2,8 +2,9 @@
    SITORAZZO — ONBOARDING BRIEF WIZARD
    ============================================================ */
 
-const TOTAL_STEPS = 8;
+const TOTAL_STEPS = 3;
 const VALID_PACKAGES = ['start', 'pro', 'power'];
+const WHATSAPP_NUMBER = '393465912548';
 
 /* ---------- State ---------- */
 const params = new URLSearchParams(location.search);
@@ -86,7 +87,7 @@ function updateChrome() {
   navBar.style.display = (currentStep === 0 || currentStep === 9) ? 'none' : 'flex';
 
   if (currentStep === TOTAL_STEPS) {
-    setButtonContent(btnNext, 'Invia brief', 'check');
+    setButtonContent(btnNext, 'Invia mini-brief', 'check');
   } else {
     setButtonContent(btnNext, 'Avanti', 'arrow-right');
   }
@@ -276,26 +277,25 @@ function renderWelcome() {
     <div style="text-align:center; padding: var(--sr-space-8) 0;">
       <img src="/assets/Sitorazzo_Logomark_256px.png" alt="Sitorazzo" style="height:64px; margin: 0 auto var(--sr-space-6);">
       <div class="onboarding-hero-icon">${icon('rocket')}</div>
-      <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Perfetto, ci siamo!</h1>
+      <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Partiamo dal mini-brief.</h1>
       <p class="sr-lead" style="margin-bottom:var(--sr-space-6); max-width:480px; margin-left:auto; margin-right:auto;">
-        Hai scelto il piano <strong>${p.label}</strong> a <strong>${p.price}</strong>.
-        Il tuo sito sarà online in <strong>${p.days} giorni lavorativi</strong> dall'invio di questo brief.
+        Hai selezionato <strong>${p.label}</strong> a <strong>${p.price}</strong>. Ti facciamo prima poche domande, poi confermiamo il piano e ti mandiamo il link per bloccare lo slot.
       </p>
       <div class="sr-card" style="display:inline-block; text-align:left; max-width:400px; width:100%; margin-bottom:var(--sr-space-8);">
         <p class="sr-eyebrow" style="margin-bottom:var(--sr-space-3);">Cosa succede ora</p>
         <ol style="padding-left:var(--sr-space-5); margin:0; display:flex; flex-direction:column; gap:var(--sr-space-2);">
-          <li class="text-sm">Compili questo brief in 10–15 minuti</li>
-          <li class="text-sm">Il nostro team inizia a lavorare il giorno lavorativo successivo</li>
-          <li class="text-sm">Ricevi il sito finito nei tempi garantiti</li>
-          <li class="text-sm">Approvazione, trasferimento credenziali e sito live</li>
+          <li class="text-sm">Compili 3 step in 2 minuti</li>
+          <li class="text-sm">Ti diciamo se il piano scelto è quello giusto</li>
+          <li class="text-sm">Blocchi lo slot con pagamento sicuro</li>
+          <li class="text-sm">Dopo il pagamento compili il brief completo</li>
         </ol>
       </div>
       <button class="sr-btn sr-btn-primary sr-btn-lg" id="btn-start">
-        Inizia il brief ${icon('arrow-right')}
+        Inizia il mini-brief ${icon('arrow-right')}
       </button>
       <p style="margin-top:var(--sr-space-4); font-size:var(--sr-fs-xs); color:var(--sr-ink-40);">
         Hai domande? Scrivici su
-        <a href="https://wa.me/39NUMEROQUI" target="_blank" style="color:var(--sr-ink);">WhatsApp</a>
+        <a href="https://wa.me/${WHATSAPP_NUMBER}?text=Ciao,%20vorrei%20capire%20qual%20%C3%A8%20il%20piano%20Sitorazzo%20giusto%20per%20me" target="_blank" rel="noopener noreferrer" style="color:var(--sr-ink);">WhatsApp</a>
       </p>
     </div>
   `;
@@ -314,7 +314,7 @@ const SETTORI = [
 
 function renderStep1() {
   card.innerHTML = '';
-  card.appendChild(stepHeader('Step 1 di 8', 'La tua attività', 'Raccontaci chi sei. Queste informazioni guidano tutto il progetto.'));
+  card.appendChild(stepHeader('Step 1 di 3', 'La tua attività', 'Raccontaci chi sei. Bastano le informazioni essenziali per capire il progetto.'));
 
   const nomeInput = input('text', 'Es. Pizzeria Da Mario', formData.nome, v => formData.nome = v);
   nomeInput.dataset.field = 'nome';
@@ -359,7 +359,7 @@ function renderStep1() {
    ============================================================ */
 function renderStep2() {
   card.innerHTML = '';
-  card.appendChild(stepHeader('Step 2 di 8', 'I tuoi contatti', 'Chi gestisce il progetto? Usiamo questi dati solo per comunicare con te.'));
+  card.appendChild(stepHeader('Step 2 di 3', 'I tuoi contatti', 'Ti ricontattiamo con conferma del piano, prossimi passi e link per bloccare lo slot.'));
 
   const referenteInput = input('text', 'Es. Mario Rossi', formData.referente, v => formData.referente = v);
   referenteInput.dataset.field = 'referente';
@@ -433,7 +433,7 @@ const PACCHETTI = [
 
 function renderStep3() {
   card.innerHTML = '';
-  card.appendChild(stepHeader('Step 3 di 8', 'Il tuo pacchetto', 'Conferma o cambia il pacchetto scelto. Puoi modificarlo ora — il prezzo finale è quello pagato.'));
+  card.appendChild(stepHeader('Step 3 di 3', 'Il piano preferito', 'Conferma o cambia il pacchetto scelto. Dopo il mini-brief ti mandiamo la proposta e il link per bloccare lo slot.'));
 
   const grid = document.createElement('div');
   grid.style.cssText = 'display:flex; flex-direction:column; gap:var(--sr-space-4);';
@@ -477,7 +477,7 @@ function renderStep3() {
   card.appendChild(grid);
   card.insertAdjacentHTML('beforeend', `
     <p style="font-size:var(--sr-fs-xs); color:var(--sr-ink-40); margin-top:var(--sr-space-4);">
-      Nota: il pacchetto qui visualizzato è informativo. Il prezzo che hai pagato su Stripe è definitivo.
+      Nota: questo non è un pagamento. Serve a capire quale piano consigliarti prima di inviarti il link sicuro.
     </p>
   `);
 }
@@ -910,7 +910,7 @@ async function submitForm() {
       chiuso: v.chiuso,
     })),
     submittedAt: new Date().toISOString(),
-    source: 'onboarding-wizard',
+    source: 'mini-brief',
   };
 
   const fd = new FormData();
@@ -936,8 +936,8 @@ async function submitForm() {
   } catch (err) {
     btnNext.disabled = false;
     btnNext.removeAttribute('aria-busy');
-    setButtonContent(btnNext, 'Invia brief', 'check');
-    showError('Non siamo riusciti a inviare il brief: ' + err.message + ' Riprova tra poco oppure contattaci su WhatsApp.');
+    setButtonContent(btnNext, 'Invia mini-brief', 'check');
+    showError('Non siamo riusciti a inviare il mini-brief: ' + err.message + ' Riprova tra poco oppure contattaci su WhatsApp.');
     console.warn('Submit error:', err);
   }
 }
@@ -966,12 +966,12 @@ function renderThankyou() {
   card.innerHTML = `
     <div style="text-align:center; padding: var(--sr-space-8) 0;">
       <div class="onboarding-hero-icon">${icon('shield-check')}</div>
-      <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Brief ricevuto!</h1>
+      <h1 class="sr-h2" style="margin-bottom:var(--sr-space-4);">Mini-brief ricevuto!</h1>
       <p class="sr-lead" style="margin-bottom:var(--sr-space-6); max-width:480px; margin-left:auto; margin-right:auto;">
-        Grazie${formData.referente ? ', <strong>' + formData.referente + '</strong>' : ''}! Il team di Sitorazzo inizierà a lavorare il prossimo giorno lavorativo.
+        Grazie${formData.referente ? ', <strong>' + formData.referente + '</strong>' : ''}! Controlliamo le informazioni e ti mandiamo conferma del piano con il link per bloccare lo slot.
       </p>
       <div class="sr-card" style="display:inline-block; text-align:left; max-width:400px; width:100%; margin-bottom:var(--sr-space-8);">
-        <p class="sr-eyebrow" style="margin-bottom:var(--sr-space-4);">Riepilogo ordine</p>
+        <p class="sr-eyebrow" style="margin-bottom:var(--sr-space-4);">Riepilogo mini-brief</p>
         <div style="display:flex; flex-direction:column; gap:var(--sr-space-3);">
           <div style="display:flex; justify-content:space-between;">
             <span class="text-sm" style="color:var(--sr-ink-70);">Attività</span>
@@ -982,8 +982,8 @@ function renderThankyou() {
             <span class="text-sm font-bold">${p.label}</span>
           </div>
           <div style="display:flex; justify-content:space-between;">
-            <span class="text-sm" style="color:var(--sr-ink-70);">Consegna stimata</span>
-            <span class="text-sm font-bold" style="text-transform:capitalize;">${deliveryStr}</span>
+            <span class="text-sm" style="color:var(--sr-ink-70);">Consegna dopo conferma</span>
+            <span class="text-sm font-bold">${p.days} giorni lavorativi</span>
           </div>
           <div style="display:flex; justify-content:space-between;">
             <span class="text-sm" style="color:var(--sr-ink-70);">Email conferma</span>
@@ -992,7 +992,7 @@ function renderThankyou() {
         </div>
       </div>
       <p class="text-sm" style="color:var(--sr-ink-40); margin-bottom:var(--sr-space-4);">Hai domande? Scrivici su WhatsApp</p>
-      <a href="https://wa.me/39NUMEROQUI?text=Ciao,%20ho%20appena%20inviato%20il%20brief%20per%20${encodeURIComponent(formData.nome || 'la mia attività')}"
+      <a href="https://wa.me/${WHATSAPP_NUMBER}?text=Ciao,%20ho%20appena%20inviato%20il%20mini-brief%20per%20${encodeURIComponent(formData.nome || 'la mia attività')}"
          class="sr-btn sr-btn-ghost"
          target="_blank" rel="noopener noreferrer">
         ${icon('message')} Scrivici su WhatsApp
