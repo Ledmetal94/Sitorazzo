@@ -3,3 +3,11 @@ css/main.css
 .DS_Store
 .vercel/
 *.log
+
+# Local env files — never commit
+.env
+.env.local
+.env.*.local
+
+# Claude Code session/agent state — local-only
+.claude/

@@ -2,13 +2,26 @@
   "outputDirectory": ".",
   "installCommand": "npm install",
   "buildCommand": "npm run build",
+  "devCommand": "node --version",
   "cleanUrls": true,
   "trailingSlash": false,
   "functions": {
     "api/submit-brief.js": {
       "maxDuration": 60
+    },
+    "api/generate-mockup.js": {
+      "maxDuration": 30
+    },
+    "api/anteprima/[id].js": {
+      "maxDuration": 10
+    },
+    "api/inngest.js": {
+      "maxDuration": 60
     }
   },
+  "rewrites": [
+    { "source": "/anteprima/:id", "destination": "/api/anteprima/:id" }
+  ],
   "headers": [
     {
       "source": "/css/(.*)",

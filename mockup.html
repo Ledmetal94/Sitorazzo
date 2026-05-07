@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anteprima gratuita del tuo sito — Sitorazzo</title>
+  <meta name="description" content="Inserisci il nome della tua attività e il tuo logo: in 60 secondi ti inviamo via email un'anteprima personalizzata del tuo sito. Gratis, senza impegno.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sitorazzo.it/mockup">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sitorazzo">
+  <meta property="og:url" content="https://sitorazzo.it/mockup">
+  <meta property="og:title" content="Anteprima gratuita del tuo sito — Sitorazzo">
+  <meta property="og:description" content="Vedi com'è il tuo sito prima di pagarlo. Gratis, in 60 secondi.">
+  <meta property="og:image" content="https://sitorazzo.it/assets/Sitorazzo_Lockup_OnBlack.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon_32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon_512.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#0A0A0A">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<!-- NAVBAR PILL -->
+<header class="sr-site-header" style="position:fixed; top:20px; left:0; right:0; z-index:200; display:flex; justify-content:center; pointer-events:none;">
+  <nav id="sr-navbar" class="sr-navbar sr-navbar--light" style="pointer-events:all; display:flex; align-items:center; border-radius:9999px; padding:6px 6px 6px 16px; gap:4px; position:relative;">
+    <a href="/" style="display:flex; align-items:center; gap:8px; text-decoration:none; margin-right:8px;">
+      <img src="/assets/Sitorazzo_Logomark_256px.png" alt="Sitorazzo" style="width:22px; height:22px;" fetchpriority="high">
+      <span class="sr-brand-word" style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:#fff; letter-spacing:-0.02em;">Sitorazzo</span>
+    </a>
+    <div class="sr-nav-divider" style="width:1px; height:18px; background:rgba(255,255,255,0.15); margin:0 8px; flex-shrink:0;"></div>
+    <div class="sr-nav-links" style="display:flex; align-items:center; gap:0;">
+      <a href="/#come-funziona" class="sr-navlink">Come funziona</a>
+      <a href="/#pacchetti" class="sr-navlink">Pacchetti</a>
+      <a href="/esempi.html" class="sr-navlink">Esempi</a>
+      <a href="/faq.html" class="sr-navlink">FAQ</a>
+      <a href="/contatti.html" class="sr-navlink">Contatti</a>
+    </div>
+    <a href="/#pacchetti" class="sr-nav-cta-pill">Inizia ora →</a>
+    <button id="sr-mobile-menu-toggle" class="sr-mobile-menu-toggle" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="sr-mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div id="sr-mobile-menu" class="sr-mobile-menu-panel" hidden>
+      <a href="/#come-funziona">Come funziona</a>
+      <a href="/#pacchetti">Pacchetti</a>
+      <a href="/esempi.html">Esempi</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/contatti.html">Contatti</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  #sr-navbar {
+    --nav-bg: rgba(255,255,255,0.72);
+    --nav-text: #0A0A0A;
+    --nav-muted: rgba(10,10,10,0.62);
+    --nav-hover-bg: rgba(10,10,10,0.06);
+    --nav-divider: rgba(10,10,10,0.12);
+    --nav-border: rgba(10,10,10,0.10);
+    --nav-shadow: 0 12px 32px rgba(10,10,10,0.12);
+    background: var(--nav-bg) !important;
+    border: 1px solid var(--nav-border) !important;
+    box-shadow: var(--nav-shadow) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+  }
+  #sr-navbar .sr-brand-word { color: var(--nav-text) !important; }
+  #sr-navbar .sr-nav-divider { background: var(--nav-divider) !important; }
+  .sr-navlink {
+    font-family:'Inter',sans-serif; font-size:14px; font-weight:500;
+    color:var(--nav-muted); text-decoration:none;
+    padding:10px 14px; border-radius:9999px;
+    transition:color 150ms, background 150ms;
+  }
+  .sr-navlink:hover { color:var(--nav-text); background:var(--nav-hover-bg); }
+  .sr-nav-cta-pill {
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
+    background:#FFD60A; color:#0A0A0A;
+    min-height:44px; display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 18px; border-radius:9999px;
+    text-decoration:none; margin-left:4px; white-space:nowrap;
+    transition:background 150ms, transform 150ms;
+  }
+  .sr-nav-cta-pill:hover { background:#F5B700; transform:translateY(-1px); }
+  .sr-mobile-menu-toggle {
+    display:none; width:44px; height:44px;
+    align-items:center; justify-content:center; flex-direction:column; gap:4px;
+    border:0; border-radius:9999px;
+    background:var(--nav-hover-bg); color:var(--nav-text);
+    cursor:pointer; flex-shrink:0;
+    transition:background 150ms, transform 150ms;
+  }
+  .sr-mobile-menu-toggle span {
+    width:17px; height:2px; border-radius:9999px;
+    background:currentColor;
+    transition:transform 180ms, opacity 180ms;
+  }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+  .sr-mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+  .sr-mobile-menu-panel {
+    position:absolute; top:calc(100% + 10px); left:50%;
+    width:min(320px, calc(100vw - 32px));
+    transform:translate(-50%, -6px); opacity:0; pointer-events:none;
+    display:flex; flex-direction:column; gap:4px;
+    padding:10px; border-radius:20px;
+    border:1px solid var(--nav-border);
+    background:rgba(255,255,255,0.94);
+    box-shadow:0 18px 48px rgba(10,10,10,0.18);
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    transition:opacity 180ms, transform 180ms;
+  }
+  .sr-mobile-menu-panel.is-open { transform:translate(-50%, 0); opacity:1; pointer-events:all; }
+  .sr-mobile-menu-panel[hidden] { display:none; }
+  .sr-mobile-menu-panel a {
+    min-height:44px; display:flex; align-items:center;
+    padding:10px 14px; border-radius:14px;
+    color:var(--sr-ink); text-decoration:none;
+    font-family:'Inter',sans-serif; font-size:15px; font-weight:600;
+  }
+  .sr-mobile-menu-panel a:hover { background:rgba(10,10,10,0.06); }
+
+  @media (max-width: 640px) {
+    .sr-site-header { top:12px !important; padding:0 14px; justify-content:stretch !important; }
+    #sr-navbar { width:100%; justify-content:space-between; padding:8px 8px 8px 14px !important; gap:8px !important; border-radius:28px !important; }
+    .sr-nav-links, .sr-nav-divider { display:none !important; }
+    .sr-mobile-menu-toggle { display:flex; }
+    .sr-mobile-menu-panel { left:0; width:100%; transform:translateY(-6px); border-radius:24px; padding:12px; }
+    .sr-mobile-menu-panel.is-open { transform:translateY(0); }
+  }
+</style>
+
+<!-- HERO + FORM -->
+<main style="padding-top:140px; padding-bottom:80px; background:var(--sr-paper); min-height:100vh;">
+  <div style="max-width:980px; margin:0 auto; padding:0 24px;">
+
+    <!-- Eyebrow -->
+    <div style="text-align:center; margin-bottom:24px;">
+      <span style="display:inline-flex; align-items:center; gap:8px; font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-60); background:var(--sr-yellow-10); padding:8px 16px; border-radius:9999px;">
+        <span style="width:6px; height:6px; border-radius:50%; background:var(--sr-yellow);"></span>
+        Anteprima gratuita · 60 secondi
+      </span>
+    </div>
+
+    <!-- Headline -->
+    <h1 style="font-family:var(--sr-font-display); font-weight:900; font-size:clamp(36px, 6vw, 64px); line-height:1.05; letter-spacing:-0.03em; text-align:center; margin:0 0 20px; color:var(--sr-ink);">
+      Vedi il tuo sito<br>
+      <span style="background:var(--sr-yellow); padding:0 16px; border-radius:12px;">prima di pagarlo.</span>
+    </h1>
+
+    <p style="font-family:var(--sr-font-body); font-size:clamp(16px, 2vw, 19px); line-height:1.6; text-align:center; color:var(--sr-ink-60); max-width:620px; margin:0 auto 16px;">
+      Inserisci il nome della tua attività e il logo. Ti inviamo via email
+      un'anteprima personalizzata della tua homepage — colori, copy, struttura.
+      <strong style="color:var(--sr-ink);">Gratis. Senza impegno. In 60 secondi.</strong>
+    </p>
+
+    <!-- Trust micro -->
+    <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:48px;">
+      <span style="font-family:var(--sr-font-mono); font-size:12px; color:var(--sr-ink-40);">✓ Senza carta di credito</span>
+      <span style="font-family:var(--sr-font-mono); font-size:12px; color:var(--sr-ink-40);">✓ Senza account</span>
+      <span style="font-family:var(--sr-font-mono); font-size:12px; color:var(--sr-ink-40);">✓ Email + 1 logo</span>
+    </div>
+
+    <!-- FORM CARD -->
+    <form id="mockup-form" style="background:#fff; border:1px solid var(--sr-ink-10); border-radius:24px; padding:40px; box-shadow:0 12px 40px rgba(10,10,10,0.06); display:flex; flex-direction:column; gap:20px;">
+
+      <!-- Nome attività -->
+      <div>
+        <label for="businessName" style="display:block; font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); margin-bottom:8px;">
+          Nome dell'attività *
+        </label>
+        <input
+          type="text"
+          id="businessName"
+          name="businessName"
+          required
+          maxlength="80"
+          autocomplete="organization"
+          placeholder="Es. Trattoria Bella Vista"
+          class="sr-input"
+          style="width:100%; padding:14px 16px; font-family:var(--sr-font-body); font-size:16px; border:1.5px solid var(--sr-ink-10); border-radius:12px; background:#fff; color:var(--sr-ink); transition:border-color 150ms, box-shadow 150ms;"
+        >
+      </div>
+
+      <!-- Settore -->
+      <div>
+        <label for="industry" style="display:block; font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); margin-bottom:8px;">
+          Settore *
+        </label>
+        <select
+          id="industry"
+          name="industry"
+          required
+          class="sr-input"
+          style="width:100%; padding:14px 16px; font-family:var(--sr-font-body); font-size:16px; border:1.5px solid var(--sr-ink-10); border-radius:12px; background:#fff; color:var(--sr-ink); cursor:pointer; transition:border-color 150ms, box-shadow 150ms;"
+        >
+          <option value="" disabled selected>Scegli il tuo settore</option>
+          <option value="ristoranti">Ristorante / Pizzeria / Bar</option>
+          <option value="parrucchieri-estetiste">Parrucchiere / Estetista / Centro benessere</option>
+          <option value="artigiani">Artigiano (idraulico, elettricista, falegname…)</option>
+          <option value="professionisti">Professionista (avvocato, commercialista, medico…)</option>
+          <option value="generico">Altro</option>
+        </select>
+      </div>
+
+      <!-- Logo upload -->
+      <div>
+        <label for="logo" style="display:block; font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); margin-bottom:8px;">
+          Logo
+          <span style="font-weight:500; color:var(--sr-ink-60); font-size:12px; margin-left:6px;">(opzionale, ne estraiamo i colori)</span>
+        </label>
+        <div id="logo-drop" style="position:relative; border:1.5px dashed var(--sr-ink-10); border-radius:12px; padding:24px; text-align:center; transition:border-color 150ms, background 150ms; cursor:pointer;">
+          <input
+            type="file"
+            id="logo"
+            name="logo"
+            accept="image/png,image/jpeg,image/svg+xml,image/webp"
+            style="position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%;"
+          >
+          <div id="logo-placeholder" style="pointer-events:none;">
+            <div style="font-family:var(--sr-font-body); font-size:15px; color:var(--sr-ink-60); margin-bottom:4px;">
+              Trascina qui il logo o <span style="color:var(--sr-ink); font-weight:600; text-decoration:underline;">clicca per caricare</span>
+            </div>
+            <div style="font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40);">
+              PNG, JPG, SVG o WebP · max 5MB
+            </div>
+          </div>
+          <div id="logo-preview" hidden style="display:flex; align-items:center; gap:12px; justify-content:center;">
+            <img id="logo-preview-img" alt="" style="max-height:48px; max-width:120px; border-radius:8px;">
+            <span id="logo-preview-name" style="font-family:var(--sr-font-mono); font-size:13px; color:var(--sr-ink);"></span>
+            <button type="button" id="logo-clear" style="background:none; border:0; color:var(--sr-ink-60); font-family:var(--sr-font-mono); font-size:13px; cursor:pointer; text-decoration:underline;">Rimuovi</button>
+          </div>
+        </div>
+        <p style="font-family:var(--sr-font-body); font-size:13px; color:var(--sr-ink-60); margin:8px 0 0;">
+          Niente logo? Nessun problema, useremo i colori del tuo settore.
+        </p>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" style="display:block; font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); margin-bottom:8px;">
+          Email *
+          <span style="font-weight:500; color:var(--sr-ink-60); font-size:12px; margin-left:6px;">(dove ti mandiamo l'anteprima)</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          maxlength="120"
+          autocomplete="email"
+          placeholder="tu@email.it"
+          class="sr-input"
+          style="width:100%; padding:14px 16px; font-family:var(--sr-font-body); font-size:16px; border:1.5px solid var(--sr-ink-10); border-radius:12px; background:#fff; color:var(--sr-ink); transition:border-color 150ms, box-shadow 150ms;"
+        >
+      </div>
+
+      <!-- WhatsApp (optional) -->
+      <div>
+        <label for="whatsapp" style="display:block; font-family:var(--sr-font-display); font-weight:700; font-size:14px; color:var(--sr-ink); margin-bottom:8px;">
+          WhatsApp
+          <span style="font-weight:500; color:var(--sr-ink-60); font-size:12px; margin-left:6px;">(opzionale, per parlarne se ti piace)</span>
+        </label>
+        <input
+          type="tel"
+          id="whatsapp"
+          name="whatsapp"
+          maxlength="20"
+          autocomplete="tel"
+          placeholder="+39 333 1234567"
+          class="sr-input"
+          style="width:100%; padding:14px 16px; font-family:var(--sr-font-body); font-size:16px; border:1.5px solid var(--sr-ink-10); border-radius:12px; background:#fff; color:var(--sr-ink); transition:border-color 150ms, box-shadow 150ms;"
+        >
+      </div>
+
+      <!-- Privacy -->
+      <label style="display:flex; align-items:flex-start; gap:10px; font-family:var(--sr-font-body); font-size:13px; color:var(--sr-ink-60); line-height:1.5; cursor:pointer;">
+        <input type="checkbox" id="privacy" name="privacy" required style="margin-top:3px; flex-shrink:0; accent-color:var(--sr-yellow);">
+        <span>
+          Ho letto la <a href="/legal/privacy-policy.html" target="_blank" rel="noopener" style="color:var(--sr-ink); text-decoration:underline;">privacy policy</a> e acconsento al trattamento dei dati per ricevere l'anteprima del sito. *
+        </span>
+      </label>
+
+      <!-- Honeypot -->
+      <div style="position:absolute; left:-9999px; opacity:0; pointer-events:none;" aria-hidden="true">
+        <label>Non compilare: <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        id="mockup-submit"
+        class="sr-btn-primary"
+        style="margin-top:8px; min-height:56px; font-family:var(--sr-font-display); font-weight:700; font-size:17px; background:var(--sr-yellow); color:var(--sr-ink); border:0; border-radius:14px; cursor:pointer; transition:background 150ms, transform 150ms; display:flex; align-items:center; justify-content:center; gap:10px;"
+      >
+        <span id="submit-label">Genera la mia anteprima gratis →</span>
+        <span id="submit-spinner" hidden style="display:inline-block; width:18px; height:18px; border:2px solid rgba(10,10,10,0.25); border-top-color:var(--sr-ink); border-radius:50%; animation:sr-spin 700ms linear infinite;"></span>
+      </button>
+
+      <!-- Submit micro-trust -->
+      <p style="text-align:center; font-family:var(--sr-font-mono); font-size:11px; color:var(--sr-ink-40); margin:0;">
+        Nessuno spam. Anteprima nella tua casella in &lt; 60 secondi.
+      </p>
+
+      <!-- Error/success messages -->
+      <div id="form-message" hidden role="status" aria-live="polite" style="margin-top:8px; padding:14px 16px; border-radius:12px; font-family:var(--sr-font-body); font-size:14px; line-height:1.5;"></div>
+    </form>
+
+    <!-- Below-form social proof -->
+    <div style="margin-top:48px; text-align:center;">
+      <p style="font-family:var(--sr-font-mono); font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--sr-ink-40); margin:0 0 16px;">Come funziona</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:24px; max-width:780px; margin:0 auto;">
+        <div>
+          <div style="width:36px; height:36px; border-radius:50%; background:var(--sr-yellow); color:var(--sr-ink); font-family:var(--sr-font-display); font-weight:900; font-size:18px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px;">1</div>
+          <p style="font-family:var(--sr-font-body); font-size:14px; line-height:1.5; color:var(--sr-ink-60); margin:0;"><strong style="color:var(--sr-ink);">Compili il modulo.</strong> Nome attività, logo, settore, email.</p>
+        </div>
+        <div>
+          <div style="width:36px; height:36px; border-radius:50%; background:var(--sr-yellow); color:var(--sr-ink); font-family:var(--sr-font-display); font-weight:900; font-size:18px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px;">2</div>
+          <p style="font-family:var(--sr-font-body); font-size:14px; line-height:1.5; color:var(--sr-ink-60); margin:0;"><strong style="color:var(--sr-ink);">Generiamo l'anteprima.</strong> Colori del tuo logo, copy del tuo settore.</p>
+        </div>
+        <div>
+          <div style="width:36px; height:36px; border-radius:50%; background:var(--sr-yellow); color:var(--sr-ink); font-family:var(--sr-font-display); font-weight:900; font-size:18px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px;">3</div>
+          <p style="font-family:var(--sr-font-body); font-size:14px; line-height:1.5; color:var(--sr-ink-60); margin:0;"><strong style="color:var(--sr-ink);">Ricevi il link.</strong> Apri l'anteprima sul tuo cellulare.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<style>
+  @keyframes sr-spin { to { transform: rotate(360deg); } }
+  .sr-input:focus { outline:none; border-color:var(--sr-yellow); box-shadow:0 0 0 4px var(--sr-yellow-10); }
+  #logo-drop:hover, #logo-drop.is-dragover { border-color:var(--sr-yellow); background:var(--sr-yellow-10); }
+  #mockup-submit:hover:not(:disabled) { background:#F5B700; transform:translateY(-1px); }
+  #mockup-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+  #form-message.is-error { background:rgba(239,68,68,0.08); color:#B91C1C; border:1px solid rgba(239,68,68,0.2); }
+  #form-message.is-success { background:rgba(34,197,94,0.08); color:#15803D; border:1px solid rgba(34,197,94,0.2); }
+  @media (max-width:640px) {
+    main { padding-top:120px !important; }
+    #mockup-form { padding:24px !important; border-radius:20px !important; }
+  }
+</style>
+
+<!-- FOOTER -->
+<footer style="background:var(--sr-ink);color:var(--sr-paper);padding:64px 0 32px;">
+  <div style="width:100%;max-width:1280px;margin:0 auto;padding:0 24px;">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <img src="/assets/Sitorazzo_Logomark_256px.png" alt="" style="width:24px;height:24px;">
+          <span style="font-family:var(--sr-font-display);font-weight:700;font-size:18px;letter-spacing:-0.02em;">Sitorazzo</span>
+        </div>
+        <p style="font-size:14px;line-height:1.7;color:var(--sr-ink-40);margin:0 0 20px;">Siti web professionali per PMI italiane. Online in 5 giorni a partire da 390€.</p>
+        <span style="font-family:var(--sr-font-mono);font-size:11px;font-weight:700;letter-spacing:0.06em;color:var(--sr-yellow);text-transform:uppercase;">Il tuo sito decolla in 5 giorni.</span>
+      </div>
+      <div>
+        <div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:16px;">NAVIGAZIONE</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="/#come-funziona" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Come funziona</a>
+          <a href="/#pacchetti" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Pacchetti</a>
+          <a href="/esempi.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Esempi</a>
+          <a href="/faq.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">FAQ</a>
+          <a href="/contatti.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Contatti</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:16px;">RISORSE</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="/quanto-costa-sito-web.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Quanto costa un sito?</a>
+          <a href="/sitorazzo-vs-wix.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Sitorazzo vs Wix</a>
+          <a href="/realizzazione-siti-web-latina.html" style="font-size:14px;color:rgba(255,255,255,0.65);text-decoration:none;">Siti web a Latina</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--sr-font-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sr-ink-40);margin-bottom:16px;">CONTATTI</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.65);margin:0 0 8px;">info@sitorazzo.it</p>
+        <p style="font-size:14px;color:rgba(255,255,255,0.65);margin:0 0 24px;">Latina, Lazio · Italia</p>
+        <a href="/#pacchetti" style="display:inline-flex;align-items:center;font-family:var(--sr-font-display);font-weight:700;font-size:14px;background:var(--sr-yellow);color:var(--sr-ink);padding:8px 18px;border-radius:9999px;text-decoration:none;">Inizia ora →</a>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <p style="font-size:12px;color:var(--sr-ink-40);margin:0;">© 2026 Sitorazzo · Virtual Zone S.r.l. · P.IVA IT03696930591</p>
+      <div style="display:flex;gap:20px;">
+        <a href="/legal/privacy-policy.html" style="font-size:12px;color:var(--sr-ink-40);text-decoration:none;">Privacy Policy</a>
+        <a href="/legal/termini-condizioni.html" style="font-size:12px;color:var(--sr-ink-40);text-decoration:none;">Termini &amp; Condizioni</a>
+        <a href="/legal/cookie-policy.html" style="font-size:12px;color:var(--sr-ink-40);text-decoration:none;">Cookie</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/navbar.js"></script>
+<script src="/js/cookie-consent.js"></script>
+<script src="/js/mockup-form.js"></script>
+<script>
+  // Mobile menu (same pattern as _template.html)
+  const mobileMenuToggle = document.getElementById('sr-mobile-menu-toggle');
+  const mobileMenu = document.getElementById('sr-mobile-menu');
+  function setMobileMenu(open) {
+    if (!mobileMenuToggle || !mobileMenu) return;
+    mobileMenuToggle.setAttribute('aria-expanded', String(open));
+    mobileMenuToggle.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+    mobileMenu.hidden = !open;
+    requestAnimationFrame(() => mobileMenu.classList.toggle('is-open', open));
+  }
+  if (mobileMenuToggle && mobileMenu) {
+    mobileMenuToggle.addEventListener('click', (e) => { e.stopPropagation(); setMobileMenu(mobileMenuToggle.getAttribute('aria-expanded') !== 'true'); });
+    document.addEventListener('click', (e) => { if (!mobileMenu.hidden && !mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) setMobileMenu(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMobileMenu(false); });
+  }
+</script>
+</body>
+</html>
