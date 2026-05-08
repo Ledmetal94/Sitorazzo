@@ -152,6 +152,14 @@
     }
 
     const formData = new FormData(form);
+
+    // Strip empty file part — browsers serialize an unfilled <input type="file">
+    // as a 0-byte File which formidable rejects on the server.
+    const logoFile = formData.get('logo');
+    if (!logoFile || !logoFile.name || logoFile.size === 0) {
+      formData.delete('logo');
+    }
+
     const validationError = validateForm(formData);
     if (validationError) {
       showMessage(validationError, 'error');
