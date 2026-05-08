@@ -2,12 +2,13 @@
   "name": "sitorazzo",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "tailwindcss -i ./css/input.css -o ./css/main.css --watch",
     "build": "tailwindcss -i ./css/input.css -o ./css/main.css --minify"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1",
+    "@anthropic-ai/sdk": "^0.40.0",
     "@upstash/ratelimit": "^2.0.5",
     "@upstash/redis": "^1.34.3",
     "@vercel/blob": "^0.27.0",
