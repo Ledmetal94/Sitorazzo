@@ -154,10 +154,14 @@ export default async function handler(req, res) {
   }
 
   // Parse multipart
+  // allowEmptyFiles + minFileSize=0 so an unfilled <input type="file"> doesn't
+  // make the whole parse throw (browser submits it as a 0-byte file).
   const form = formidable({
     maxFileSize: MAX_LOGO_BYTES,
     maxTotalFileSize: MAX_LOGO_BYTES + 1024,
     multiples: false,
+    allowEmptyFiles: true,
+    minFileSize: 0,
   });
 
   let fields, files;
