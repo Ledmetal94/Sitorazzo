@@ -12,3 +12,4 @@ css/main.css
 # Claude Code session/agent state — local-only
 .claude/
 .vercel
+.env*.local
