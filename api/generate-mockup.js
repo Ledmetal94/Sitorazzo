@@ -92,11 +92,92 @@ function pickReadableTextColor(hex) {
   return lum > 0.6 ? '#0A0A0A' : '#FFFFFF';
 }
 
-async function extractColorsFromLogo(filepath, mimetype, industry) {
-  // SVG isn't supported by node-vibrant — fall back to industry default
-  if (mimetype === 'image/svg+xml') {
-    return INDUSTRY_DEFAULT_COLORS[industry] || INDUSTRY_DEFAULT_COLORS.generico;
+/* Convert any color reference (#rgb, #rrggbb, rgb(...)) to canonical #rrggbb. */
+function normalizeHex(s) {
+  if (!s) return null;
+  s = s.trim().toLowerCase();
+  if (s.startsWith('rgb')) {
+    const m = s.match(/rgb\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
+    if (!m) return null;
+    const r = Math.min(255, parseInt(m[1]));
+    const g = Math.min(255, parseInt(m[2]));
+    const b = Math.min(255, parseInt(m[3]));
+    return '#' + [r, g, b].map(n => n.toString(16).padStart(2, '0')).join('');
   }
+  if (/^#[0-9a-f]{3}$/.test(s)) {
+    return '#' + s[1] + s[1] + s[2] + s[2] + s[3] + s[3];
+  }
+  if (/^#[0-9a-f]{6}$/.test(s)) return s;
+  return null;
+}
+
+/* Treat near-grayscale colors as "not a brand color" — skip them. */
+function isUselessColor(hex) {
+  const c = hex.replace('#', '');
+  const r = parseInt(c.slice(0, 2), 16);
+  const g = parseInt(c.slice(2, 4), 16);
+  const b = parseInt(c.slice(4, 6), 16);
+  const maxDiff = Math.max(Math.abs(r - g), Math.abs(g - b), Math.abs(r - b));
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  // Skip near-grayscale (low saturation), pure white, or near-black
+  return maxDiff < 25 || lum > 0.95 || lum < 0.06;
+}
+
+/**
+ * Best-effort SVG color extraction via regex.
+ * node-vibrant can't decode SVG, so we parse fill/stroke/stop-color references
+ * and pick the most frequently used non-grayscale color.
+ */
+function extractColorsFromSvg(svgContent) {
+  const counts = new Map();
+  const attrPattern = /(?:fill|stroke|stop-color)\s*=\s*["']\s*([^"']+)["']/gi;
+  const stylePattern = /(?:fill|stroke|stop-color)\s*:\s*([^;}"'\s]+)/gi;
+
+  for (const pattern of [attrPattern, stylePattern]) {
+    let m;
+    while ((m = pattern.exec(svgContent)) !== null) {
+      const hex = normalizeHex(m[1]);
+      if (!hex || isUselessColor(hex)) continue;
+      counts.set(hex, (counts.get(hex) || 0) + 1);
+    }
+  }
+
+  if (counts.size === 0) return null;
+  const sorted = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  const primary = sorted[0][0];
+  const secondary = sorted[1]?.[0] || '#0A0A0A';
+  return {
+    primary,
+    secondary,
+    textOnPrimary: pickReadableTextColor(primary),
+  };
+}
+
+/**
+ * Returns { colors, source } where source is one of:
+ *   'extracted-png' | 'extracted-svg' | 'svg-no-colors-found'
+ *   | 'vibrant-no-swatch' | 'vibrant-error' | 'industry-default'
+ * Always returns valid colors; falls back to industry default on any failure.
+ */
+async function extractColorsFromLogo(filepath, mimetype, industry) {
+  const fallback = INDUSTRY_DEFAULT_COLORS[industry] || INDUSTRY_DEFAULT_COLORS.generico;
+
+  if (mimetype === 'image/svg+xml') {
+    try {
+      const svg = fs.readFileSync(filepath, 'utf8');
+      const colors = extractColorsFromSvg(svg);
+      if (colors) {
+        console.log(`[logo] svg extracted primary=${colors.primary}`);
+        return { colors, source: 'extracted-svg' };
+      }
+      console.log('[logo] svg parsed but no usable colors found, using industry default');
+      return { colors: fallback, source: 'svg-no-colors-found' };
+    } catch (err) {
+      console.error('[logo] svg parse error:', err.message);
+      return { colors: fallback, source: 'svg-error' };
+    }
+  }
+
   try {
     const palette = await Vibrant.from(filepath).getPalette();
     const swatch =
@@ -106,18 +187,23 @@ async function extractColorsFromLogo(filepath, mimetype, industry) {
       palette.LightVibrant ||
       palette.DarkMuted;
     if (!swatch) {
-      return INDUSTRY_DEFAULT_COLORS[industry] || INDUSTRY_DEFAULT_COLORS.generico;
+      console.log(`[logo] vibrant returned no swatch for ${mimetype}, using industry default`);
+      return { colors: fallback, source: 'vibrant-no-swatch' };
     }
     const primary = swatch.hex;
     const secondaryHex = (palette.DarkMuted || palette.DarkVibrant || palette.Muted)?.hex || '#0A0A0A';
+    console.log(`[logo] vibrant extracted primary=${primary}`);
     return {
-      primary,
-      secondary: secondaryHex,
-      textOnPrimary: pickReadableTextColor(primary),
+      colors: {
+        primary,
+        secondary: secondaryHex,
+        textOnPrimary: pickReadableTextColor(primary),
+      },
+      source: 'extracted-png',
     };
   } catch (err) {
-    console.error('Vibrant error:', err);
-    return INDUSTRY_DEFAULT_COLORS[industry] || INDUSTRY_DEFAULT_COLORS.generico;
+    console.error('[logo] vibrant error:', err.message, err.stack?.split('\n')[1]?.trim());
+    return { colors: fallback, source: 'vibrant-error', error: err.message };
   }
 }
 
@@ -217,8 +303,17 @@ export default async function handler(req, res) {
   const logoFile = Array.isArray(files.logo) ? files.logo[0] : files.logo;
   let logoUrl = null;
   let colors = INDUSTRY_DEFAULT_COLORS[industry];
+  let colorsSource = 'no-logo';
+  let colorExtractionError = null;
+  let logoMimetype = null;
+  let logoSize = null;
+  let blobUploadStatus = null;
 
   if (logoFile && logoFile.size > 0) {
+    logoMimetype = logoFile.mimetype;
+    logoSize = logoFile.size;
+    console.log(`[logo] received mimetype=${logoMimetype} size=${logoSize}`);
+
     if (!ALLOWED_LOGO_MIMES.has(logoFile.mimetype)) {
       return res.status(400).json({ error: 'Formato logo non supportato.' });
     }
@@ -227,7 +322,10 @@ export default async function handler(req, res) {
     }
 
     // Extract colors first (uses local temp file)
-    colors = await extractColorsFromLogo(logoFile.filepath, logoFile.mimetype, industry);
+    const extraction = await extractColorsFromLogo(logoFile.filepath, logoFile.mimetype, industry);
+    colors = extraction.colors;
+    colorsSource = extraction.source;
+    if (extraction.error) colorExtractionError = extraction.error;
 
     // Upload to Vercel Blob (best-effort — non-fatal if not configured)
     if (process.env.BLOB_READ_WRITE_TOKEN) {
@@ -240,13 +338,19 @@ export default async function handler(req, res) {
           contentType: logoFile.mimetype,
         });
         logoUrl = blob.url;
+        blobUploadStatus = 'ok';
+        console.log(`[blob] uploaded ${blobKey} → ${blob.url}`);
       } catch (err) {
-        console.error('Blob upload error:', err);
+        blobUploadStatus = 'error';
+        console.error('[blob] upload error:', err.message);
         // Continue without logoUrl; we still have colors
       }
     } else {
-      console.warn('BLOB_READ_WRITE_TOKEN not set — skipping logo upload.');
+      blobUploadStatus = 'token-missing';
+      console.warn('[blob] BLOB_READ_WRITE_TOKEN not set — skipping logo upload.');
     }
+  } else {
+    console.log('[logo] no logo file in submission');
   }
 
   // Generate mockup id + record
@@ -259,7 +363,12 @@ export default async function handler(req, res) {
     email,
     whatsapp: whatsapp || null,
     logoUrl,
+    logoMimetype,
+    logoSize,
+    blobUploadStatus,
     colors,
+    colorsSource,
+    colorExtractionError,
     template: industry, // matches industry by default; Day 2 may override
     copy: null,         // populated on Day 3
     status: 'pending',  // -> 'ready' once Day 3 renders + emails
